@@ -603,6 +603,9 @@ input:checked + .slider:before {
   font-size: 35px;
   font-weight: bold;
 }
+.mini-navbar:hover {
+  background-color: #9cdc9d;
+}
 #mini-navbar table {
   border-collapse: collapse;
 }
@@ -642,7 +645,7 @@ input:checked + .slider:before {
   color: black;
   margin-left: 0;
   margin-right: auto;
-  float: left;
+  float: right;
   cursor: pointer;
 }
 .hide-button:hover{
@@ -715,9 +718,6 @@ input:checked + .slider:before {
 #mini-navbar{
     margin-top: 20%;
     margin-left: 19.5%;
-}
-.mini-navbar:hover {
-  background-color: #9cdc9d;
 }
 .mini-navbar a {
   width: auto;

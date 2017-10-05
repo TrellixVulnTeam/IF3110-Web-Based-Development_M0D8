@@ -1,6 +1,7 @@
 <?php
 	require 'connection.php';
 	session_start();
+
 	if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	{
 		if (isset($_POST['login']))
@@ -13,7 +14,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="icon" href="icon.png" />
+	<link rel="icon" href="img/icon.png" />
 	<title>Ojek Panas | Login</title>
 	<link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>

@@ -1,32 +1,31 @@
 <?php
-    $filename = basename($_SERVER['PHP_SELF']);
     require 'preliminarycheck.php';
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="icon" href="icon.png" />
+	<link rel="icon" href="img/icon.png" />
 	<title>Ojek Panas | History</title>
 	<link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
 <body>
 	<div id="navbar">
     	<?php include("navbar.php"); ?>
-    	<div class="after-box">
-      		<ul class="centered">
-						<li class="list-item"><a href="order.php">ORDER</a>
-		        <li class="active"><a href="historyorder.php">HISTORY</a>
-		        <li class="list-item"><a href="profile.php">MY PROFILE</a>
-      		</ul>
-    	</div>
+        <div class="after-box">
+            <ul class="centered">
+                <li class="list-item"><a href="order.php?id_active=<?php echo $_GET['id_active']; ?>">ORDER</a>
+                <li class="active"><a href="historyorder.php?id_active=<?php echo $_GET['id_active']; ?>">HISTORY</a>
+                <li class="list-item"><a href="profile.php?id_active=<?php echo $_GET['id_active']; ?>">MY PROFILE</a>
+            </ul>
+        </div>
     </div>
     <div class="floating-box-left-mo2">TRANSACTIONS HISTORY</div>
     <div id="mini-navbar">
 	    <table>
 	    	<tr>
-					<td class="mini-navbar"><a href="historyorder.php">MY PREVIOUS ORDERS</a></td>
-	    		<td class="selected-navbar"><a href="driverhistory.php">DRIVER HISTORY</a></td>
+					<td class="mini-navbar"><a href="historyorder.php?id_active=<?php echo $_GET['id_active']; ?>">MY PREVIOUS ORDERS</a></td>
+	    		<td class="selected-navbar"><a href="driverhistory.php?id_active=<?php echo $_GET['id_active']; ?>">DRIVER HISTORY</a></td>
 	    	</tr>
 	    </table>
     </div>
