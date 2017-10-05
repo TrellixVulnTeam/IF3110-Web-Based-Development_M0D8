@@ -52,3 +52,67 @@ function validateForm1() {
     return false;
   }
 }
+
+function validateForm2() {
+  var e = document.forms["myForm2"]["pickup"].value;
+  if (e == "") {
+      alert("Picking point must be filled out");
+      return false;
+  }
+
+  var f = document.forms["myForm2"]["dest"].value;
+  if (f == "") {
+      alert("Destination must be filled out");
+      return false;
+  }
+}
+
+function validate_username(field, query) {
+  var xmlhttp;
+
+  if (window.XMLHttpRequest) {
+    xmlhttp = new XMLHttpRequest();
+  } else {
+    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+  }
+
+  console.log(field);
+  console.log(query);
+  xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState != 4 && xmlhttp.status == 200) {
+      document.getElementById(field).innerHTML = "Validating..";
+    } else if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+      document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+    } else {
+      document.getElementById("txtHint").innerHTML = "Error Occurred. <a href='signup.php'>Reload Or Refresh</a> the page.";
+    }
+  }
+
+  xmlhttp.open("GET", "getUser.php?field=" + field + "&query=" + query, true);
+  xmlhttp.send();
+}
+
+function validate_email(field, query) {
+  var xmlhttp;
+
+  if (window.XMLHttpRequest) {
+    xmlhttp = new XMLHttpRequest();
+  } else {
+    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+  }
+
+  console.log(field);
+  console.log(query);
+  xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState != 4 && xmlhttp.status == 200) {
+      document.getElementById(field).innerHTML = "Validating..";
+    } else if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+      document.getElementById("txtHint1").innerHTML = xmlhttp.responseText;
+    } else {
+      document.getElementById("txtHint1").innerHTML = "Error Occurred. <a href='signup.php'>Reload Or Refresh</a> the page.";
+    }
+  }
+
+  xmlhttp.open("GET", "getUser.php?field=" + field + "&query=" + query, true);
+  xmlhttp.send();
+}
