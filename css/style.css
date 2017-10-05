@@ -716,6 +716,9 @@ input:checked + .slider:before {
     margin-top: 20%;
     margin-left: 19.5%;
 }
+.mini-navbar:hover {
+  background-color: #9cdc9d;
+}
 .mini-navbar a {
   width: auto;
   height: auto;

@@ -55,7 +55,9 @@
                         }
                         echo $loopResult;
                     } else {
-                        echo "Nothing to display :(";
+                        $loopResult = '';
+                        $loopResult .= '<td colspan="4"><center>Nothing to display :(</center></td>';
+                        echo $loopResult;
                     }
                     $mysqli->close();
                 ?>
