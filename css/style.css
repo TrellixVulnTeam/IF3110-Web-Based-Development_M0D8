@@ -818,3 +818,8 @@ td.cancel-image{
   margin-left: 20px;
   margin-bottom: 40px;
 }
+.nothing {
+  color: grey;
+  font-size: 24px;
+  text-align: center;
+}
