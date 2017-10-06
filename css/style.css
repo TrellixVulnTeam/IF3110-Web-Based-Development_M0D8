@@ -71,7 +71,7 @@
   height: 20px;
 }
 .small-text-field{
-  width: 98%;
+  width: 92%;
   height: 20px;
 }
 .block-container .button, .block-container .no-account{
@@ -134,6 +134,9 @@
     font-weight: bold;
     font-family: sans-serif;
     font-size: 25px;
+  }
+  .list-item:hover {
+    background-color: #9cdc9d;
   }
   .active {
     background: #4CAF50;
@@ -245,6 +248,7 @@
     height: 250px;
     border-style: solid;
     margin-bottom: 40px;
+    margin-left: 18px;
   }
   .username {
     text-align: center;
@@ -364,7 +368,9 @@
     width: 100px;
     height: 40px;
     margin: auto;
-    padding-top: 10px;
+    margin-left: 300px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     background-color: #85D507;
     border-style: solid;
     border-width: 2px;
@@ -374,7 +380,7 @@
     vertical-align: middle;
     color: black;
     cursor: pointer;
-    font-size: 20pt;
+    font-size: 15pt;
   }
   .button-center:hover{
     background-color: #66a405;
@@ -624,7 +630,7 @@ input:checked + .slider:before {
   text-align: center;
 }
 .selected-navbar {
-  background-color: #6ACA6B;
+  background-color: #4CAF50;
 }
 .history-list-item{
   width: 700px;
@@ -828,4 +834,10 @@ td.cancel-image{
   font-size: 24px;
   text-align: center;
   margin-left: 60px;
+}
+.nothing-driver {
+  color: grey;
+  font-size: 24px;
+  text-align: center;
+  margin-left: -30px;
 }

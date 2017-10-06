@@ -1,5 +1,26 @@
 <?php
-  //require 'preliminarycheck.php';
+  require 'preliminarycheck.php';
+
+	if ($_SERVER['REQUEST_METHOD'] == 'POST')
+	{
+    require 'connection.php';
+    
+    $pickup = $mysqli->real_escape_string($_POST['pickup']);
+    $dest = $mysqli->real_escape_string($_POST['dest']);
+    $id_driver = $mysqli->real_escape_string($_POST['id_driver']);
+
+    $query = "SELECT * from USER where id='$id_driver'";
+    $result = $mysqli->query($query);
+
+    if (!$result) {
+      exit("The query failed!");
+    }
+    
+    $user = $result->fetch_assoc();
+    $img_path = $user['img_path'];
+    $username = $user['username'];
+    $fullname = $user['fullname'];
+	}
 ?>
 
 <!DOCTYPE html>
@@ -30,13 +51,13 @@
       </ul>
   </div>
 
-  <div id="order-content">
-    <div class="floating-box-left-o">HOW WAS IT?</div><br><br><br><br><br>
-    <img class="picture-o" src="img/fish.png">
-    <p class="username">@pikapikapikachu</p>
-    <p class="data">Pikachu Smith</p>
-    <div class="star">
-      <form action="">
+  <form action="finishorder.php?id_active=<?php echo $_GET['id_active']; ?>" method="POST">
+    <div id="order-content">
+      <div class="floating-box-left-o">HOW WAS IT?</div><br><br><br><br><br>
+      <img class="picture-o" src="<?=$img_path?>">
+      <p class="username">@<?=$username?></p>
+      <p class="data"><?=$fullname?></p>
+      <div class="star">
         <input class="star star-5" id="star-5" type="radio" name="star"/>
         <label class="star star-5" for="star-5"></label>
         <input class="star star-4" id="star-4" type="radio" name="star"/>
@@ -47,15 +68,13 @@
         <label class="star star-2" for="star-2"></label>
         <input class="star star-1" id="star-1" type="radio" name="star"/>
         <label class="star star-1" for="star-1"></label>
-      </form>
+      </div>
     </div>
-  </div>
 
-  <div id="comment-page">
-    <form method="POST">
+    <div id="comment-page">
       <textarea class="input-text-long" type="text" name="pref" id="pref" maxlength="200" placeholder="  Your Comment..."></textarea><br>
-      <div class="button">COMPLETE ORDER</div>
-    </form>
-  </div>
+      <button class="button" type="submit">COMPLETE ORDER</button>
+    </div>
+  </form>
 </body>
 </html>

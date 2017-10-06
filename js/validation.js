@@ -108,7 +108,7 @@ function validate_username(field, query) {
     } else if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
       document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
     } else {
-      document.getElementById("txtHint").innerHTML = "Error Occurred. <a href='signup.php'>Reload Or Refresh</a> the page.";
+      document.getElementById("txtHint").innerHTML = "";
     }
   }
 
@@ -133,7 +133,7 @@ function validate_email(field, query) {
     } else if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
       document.getElementById("txtHint1").innerHTML = xmlhttp.responseText;
     } else {
-      document.getElementById("txtHint1").innerHTML = "Error Occurred. <a href='signup.php'>Reload Or Refresh</a> the page.";
+      document.getElementById("txtHint1").innerHTML = "";
     }
   }
 

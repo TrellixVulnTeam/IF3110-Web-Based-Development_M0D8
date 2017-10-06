@@ -31,7 +31,7 @@
   </div>
 
   <div id="profile-content">
-    <?php
+    <?php 
       require 'connection.php';
       $query = "SELECT * FROM user WHERE id=$_GET[id_active]";
       $result = $mysqli->query($query);

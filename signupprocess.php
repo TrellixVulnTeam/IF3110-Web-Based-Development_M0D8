@@ -12,7 +12,16 @@
 		$sql = "INSERT INTO user (username, fullname, email, pass, phone_num, is_driver)". "VALUES ('$username', '$fullname', '$email', '$pass', '$phone', $isdriver)";
 		$mysqli->query($sql);
 		echo "<script>alert('Registrasi berhasil !')
-		window.location = 'index.php'
 		</script>";
+	}
+	$result1 = $mysqli->query("SELECT * FROM user WHERE username='$username'");
+	if ($result1->num_rows > 0) {
+		$user = $result1->fetch_assoc();
+		$hot = $user['id'];
+		if ($user['is_driver'] == 1) {
+			header("location: profile.php?id_active=$hot");
+		} else {
+			header("location: order.php?id_active=$hot");
+		}
 	}
 ?>

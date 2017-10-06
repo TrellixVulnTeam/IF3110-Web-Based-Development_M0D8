@@ -1,9 +1,10 @@
 <?php
   require 'preliminarycheck.php';
+
 	if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	{
     require 'connection.php';
-    
+
     $pickup = $mysqli->real_escape_string($_POST['pickup']);
     $dest = $mysqli->real_escape_string($_POST['dest']);
     $preferredDriver = [];
@@ -50,7 +51,7 @@
 
         <?php
           if ($preferredDriver == NULL) { // empty preferred driver
-            echo "Nothing to display :("; 
+            echo '<div class="nothing-driver">Nothing to display &#128514;</div>';
           } else {
             $driverExist = false;
             foreach ($preferredDriver as $name) {
@@ -61,7 +62,7 @@
                 $driverExist = true;
                 $loopResult = "";
                 while($row = $result->fetch_array() ){
-                  $loopResult .= 
+                  $loopResult .=
                  '<tr>
                     <td rowspan="3"><img src='.$row['img_path'].' class="square-image"></td>
                     <td class="horizontal-space"></td>
