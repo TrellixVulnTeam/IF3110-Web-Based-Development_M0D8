@@ -1,5 +1,6 @@
 <?php
   require 'preliminarycheck.php';
+
 	if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	{
     require 'connection.php';
@@ -50,7 +51,7 @@
 
         <?php
           if ($preferredDriver == NULL) { // empty preferred driver
-            echo '<div class="nothing-driver">Nothing to display &#128514;</div>'; 
+            echo '<div class="nothing-driver">Nothing to display &#128514;</div>';
           } else {
             $driverExist = false;
             foreach ($preferredDriver as $name) {
