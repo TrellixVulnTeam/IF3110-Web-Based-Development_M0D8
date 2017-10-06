@@ -9,7 +9,7 @@
     $dest = $mysqli->real_escape_string($_POST['dest']);
     $preferredDriver = [];
     if (isset($_POST['pref']) && $_POST['pref'] != ""){
-      $preferredDriver = explode(',', $mysqli->real_escape_string($_POST['pref']));
+      $preferredDriver = explode(', ', $mysqli->real_escape_string($_POST['pref']));
     }
 	}
 ?>
@@ -55,15 +55,72 @@
           } else {
             $driverExist = false;
             foreach ($preferredDriver as $name) {
-              $query = "SELECT * from (SELECT id, fullname, img_path, star, vote from user WHERE is_driver=1 AND fullname='$name') as U INNER JOIN preferredlocation as P ON U.id=P.id AND (P.location='$pickup' OR P.location='$dest')";
+              $query = "SELECT * from (SELECT id, fullname, img_path, star, vote from user WHERE is_driver=1 AND fullname='$name' AND id!='$_GET[id_active]') as U INNER JOIN preferredlocation as P ON U.id=P.id AND (P.location='$pickup' OR P.location='$dest')";
               $result = $mysqli->query($query);
 
               if ($result->num_rows > 0) {
                 $driverExist = true;
                 $loopResult = "";
-                while($row = $result->fetch_array() ){
+                while($row = $result->fetch_array()) {
                   $loopResult .=
-                 '<tr>
+                 '<form action="completeorder.php?id_active='.$_GET['id_active'].'" method="POST">
+                    <tr>
+                      <td rowspan="3"><img src='.$row['img_path'].' class="square-image"></td>
+                      <td class="horizontal-space"></td>
+                      <td class="horizontal-space"></td>
+                      <td class="data-name">'.$row['fullname'].'</td>
+                    </tr>
+                    <tr>
+                      <td class="horizontal-space"></td>
+                      <td class="horizontal-space"></td>
+                      <td class="data-rating"><font color="orange">&#9734; '.$row['star'].'</font> ('.$row['vote'].' votes)</td>
+                    </tr>
+                    <tr>
+                      <td class="horizontal-space"></td>
+                      <td class="horizontal-space"></td>
+
+                      <input type="hidden" name="id_driver" value='.$row['id'].'>
+                      <input type="hidden" name="pickup" value='.$pickup.'>
+                      <input type="hidden" name="dest" value='.$dest.'>
+                      
+                      <td>
+                        <br>
+                        <button class="button-choose">I CHOOSE YOU!</div>
+                      </td>
+                    </tr>
+                  </form>';
+                }
+                echo $loopResult;
+              }
+            }
+            if (!$driverExist){
+              echo '<div class="nothing-driver">Nothing to display &#128514;</div>';
+            }
+          }
+        ?>
+
+      </table>
+    </div>
+    <br><br>
+    <!-- OTHER DRIVERS -->
+    <div class="preferred-driver">
+      <p class="header-pref">OTHER DRIVERS:</p>
+      <table>
+
+        <?php
+          $query = "SELECT * from (SELECT id, fullname, img_path, star, vote from user WHERE is_driver=1 AND id!='$_GET[id_active]') as U INNER JOIN preferredlocation as P ON U.id=P.id AND (P.location='$pickup' OR P.location='$dest')";
+          $result = $mysqli->query($query);
+          if ($result->num_rows == 0) {
+            echo '<div class="nothing-driver">Nothing to display &#128514;</div>';
+          } else {
+            $driverExist = false;
+            while($row = $result->fetch_array()) {
+              if (!in_array($row['fullname'], $preferredDriver)) {
+                $driverExist = true;
+                $loopResult = "";
+                $loopResult .=
+                '<form action="completeorder.php?id_active='.$_GET['id_active'].'" method="POST">
+                  <tr>
                     <td rowspan="3"><img src='.$row['img_path'].' class="square-image"></td>
                     <td class="horizontal-space"></td>
                     <td class="horizontal-space"></td>
@@ -77,67 +134,27 @@
                   <tr>
                     <td class="horizontal-space"></td>
                     <td class="horizontal-space"></td>
-                    <td><br>
-                    <form method="POST">
-                      <div class="button-choose"><a href="completeorder.php?id_active='.$_GET['id_active'].'">I CHOOSE YOU!</a></div>
-                    </form></td>
-                  </tr>';
-                }
+
+                  <input type="hidden" name="id_driver" value='.$row['id'].'>
+                  <input type="hidden" name="pickup" value='.$pickup.'>
+                  <input type="hidden" name="dest" value='.$dest.'>
+                        
+                  <td>
+                    <br>
+                    <button class="button-choose">I CHOOSE YOU!</div>
+                    </td>
+                  </tr>
+                </form>';
+                
                 echo $loopResult;
-              }
+              } 
             }
             if (!$driverExist){
-              echo "Nothing to display :(";
+              echo '<div class="nothing-driver">Nothing to display &#128514;</div>';
             }
           }
         ?>
 
-      </table>
-    </div>
-    <br><br>
-    <!-- OTHER DRIVERS -->
-    <div class="preferred-driver">
-      <p class="header-pref">OTHER DRIVERS:</p>
-      <table>
-        <tr>
-          <td rowspan="3"><img src="img/fish.png" class="square-image"></td>
-          <td class="horizontal-space"></td>
-          <td class="horizontal-space"></td>
-          <td class="data-name">Bomba-rattata Tattataata</td>
-        </tr>
-        <tr>
-          <td class="horizontal-space"></td>
-          <td class="horizontal-space"></td>
-          <td class="data-rating"><font color="orange">&#9734; 4.7</font> (1,728 votes)</td>
-        </tr>
-        <tr>
-          <td class="horizontal-space"></td>
-          <td class="horizontal-space"></td>
-          <td><br>
-          <form method="POST">
-            <div class="button-choose">I CHOOSE YOU!</div>
-          </form></td>
-        </tr>
-
-        <tr>
-          <td rowspan="3"><img src="img/fish.png" class="square-image"></td>
-          <td class="horizontal-space"></td>
-          <td class="horizontal-space"></td>
-          <td class="data-name">Bomba-rattata Tattataata</td>
-        </tr>
-        <tr>
-          <td class="horizontal-space"></td>
-          <td class="horizontal-space"></td>
-          <td class="data-rating"><font color="orange">&#9734; 4.7</font> (1,728 votes)</td>
-        </tr>
-        <tr>
-          <td class="horizontal-space"></td>
-          <td class="horizontal-space"></td>
-          <td><br>
-          <form method="POST">
-            <div class="button-choose">I CHOOSE YOU!</div>
-          </form></td>
-        </tr>
       </table>
     </div>
   </div>

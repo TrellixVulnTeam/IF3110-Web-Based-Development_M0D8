@@ -51,30 +51,36 @@
       </ul>
   </div>
 
-  <form action="finishorder.php?id_active=<?php echo $_GET['id_active']; ?>" method="POST">
+  <form action="finishorder.php?id_active=<?php echo $_GET['id_active']; ?>" method="POST" onsubmit="return starValidation()">
     <div id="order-content">
       <div class="floating-box-left-o">HOW WAS IT?</div><br><br><br><br><br>
       <img class="picture-o" src="<?=$img_path?>">
       <p class="username">@<?=$username?></p>
       <p class="data"><?=$fullname?></p>
       <div class="star">
-        <input class="star star-5" id="star-5" type="radio" name="star"/>
+        <input class="star star-5" id="star-5" type="radio" name="star" value="5"/>
         <label class="star star-5" for="star-5"></label>
-        <input class="star star-4" id="star-4" type="radio" name="star"/>
+        <input class="star star-4" id="star-4" type="radio" name="star" value="4"/>
         <label class="star star-4" for="star-4"></label>
-        <input class="star star-3" id="star-3" type="radio" name="star"/>
+        <input class="star star-3" id="star-3" type="radio" name="star" value="3"/>
         <label class="star star-3" for="star-3"></label>
-        <input class="star star-2" id="star-2" type="radio" name="star"/>
+        <input class="star star-2" id="star-2" type="radio" name="star" value="2"/>
         <label class="star star-2" for="star-2"></label>
-        <input class="star star-1" id="star-1" type="radio" name="star"/>
+        <input class="star star-1" id="star-1" type="radio" name="star" value="1"/>
         <label class="star star-1" for="star-1"></label>
       </div>
     </div>
 
+    <input type="hidden" name="id_driver" value=<?=$id_driver?>>
+    <input type="hidden" name="pickup" value=<?=$pickup?>>
+    <input type="hidden" name="dest" value=<?=$dest?>>
+
     <div id="comment-page">
-      <textarea class="input-text-long" type="text" name="pref" id="pref" maxlength="200" placeholder="  Your Comment..."></textarea><br>
+      <textarea class="input-text-long" type="text" name="comment" id="comment" maxlength="200" placeholder=" Your Comment..."></textarea><br>
       <button class="button" type="submit">COMPLETE ORDER</button>
     </div>
   </form>
+
+  <script src="js/validation.js"></script>
 </body>
 </html>
