@@ -19,6 +19,7 @@
 	<title>Ojek Panas | Edit</title>
 	<link rel="stylesheet" type="text/css" href="./css/style.css">
 	<script type="text/javascript" src="./js/editlocation.js"></script>
+    
 </head>
 <body>
 	<div class="edit-title">
@@ -48,13 +49,14 @@
 					    		<td>'.$counter.'</td>
 					    		<td id="data'.$counter.'">'.$row['location'].'</td>
 					    		<td class="pencil-image"><img width="20px" height="20px" id="'.$counter.'" name="pencil" onclick="changeImage()" src="img/pencil.png"></td>
-					    		<td class="cancel-image"><img src="img/cancel.png" width="20px" height="20px" id="'.$counter.'" name="delete"></td>
-					    	</tr>';
-					    	$counter++;
-						}
+					    		<td class="cancel-image"><a href="delete.php?id_active='.$id.'&loc='.$row['location'].'" class="confirmation" onclick="return confirm_delete()"><img src="img/cancel.png" width="20px" height="20px"></a></td>
+                                
+                            </tr>';
+                            $counter++;
+                        }
 					    echo $loopResult;
 					} else {
-						echo "Nothing to display :(";
+						echo "<td colspan='4' class='nothing'>Nothing to display :(</td>";
 					}
 					$mysqli->close();
 				?>

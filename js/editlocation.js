@@ -11,3 +11,6 @@ function changeImage() {
             document.getElementById("editsave").src = "./save.png";
         }*/
 }
+function confirm_delete() {
+  return confirm('Are you sure want to delete this location?');
+}
