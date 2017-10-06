@@ -1,6 +1,6 @@
 <?php
 	$loc = $_GET['loc'];
-	$newloc = /*ISI LOKASI BARU*/;
+	$newloc = $_GET['newloc'];;
 	$id = $_GET['id_active'];
 	require 'connection.php';
 	$sql = "UPDATE preferredlocation SET location='$newloc' WHERE location='$loc'";

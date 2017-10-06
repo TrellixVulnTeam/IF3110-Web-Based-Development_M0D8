@@ -1,5 +1,5 @@
 <?php
-  require 'preliminarycheck.php';
+  //require 'preliminarycheck.php';
 ?>
 
 <!DOCTYPE html>
@@ -14,9 +14,9 @@
     <?php include("navbar.php"); ?>
     <div class="after-box">
       <ul class="centered">
-        <li class="active"><a href="order.php">ORDER</a>
-        <li class="list-item"><a href="historyorder.php">HISTORY</a>
-        <li class="list-item"><a href="profile.php">MY PROFILE</a>
+        <li class="active"><a href="order.php?id_active=<?php echo $_GET['id_active']; ?>">ORDER</a>
+        <li class="list-item"><a href="historyorder.php?id_active=<?php echo $_GET['id_active']; ?>">HISTORY</a>
+        <li class="list-item"><a href="profile.php?id_active=<?php echo $_GET['id_active']; ?>">MY PROFILE</a>
       </ul>
     </div>
   </div>

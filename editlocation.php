@@ -45,10 +45,12 @@
 						$counter = 1;
 						// output data of each row
 						while($row = $result->fetch_assoc()) {
-							$loopResult .= '<tr>
+							$loopResult .= '<tr id="tabel'.$row['location'].'">
 					    		<td>'.$counter.'</td>
-					    		<td id="data'.$counter.'">'.$row['location'].'</td>
-					    		<td class="pencil-image"><img width="20px" height="20px" id="'.$counter.'" name="pencil" onclick="changeImage()" src="img/pencil.png"></td>
+					    		<td id="data'.$row['location'].'">'.$row['location'].'</td>
+					    		<td class="pencil-image"><a href="javascript:" id="'.$row['location'].'" name="pencil" class="pencil" onclick="return editdata(this.id, this.name)"><img id="image'.$row['location'].'" width="20px" height="20px"  src="img/pencil.png"></a>
+                                    <center><a href="javascript:" id="save'.$row['location'].'" name="'.$id.'" class="functionalsave" onclick="return savedata(this.id, this.name)"><img id="imagefunc'.$row['location'].'" width="20px" height="20px"  src="img/save.png" style="display:none;"></a></center>
+                                    </td>
 					    		<td class="cancel-image"><a href="delete.php?id_active='.$id.'&loc='.$row['location'].'" class="confirmation" onclick="return confirm_delete()"><img src="img/cancel.png" width="20px" height="20px"></a></td>
                                 
                             </tr>';
@@ -56,7 +58,7 @@
                         }
 					    echo $loopResult;
 					} else {
-						echo "<td colspan='4' class='nothing'>Nothing to display :(</td>";
+						echo "<td colspan='4' class='nothing'>Nothing to display &#128514;</td>";
 					}
 					$mysqli->close();
 				?>
