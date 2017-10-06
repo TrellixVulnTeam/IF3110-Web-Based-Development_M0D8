@@ -116,3 +116,17 @@ function validate_email(field, query) {
   xmlhttp.open("GET", "getUser.php?field=" + field + "&query=" + query, true);
   xmlhttp.send();
 }
+
+function starValidation() {
+  var star5 = document.getElementById("star-5");
+  var star4 = document.getElementById("star-4");
+  var star3 = document.getElementById("star-3");
+  var star2 = document.getElementById("star-2");
+  var star1 = document.getElementById("star-1");
+  if (!star5.checked && !star4.checked && !star3.checked && !star2.checked && !star1.checked){
+    alert("Rating must be filled out");
+    return false;
+  } else {
+    return true;
+  }
+}
