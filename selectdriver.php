@@ -1,5 +1,6 @@
 <?php
   require 'preliminarycheck.php';
+
 	if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	{
     require 'connection.php';
@@ -62,25 +63,32 @@
                 $loopResult = "";
                 while($row = $result->fetch_array() ){
                   $loopResult .= 
-                 '<tr>
-                    <td rowspan="3"><img src='.$row['img_path'].' class="square-image"></td>
-                    <td class="horizontal-space"></td>
-                    <td class="horizontal-space"></td>
-                    <td class="data-name">'.$row['fullname'].'</td>
-                  </tr>
-                  <tr>
-                    <td class="horizontal-space"></td>
-                    <td class="horizontal-space"></td>
-                    <td class="data-rating"><font color="orange">&#9734; '.$row['star'].'</font> ('.$row['vote'].' votes)</td>
-                  </tr>
-                  <tr>
-                    <td class="horizontal-space"></td>
-                    <td class="horizontal-space"></td>
-                    <td><br>
-                    <form method="POST">
-                      <div class="button-choose"><a href="completeorder.php?id_active='.$_GET['id_active'].'">I CHOOSE YOU!</a></div>
-                    </form></td>
-                  </tr>';
+                 '<form action="completeorder.php?id_active='.$_GET['id_active'].'" method="POST">
+                    <tr>
+                      <td rowspan="3"><img src='.$row['img_path'].' class="square-image"></td>
+                      <td class="horizontal-space"></td>
+                      <td class="horizontal-space"></td>
+                      <td class="data-name">'.$row['fullname'].'</td>
+                    </tr>
+                    <tr>
+                      <td class="horizontal-space"></td>
+                      <td class="horizontal-space"></td>
+                      <td class="data-rating"><font color="orange">&#9734; '.$row['star'].'</font> ('.$row['vote'].' votes)</td>
+                    </tr>
+                    <tr>
+                      <td class="horizontal-space"></td>
+                      <td class="horizontal-space"></td>
+
+                      <input type="hidden" name="id_driver" value='.$row['id'].'>
+                      <input type="hidden" name="pickup" value='.$pickup.'>
+                      <input type="hidden" name="dest" value='.$dest.'>
+                      
+                      <td>
+                        <br>
+                        <button class="button-choose">I CHOOSE YOU!</div>
+                      </td>
+                    </tr>
+                  </form>';
                 }
                 echo $loopResult;
               }
