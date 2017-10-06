@@ -11,16 +11,16 @@
   <script src="js/hide.js"></script>
 </head>
 <body>
-	<div id="navbar">
-    	<?php include("navbar.php"); ?>
-        <div class="after-box">
-            <ul class="centered">
-                <li class="list-item"><a href="order.php?id_active=<?php echo $_GET['id_active']; ?>">ORDER</a>
-                <li class="active"><a href="historyorder.php?id_active=<?php echo $_GET['id_active']; ?>">HISTORY</a>
-                <li class="list-item"><a href="profile.php?id_active=<?php echo $_GET['id_active']; ?>">MY PROFILE</a>
-            </ul>
-        </div>
+  <div id="navbar">
+    <?php include("navbar.php"); ?>
+    <div class="after-box">
+      <div class="centered">
+        <a href="order.php?id_active=<?php echo $_GET['id_active']; ?>" class="list-item-order">ORDER
+        <a href="historyorder.php?id_active=<?php echo $_GET['id_active']; ?>" class="active-history">HISTORY
+        <a href="profile.php?id_active=<?php echo $_GET['id_active']; ?>" class="list-item-profile">MY PROFILE</a>
+      </div>
     </div>
+  </div>
     <div class="floating-box-left-mo2">TRANSACTIONS HISTORY</div>
     <div id="mini-navbar">
 	    <table>

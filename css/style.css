@@ -26,7 +26,7 @@
 }
 .button{
   width: 100px;
-  height: 40px;
+  height: 50px;
   padding: 5px;
   background-color: #85D507;
   border-style: solid;
@@ -111,16 +111,56 @@
   position: fixed;
   z-index: 500;
   }
-  .list-item {
+  .list-item-order {
     display: inline-flex;
-    width: 300px;
-    height: 70px;
+    width: 200px;
+    height: 50px;
     background: white;
     text-align: center;
-    text-decoration-color: black;
+    color: black;
+    font-weight: bold;
+    font-size: 25px;
+    font-family: sans-serif;
     text-decoration: none;
-    margin: 0 auto;
-    padding: 0;
+    margin: auto;
+    padding-left: 100px;
+    padding-top: 20px;
+    border: 0;
+    border-style: solid;
+    border-width: thin;
+  }
+  .list-item-history {
+    display: inline-flex;
+    width: 220px;
+    height: 50px;
+    background: white;
+    text-align: center;
+    color: black;
+    font-weight: bold;
+    font-size: 25px;
+    font-family: sans-serif;
+    text-decoration: none;
+    margin: auto;
+    padding-left: 100px;
+    padding-top: 20px;
+    border: 0;
+    border-style: solid;
+    border-width: thin;
+  }
+  .list-item-profile {
+    display: inline-flex;
+    width: 230px;
+    height: 50px;
+    background: white;
+    text-align: center;
+    color: black;
+    font-weight: bold;
+    font-size: 25px;
+    font-family: sans-serif;
+    text-decoration: none;
+    margin: auto;
+    padding-left: 80px;
+    padding-top: 20px;
     border: 0;
     border-style: solid;
     border-width: thin;
@@ -135,22 +175,74 @@
     font-family: sans-serif;
     font-size: 25px;
   }
-  .list-item:hover {
+  .list-item-profile:hover {
     background-color: #9cdc9d;
   }
-  .active {
+  .list-item-history:hover {
+    background-color: #9cdc9d;
+  }
+  .list-item-order:hover {
+    background-color: #9cdc9d;
+  }
+  .active-profile {
     background: #4CAF50;
     display: inline-flex;
-    width: 300px;
-    height: 70px;
+    width: 230px;
+    height: 50px;
     text-align: center;
     text-decoration: none;
-    margin: 0 auto;
+    margin: auto;
     padding: 0;
+    padding-left: 80px;
+    padding-top: 20px;
     border: 0;
     border-style: solid;
     border-width: thin;
     border-color: #4CAF50;
+    color: white;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 25px;
+  }
+  .active-order {
+    background: #4CAF50;
+    display: inline-flex;
+    width: 200px;
+    height: 50px;
+    text-align: center;
+    text-decoration: none;
+    margin: auto;
+    padding: 0;
+    padding-left: 100px;
+    padding-top: 20px;
+    border: 0;
+    border-style: solid;
+    border-width: thin;
+    border-color: #4CAF50;
+    color: white;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 25px;
+  }
+  .active-history {
+    background: #4CAF50;
+    display: inline-flex;
+    width: 220px;
+    height: 50px;
+    text-align: center;
+    text-decoration: none;
+    margin: auto;
+    padding: 0;
+    padding-left: 100px;
+    padding-top: 20px;
+    border: 0;
+    border-style: solid;
+    border-width: thin;
+    border-color: #4CAF50;
+    color: white;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 25px;
   }
   .active a {
     width: auto;
@@ -194,7 +286,7 @@
   }
   .centered {
   position: fixed;
-  left: 30%;
+  left: 32%;
   margin-top: 100px;
   margin-left: -200px;
   }
@@ -702,9 +794,9 @@ input:checked + .slider:before {
 
 .button-choose{
   width: 150px;
-  height: 25px;
+  height: 35px;
   padding: 5px;
-  padding-top: 10px;
+  padding-top: 5px;
   background-color: #85D507;
   border-style: solid;
   border-width: 2px;

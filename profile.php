@@ -13,11 +13,11 @@
   <div id="navbar">
     <?php include("navbar.php"); ?>
     <div class="after-box">
-      <ul class="centered">
-        <li class="list-item"><a href="order.php?id_active=<?php echo $_GET['id_active']; ?>">ORDER</a>
-        <li class="list-item"><a href="historyorder.php?id_active=<?php echo $_GET['id_active']; ?>">HISTORY</a>
-        <li class="active"><a href="profile.php?id_active=<?php echo $_GET['id_active']; ?>">MY PROFILE</a>
-      </ul>
+      <div class="centered">
+        <a href="order.php?id_active=<?php echo $_GET['id_active']; ?>" class="list-item-order">ORDER
+        <a href="historyorder.php?id_active=<?php echo $_GET['id_active']; ?>" class="list-item-history">HISTORY
+        <a href="profile.php?id_active=<?php echo $_GET['id_active']; ?>" class="active-profile">MY PROFILE</a>
+      </div>
     </div>
   </div>
 
@@ -31,7 +31,7 @@
   </div>
 
   <div id="profile-content">
-    <?php 
+    <?php
       require 'connection.php';
       $query = "SELECT * FROM user WHERE id=$_GET[id_active]";
       $result = $mysqli->query($query);
