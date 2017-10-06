@@ -34,7 +34,7 @@
     <?php
         require 'connection.php';
         $id = $_GET['id_active'];
-        $sql = "SELECT * FROM orderhistory WHERE id_driver=$id AND hidden_d=1";
+        $sql = "SELECT * FROM orderhistory WHERE id_driver=$id AND hidden_d=0";
         $result = $mysqli->query($sql);
 
         if ($result->num_rows > 0) {
