@@ -8,6 +8,7 @@
 	<link rel="icon" href="img/icon.png" />
 	<title>Ojek Panas | History</title>
 	<link rel="stylesheet" type="text/css" href="./css/style.css">
+  <script src="js/hide.js"></script>
 </head>
 <body>
 	<div id="navbar">
@@ -33,7 +34,7 @@
     <?php
         require 'connection.php';
         $id = $_GET['id_active'];
-        $sql = "SELECT * FROM orderhistory WHERE id_customer=$id";
+        $sql = "SELECT * FROM orderhistory WHERE id_customer=$id AND hidden_c=1";
         $result = $mysqli->query($sql);
 
         if ($result->num_rows > 0) {
@@ -47,17 +48,18 @@
                 $rowc = $resultc->fetch_assoc();
                 $idd = $row['id_driver'];
                 $sql_driver = "SELECT * FROM user WHERE id=$idd";
+                $idorder = $row['id_order'];
                 $resultd = $mysqli->query($sql_driver);
                 $rowd = $resultd->fetch_assoc();
                 $loopResult .= '<div class="history-list-item">
-                    <table width="670px">
+                    <table width="670px" id="tabel'.$idorder.'">
                         <tr>
                             <td rowspan="6" width="28"><img class="square-image" src='.$rowd['img_path'].' alt="Driver Profile"></td>
                             <td rowspan="6" class="horizontal-space" width="10px"></td>
                             <td colspan="2" class="history-date">';
                 $loopResult .= date('l, F jS Y',strtotime($row['order_date']));
                 $loopResult .= '</td>
-                            <td width="100" rowspan="2"><button class="hide-button">HIDE</button></td>
+                            <td width="100" rowspan="2"><div class="hide-button"><a href="hideorder.php?id_active='.$id.'&id_order='.$idorder.'" id="'.$idorder.'" onclick="hidebutton(this.id)">HIDE</a></div></td>
                         </tr>
                         <tr>
                             <td colspan="2" class="history-driver-name">'.$rowd['fullname'].'</td>
@@ -70,7 +72,7 @@
                 for ($i = 1; $i <= $row['rating']; $i++) {
                     $loopResult .= '&#9734';
                 }
-                
+
                 $loopResult .= ';</font></td>
                         </tr>
                         <tr>
@@ -87,7 +89,7 @@
             }
             echo $loopResult;
         } else {
-            echo '<div class="nothing">Nothing to display :(</div>';
+            echo '<div class="nothing">Nothing to display &#128514;</div>';
         }
         $mysqli->close();
     ?>
