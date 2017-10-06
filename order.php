@@ -32,7 +32,7 @@
 
   <div id="order-page">
     <script src="js/validation.js"></script>
-    <form method="POST" onsubmit="return validateForm2()" name="myForm2" action="">
+    <form method="POST" onsubmit="return validateForm2()" name="myForm2" action="selectdriver.php?id_active=<?php echo $_GET['id_active']; ?>">
       <table border="0">
         <tr>
           <td><label class="label-order" for="pickup">Picking Point</label></td>
@@ -47,8 +47,7 @@
           <td><input class="input-text" type="text" name="pref" id="pref" maxlength="200" placeholder="  (optional)"></td>
         </tr>
       </table><br>
-      <!-- JANGAN LUPA ILANGIN A HREF CUMA BUAT TESTER -->
-      <div class="button-center"><a href="selectdriver.php">NEXT</a></div>
+      <button class="button-center" type="submit">NEXT</button>
     </form>
   </div>
 </body>
