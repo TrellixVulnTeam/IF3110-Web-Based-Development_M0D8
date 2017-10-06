@@ -49,7 +49,7 @@
 					<td><label class="label" for="phone">Phone Number</label></td>
 					<td colspan="2"><input class="text-field" type="text" name="phone" id="phone"></td>
 				</tr>
-			</table>
+			</table><br>
 			<div class="form-group">
 				<input class="checkbox-box" type="checkbox" name="is-driver" id="is-driver"><p class="checkbox-text">Also sign me up as a driver!</p>
 			</div>
