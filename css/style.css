@@ -634,7 +634,7 @@ input:checked + .slider:before {
 }
 .hide-button{
   width: 80px;
-  height: 30px;
+  height: 25px;
   padding: 5px;
   background-color: #D50027;
   border-style: solid;
@@ -650,6 +650,11 @@ input:checked + .slider:before {
 }
 .hide-button:hover{
   background-color: #a2001e;
+}
+.hide-button a {
+  color: black;
+  margin-top: 5px;
+  text-decoration: none;
 }
 .history-date{
   font-size: 18px;
@@ -822,4 +827,5 @@ td.cancel-image{
   color: grey;
   font-size: 24px;
   text-align: center;
+  margin-left: 60px;
 }
