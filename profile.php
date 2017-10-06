@@ -61,26 +61,29 @@
     <p class="data">&#9993; <?=$row['email']?></p>
     <p class="data">&#9743; <?=$row['phone_num']?></p>
   </div>
-
-  <div id="preferred-header">
-    <div class="floating-box-left-l">
-      <span>PREFERRED LOCATIONS:</span>
-      <?php
-        if ($result_pl->num_rows > 0) {
-          $printpl = '';
-          while ($row_pl = $result_pl->fetch_assoc()) {
-            $printpl .= '<div id="triangle"><ul><li>'.$row_pl['location'];
-          }
-          for ($i = 0; $i < $result_pl->num_rows; $i++) {
-            $printpl .= '</li></ul></div>';
-          }
-          echo $printpl;
+  <?php
+    $printpreferred = '';
+    if ($row['is_driver'] == 1) {
+      $printpreferred .= '<div id="preferred-header">
+      <div class="floating-box-left-l">
+        <span>PREFERRED LOCATIONS:</span>';
+      if ($result_pl->num_rows > 0) {
+        while ($row_pl = $result_pl->fetch_assoc()) {
+          $printpreferred .= '<div id="triangle"><ul><li>'.$row_pl['location'];
         }
-      ?>
-    </div>
-    <div class="floating-box-right-p">
-      <a href="editlocation.php?id_active=<?php echo $_GET['id_active']; ?>"><img src="img/pencil.png" width="30px" height="30px"></a>
-    </div>
-  </div>
+        for ($i = 0; $i < $result_pl->num_rows; $i++) {
+          $printpreferred .= '</li></ul></div>';
+        }
+      }
+      $printpreferred .= '</div>
+        <div class="floating-box-right-p">
+          <a href="editlocation.php?id_active='.$_GET['id_active'].'"><img src="img/pencil.png" width="30px" height="30px"></a>
+        </div>
+      </div>';
+      echo $printpreferred;
+    }
+  ?>
+  
+      
 </body>
 </html>
