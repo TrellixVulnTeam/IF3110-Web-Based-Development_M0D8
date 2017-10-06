@@ -176,16 +176,16 @@
     font-size: 25px;
   }
   .list-item-profile:hover {
-    background-color: #9cdc9d;
+    background-color: #87a583;
   }
   .list-item-history:hover {
-    background-color: #9cdc9d;
+    background-color: #87a583;
   }
   .list-item-order:hover {
-    background-color: #9cdc9d;
+    background-color: #87a583;
   }
   .active-profile {
-    background: #4CAF50;
+    background: #465D43;
     display: inline-flex;
     width: 230px;
     height: 50px;
@@ -198,14 +198,14 @@
     border: 0;
     border-style: solid;
     border-width: thin;
-    border-color: #4CAF50;
+    border-color: #465D43;
     color: white;
     font-family: sans-serif;
     font-weight: bold;
     font-size: 25px;
   }
   .active-order {
-    background: #4CAF50;
+    background: #465D43;
     display: inline-flex;
     width: 200px;
     height: 50px;
@@ -218,14 +218,14 @@
     border: 0;
     border-style: solid;
     border-width: thin;
-    border-color: #4CAF50;
+    border-color: #465D43;
     color: white;
     font-family: sans-serif;
     font-weight: bold;
     font-size: 25px;
   }
   .active-history {
-    background: #4CAF50;
+    background: #465D43;
     display: inline-flex;
     width: 220px;
     height: 50px;
@@ -238,7 +238,7 @@
     border: 0;
     border-style: solid;
     border-width: thin;
-    border-color: #4CAF50;
+    border-color: #465D43;
     color: white;
     font-family: sans-serif;
     font-weight: bold;
@@ -720,9 +720,11 @@ input:checked + .slider:before {
   font-family: sans-serif;
   font-size: 25px;
   text-align: center;
+  cursor: pointer;
 }
 .selected-navbar {
   background-color: #4CAF50;
+  cursor: pointer;
 }
 .history-list-item{
   width: 700px;

@@ -25,8 +25,8 @@
     <div id="mini-navbar">
 	    <table>
 	    	<tr>
-	    		<td class="selected-navbar"><a href="historyorder.php?id_active=<?php echo $_GET['id_active']; ?>">MY PREVIOUS ORDERS</a></td>
-	    		<td class="mini-navbar"><a href="driverhistory.php?id_active=<?php echo $_GET['id_active']; ?>">DRIVER HISTORY</a></td>
+	    		<td class="selected-navbar" onclick="location.href='historyorder.php?id_active=<?php echo $_GET['id_active']; ?>'"><a href="historyorder.php?id_active=<?php echo $_GET['id_active']; ?>">MY PREVIOUS ORDERS</a></td>
+	    		<td class="mini-navbar" onclick="location.href='driverhistory.php?id_active=<?php echo $_GET['id_active']; ?>'"><a href="driverhistory.php?id_active=<?php echo $_GET['id_active']; ?>">DRIVER HISTORY</a></td>
 	    	</tr>
 	    </table>
     </div>
