@@ -59,7 +59,7 @@
                             <td colspan="2" class="history-date">';
                 $loopResult .= date('l, F jS Y',strtotime($row['order_date']));
                 $loopResult .= '</td>
-                            <td width="100" rowspan="2"><div class="hide-button"><a href="hide.php?id_active='.$id.'&id_order='.$idorder.'" id="'.$idorder.'" onclick="hidebutton(this.id)">HIDE</a></div></td>
+                            <td width="100" rowspan="2"><div class="hide-button"><a href="hideorder.php?id_active='.$id.'&id_order='.$idorder.'" id="'.$idorder.'" onclick="hidebutton(this.id)">HIDE</a></div></td>
                         </tr>
                         <tr>
                             <td colspan="2" class="history-driver-name">'.$rowd['fullname'].'</td>

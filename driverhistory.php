@@ -8,6 +8,7 @@
 	<link rel="icon" href="img/icon.png" />
 	<title>Ojek Panas | History</title>
 	<link rel="stylesheet" type="text/css" href="./css/style.css">
+  <script src="js/hide.js"></script>
 </head>
 <body>
 	<div id="navbar">
@@ -33,7 +34,7 @@
     <?php
         require 'connection.php';
         $id = $_GET['id_active'];
-        $sql = "SELECT * FROM orderhistory WHERE id_driver=$id";
+        $sql = "SELECT * FROM orderhistory WHERE id_driver=$id AND hidden_d=1";
         $result = $mysqli->query($sql);
 
         if ($result->num_rows > 0) {
@@ -46,6 +47,7 @@
                 $resultc = $mysqli->query($sql_customer);
                 $rowc = $resultc->fetch_assoc();
                 $idd = $row['id_driver'];
+                $idorder = $row['id_order'];
                 $sql_driver = "SELECT * FROM user WHERE id=$idd";
                 $resultd = $mysqli->query($sql_driver);
                 $rowd = $resultd->fetch_assoc();
@@ -57,7 +59,7 @@
                             <td colspan="2" class="history-date">';
                 $loopResult .= date('l, F jS Y',strtotime($row['order_date']));
                 $loopResult .= '</td>
-                            <td width="100" rowspan="2"><button class="hide-button">HIDE</button></td>
+                            <td width="100" rowspan="2"><div class="hide-button"><a href="hidedriver.php?id_active='.$id.'&id_order='.$idorder.'" id="'.$idorder.'" onclick="hidebutton(this.id)">HIDE</a></div></td>
                         </tr>
                         <tr>
                             <td colspan="2" class="history-driver-name">'.$rowc['fullname'].'</td>
@@ -82,7 +84,7 @@
             }
             echo $loopResult;
         } else {
-            echo '<div class="nothing">Nothing to display :(</div>';
+            echo '<div class="nothing">Nothing to display &#128514;</div>';
         }
         $mysqli->close();
     ?>
