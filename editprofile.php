@@ -4,11 +4,32 @@
 	if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	{
 		require 'connection.php';
-		if (isset($_POST['img']))
-		{
-			// put image to folder img/username.img
-			// delete old img file in folder (unless default)
-			// query update img path
+		$imgFile = $_FILES['user_image']['name'];
+		$tmp_dir = $_FILES['user_image']['tmp_name'];
+		$imgSize = $_FILES['user_image']['size'];
+		if (!empty($imgFile)) {
+			$upload_dir = 'profiles/'; // upload directory
+			$imgExt = strtolower(pathinfo($imgFile,PATHINFO_EXTENSION)); // get image extension
+			// valid image extensions
+			$valid_extensions = array('jpeg', 'jpg', 'png', 'gif'); // valid extensions
+			// rename uploading image
+			$userpic = $_GET[id_active].".".$imgExt;
+			// allow valid image file formats
+			if (in_array($imgExt, $valid_extensions)) {
+				// Check file size '5MB'
+				if($imgSize < 5000000) {
+					move_uploaded_file($tmp_dir,$upload_dir.$userpic);
+				} else {
+					$errMSG = "Sorry, your file is too large.";
+				}
+			} else {
+				$errMSG = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";  
+			}
+			if (!isset($errMSG)) {
+				$hot_dir = $upload_dir.$userpic;
+				$query = "UPDATE user SET img_path='$hot_dir' WHERE id='$_GET[id_active]'";
+				$mysqli->query($query);
+			}
 		}
 		if (isset($_POST['yourname'])) {
 			$updatedname = mysqli_real_escape_string($mysqli, $_POST['yourname']);
@@ -29,7 +50,7 @@
 			$mysqli->query($query);
 		}
 		$idactive=$_GET['id_active'];
-		header('Location: profile.php?id_active='.$idactive.'');
+		/*header('Location: profile.php?id_active='.$idactive.'');*/
 		// query update isdriver
 	}
 ?>
@@ -66,7 +87,7 @@
 	    	</tr>
 	    	<tr>
 	    		<td class="horizontal-space"></td>
-	    		<td class="upper-table"><input type="file" name="img" accept="image/*"></td>
+	    		<td class="upper-table"><input type="file" name="user_image" accept="image/*"></td>
 	    	</tr>
 	    	<tr>
 	    		<td colspan="3" class="vertical-space"></td>
