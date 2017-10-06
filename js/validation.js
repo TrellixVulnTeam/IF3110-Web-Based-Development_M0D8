@@ -53,6 +53,30 @@ function validateForm1() {
   }
 }
 
+function validateEditProfileForm() {
+  var a = document.forms["editprofile-form"]["yourname"].value;
+  if (a == "") {
+      alert("Full name must be filled out");
+      return false;
+  }
+
+  if (a.length > 20) {
+    alert("Full name must be filled with maximum 20 characters");
+    return false;
+  }
+
+  var d = document.forms["editprofile-form"]["phone"].value;
+  if (d == "") {
+      alert("Phone number must be filled out");
+      return false;
+  }
+
+  if (d.length < 9 || d.length > 12) {
+    alert("Phone number must be filled with 9-12 digits number");
+    return false;
+  }
+}
+
 function validateForm2() {
   var e = document.forms["myForm2"]["pickup"].value;
   if (e == "") {

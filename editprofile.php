@@ -10,17 +10,26 @@
 			// delete old img file in folder (unless default)
 			// query update img path
 		}
-		if (isset($_POST['yourname']))
-		{
+		if (isset($_POST['yourname'])) {
 			$updatedname = mysqli_real_escape_string($mysqli, $_POST['yourname']);
 			$query = "UPDATE user SET fullname='$updatedname' WHERE id='$_GET[id_active]'";
 			$mysqli->query($query);
 			// query update name
 		}
-		if (isset($_POST['phone']))
-		{
-			// query update phone
+		if (isset($_POST['phone'])) {
+			$updatedphone = mysqli_real_escape_string($mysqli, $_POST['phone']);
+			$query = "UPDATE user SET phone_num='$updatedphone' WHERE id='$_GET[id_active]'";
+			$mysqli->query($query);
 		}
+		if (isset($_POST['isdriver'])) {
+			$query = "UPDATE user SET is_driver=1 WHERE id='$_GET[id_active]'";
+			$mysqli->query($query);
+		} else {
+			$query = "UPDATE user SET is_driver=0 WHERE id='$_GET[id_active]'";
+			$mysqli->query($query);
+		}
+		$idactive=$_GET['id_active'];
+		header('Location: profile.php?id_active='.$idactive.'');
 		// query update isdriver
 	}
 ?>
@@ -31,13 +40,14 @@
 	<link rel="icon" href="img/icon.png" />
 	<title>Ojek Panas | Edit</title>
 	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	<script src="js/validation.js"></script>
 </head>
 <body>
 	<div class="edit-title">
         <span>EDIT PROFILE INFORMATION</span>
     </div>
     <div id="edit-profile-content">
-    <form action="editprofile.php?id_active=<?=$_GET['id_active']?>" method="POST">
+    <form action="editprofile.php?id_active=<?=$_GET['id_active']?>" method="POST" name="editprofile-form">
     	<table>
 			<?php
 				require 'connection.php';
@@ -64,19 +74,27 @@
 	    	<tr>
 	    		<td><label class="label" for="yourname">Your Name</label></td>
 	    		<td class="horizontal-space"></td>
-	    		<td><input class="text-field" type="text" name="yourname" id="yourname" maxlength="20"></td>
+	    		<td><input class="text-field" type="text" name="yourname" id="yourname" value="<?=$row['fullname']?>"></td>
 	    	</tr>
 	    	<tr>
 	    		<td><label class="label" for="phone">Phone</label></td>
 	    		<td class="horizontal-space"></td>
-	    		<td><input class="text-field" type="text" name="phone" id="phone" minlength="9" maxlength="12"></td>
+	    		<td><input class="text-field" type="text" name="phone" id="phone" value="<?=$row['phone_num']?>"></td>
 	    	</tr>
 	    	<tr>
-	    		<td><label class="label" for="phone">Status Driver</label></td>
+	    		<td><label class="label" for="isdriver">Status Driver</label></td>
 	    		<td class="horizontal-space"></td>
 	    		<td class="content-right">
 		    		<label class="switch">
-	  					<input type="checkbox" checked>
+		    			<?php
+		    				if ($row['is_driver'] == 0) {
+		    					echo '<input name="isdriver" id="isdriver" type="checkbox">';
+
+		    				} else {
+		    					echo '<input name="isdriver" id="isdriver" type="checkbox" checked>';
+		    				}
+		    			?>
+	  					
 	  					<span class="slider round"></span>
 					</label>
 				</td>
@@ -87,7 +105,7 @@
 	    	<tr>
 	    		<td><input type="button" class="back-button" value="BACK" onclick="window.location.href='profile.php?id_active=<?php echo $_GET['id_active']; ?>'"></td>
 	    		<td class="horizontal-space"></td>
-	    		<td><button class="save-button">SAVE</button></td>
+	    		<td><button class="save-button" name="editprofile" value="submit" onclick="window.location.href='profile.php?id_active=<?php echo $_GET['id_active']; ?>'">SAVE</button></td>
 	    	</tr>
 	    </table>
     </form>
