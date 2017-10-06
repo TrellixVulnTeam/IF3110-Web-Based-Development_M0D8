@@ -154,3 +154,21 @@ function starValidation() {
     return true;
   }
 }
+
+function validateFileUpload() {
+  var fuData = document.getElementById('user_image');
+  var FileUploadPath = fuData.value;
+  var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
+  if (Extension == "gif" || Extension == "png" || Extension == "jpeg" || Extension == "jpg") {
+    if (fuData.files && fuData.files[0]) {
+      var size = fuData.files[0].size;
+      if (size > 5000000){
+        alert("Maximum file size exceeds");
+        return false;
+      }
+    }
+  } else {
+    alert("Photo only allows file types of GIF, PNG, JPG, and JPEG. ");
+    return false;
+  }
+}
