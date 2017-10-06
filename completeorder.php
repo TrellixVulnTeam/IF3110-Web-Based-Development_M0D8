@@ -4,7 +4,7 @@
 	if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	{
     require 'connection.php';
-    
+
     $pickup = $mysqli->real_escape_string($_POST['pickup']);
     $dest = $mysqli->real_escape_string($_POST['dest']);
     $id_driver = $mysqli->real_escape_string($_POST['id_driver']);
@@ -15,7 +15,7 @@
     if (!$result) {
       exit("The query failed!");
     }
-    
+
     $user = $result->fetch_assoc();
     $img_path = $user['img_path'];
     $username = $user['username'];
@@ -34,11 +34,11 @@
   <div id="navbar">
     <?php include("navbar.php"); ?>
     <div class="after-box">
-      <ul class="centered">
-        <li class="active"><a href="order.php?id_active=<?php echo $_GET['id_active']; ?>">ORDER</a>
-        <li class="list-item"><a href="historyorder.php?id_active=<?php echo $_GET['id_active']; ?>">HISTORY</a>
-        <li class="list-item"><a href="profile.php?id_active=<?php echo $_GET['id_active']; ?>">MY PROFILE</a>
-      </ul>
+      <div class="centered">
+        <a href="order.php?id_active=<?php echo $_GET['id_active']; ?>" class="active-order">ORDER
+        <a href="historyorder.php?id_active=<?php echo $_GET['id_active']; ?>" class="list-item-history">HISTORY
+        <a href="profile.php?id_active=<?php echo $_GET['id_active']; ?>" class="list-item-profile">MY PROFILE</a>
+      </div>
     </div>
   </div>
 

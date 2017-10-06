@@ -25,11 +25,11 @@
   <div id="navbar">
     <?php include("navbar.php"); ?>
     <div class="after-box">
-      <ul class="centered">
-      <li class="active"><a href="order.php?id_active=<?php echo $_GET['id_active']; ?>">ORDER</a>
-      <li class="list-item"><a href="historyorder.php?id_active=<?php echo $_GET['id_active']; ?>">HISTORY</a>
-      <li class="list-item"><a href="profile.php?id_active=<?php echo $_GET['id_active']; ?>">MY PROFILE</a>
-      </ul>
+      <div class="centered">
+        <a href="order.php?id_active=<?php echo $_GET['id_active']; ?>" class="active-order">ORDER
+        <a href="historyorder.php?id_active=<?php echo $_GET['id_active']; ?>" class="list-item-history">HISTORY
+        <a href="profile.php?id_active=<?php echo $_GET['id_active']; ?>" class="list-item-profile">MY PROFILE</a>
+      </div>
     </div>
   </div>
 
@@ -82,7 +82,7 @@
                       <input type="hidden" name="id_driver" value='.$row['id'].'>
                       <input type="hidden" name="pickup" value='.$pickup.'>
                       <input type="hidden" name="dest" value='.$dest.'>
-                      
+
                       <td>
                         <br>
                         <button class="button-choose">I CHOOSE YOU!</div>
@@ -138,16 +138,16 @@
                   <input type="hidden" name="id_driver" value='.$row['id'].'>
                   <input type="hidden" name="pickup" value='.$pickup.'>
                   <input type="hidden" name="dest" value='.$dest.'>
-                        
+
                   <td>
                     <br>
                     <button class="button-choose">I CHOOSE YOU!</div>
                     </td>
                   </tr>
                 </form>';
-                
+
                 echo $loopResult;
-              } 
+              }
             }
             if (!$driverExist){
               echo '<div class="nothing-driver">Nothing to display &#128514;</div>';
