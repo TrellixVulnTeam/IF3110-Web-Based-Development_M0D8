@@ -13,7 +13,7 @@
 			// valid image extensions
 			$valid_extensions = array('jpeg', 'jpg', 'png', 'gif'); // valid extensions
 			// rename uploading image
-			$userpic = $_GET[id_active].".".$imgExt;
+			$userpic = $_GET['id_active'].".".$imgExt;
 			// allow valid image file formats
 			if (in_array($imgExt, $valid_extensions)) {
 				// Check file size '5MB'
@@ -68,7 +68,7 @@
         <span>EDIT PROFILE INFORMATION</span>
     </div>
     <div id="edit-profile-content">
-    <form action="editprofile.php?id_active=<?=$_GET['id_active']?>" method="POST" name="editprofile-form">
+    <form action="editprofile.php?id_active=<?=$_GET['id_active']?>" method="POST" name="editprofile-form" enctype="multipart/form-data">
     	<table>
 			<?php
 				require 'connection.php';
