@@ -55,19 +55,19 @@ Pada halaman ini, terdapat sebuah *form* yang dapat diisi pengguna untuk melakuk
 
 ### Select-Driver
 
-![](mocks/select-driver.PNG)
+![](img/screenshot/selectdriver.gif)
 
 Pada halaman ini, ditampilkan semua *driver* yang tersedia dan dapat mengambil *order*. Bagian **Preferred Driver** akan terisi dengan semua *driver* dengan nama yang diisikan pengguna pada *field preferred driver* saat melakukan *order*. Jika pengguna tidak mengisikan *field preferred driver* atau tidak ada *driver* dengan nama yang diisikan pada *field preferred driver*, bagian **Preferred Driver** akan kosong. Pada bagian **Other Drivers**, ditampilkan seluruh *driver* yang dapat mengambil *order* tersebut. Setelah memilih *driver* dan menekan tombol I CHOOSE YOU!, pengguna dibawa ke halaman *complete order*.
 
 ### Complete-Order
 
-![](mocks/complete-order.PNG)
+![](img/screenshot/completeorder.gif)
 
 Pada halaman ini, akan ditampilkan informasi *driver* dan *order*, serta opsi untuk memberikan *rating* dan komentar. Setelah pengguna *submit rating* dan komentar untuk *driver* dengan menekan tombol COMPLETE ORDER, pengguna dibawa ke halaman *order ojek*.
 
 ### History
 
-![](mocks/history-penumpang.PNG)
+![](img/screenshot/historypenumpang.PNG)
 
 ![](mocks/history-driver.PNG)
 
@@ -104,4 +104,4 @@ Berikut ini merupakan pembagian tugas dari pengerjaan *website ojek online*.
 
 ## About Us
 
-Kami adalah kelompok **TrioFlabby** yang terdiri dari tiga orang mahasiswa yang memiliki keunikan yaitu *flabby tummy*. Oleh karena keunikan tersebut, kami terinspirasi untuk membentuk kelompok dengan nama **TrioFlabby**. Ini adalah *repository* dari *website ojek online* yang telah kami buat. Silahkan *clone repository* kami jika tertarik untuk mencoba *wesite* yang telah kami buat ini. 
+Kami adalah kelompok **TrioFlabby** yang terdiri dari tiga orang mahasiswa yang memiliki keunikan yaitu *flabby tummy*. Oleh karena keunikan tersebut, kami terinspirasi untuk membentuk kelompok dengan nama **TrioFlabby**. Ini adalah *repository* dari *website ojek online* yang telah kami buat. Silahkan *clone repository* kami jika tertarik untuk mencoba *wesite* yang telah kami buat ini.
