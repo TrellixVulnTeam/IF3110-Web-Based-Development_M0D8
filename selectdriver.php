@@ -55,7 +55,7 @@
           } else {
             $driverExist = false;
             foreach ($preferredDriver as $name) {
-              $query = "SELECT * from (SELECT id, fullname, img_path, star, vote from user WHERE is_driver=1 AND fullname='$name' AND id!='$_GET[id_active]') as U INNER JOIN preferredlocation as P ON U.id=P.id AND (P.location='$pickup' OR P.location='$dest')";
+              $query = "SELECT * from (SELECT id, fullname, img_path, star, vote from user WHERE is_driver=1 AND fullname='$name' AND id!='$_GET[id_active]') as U INNER JOIN preferredlocation as P ON U.id=P.id AND (P.location='$pickup' OR P.location='$dest') GROUP BY U.id";
               $result = $mysqli->query($query);
 
               if ($result->num_rows > 0) {
@@ -108,7 +108,7 @@
       <table>
 
         <?php
-          $query = "SELECT * from (SELECT id, fullname, img_path, star, vote from user WHERE is_driver=1 AND id!='$_GET[id_active]') as U INNER JOIN preferredlocation as P ON U.id=P.id AND (P.location='$pickup' OR P.location='$dest')";
+          $query = "SELECT * from (SELECT id, fullname, img_path, star, vote from user WHERE is_driver=1 AND id!='$_GET[id_active]') as U INNER JOIN preferredlocation as P ON U.id=P.id AND (P.location='$pickup' OR P.location='$dest') GROUP BY U.id";
           $result = $mysqli->query($query);
           if ($result->num_rows == 0) {
             echo '<div class="nothing-driver">Nothing to display &#128514;</div>';
