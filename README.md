@@ -67,9 +67,9 @@ Pada halaman ini, akan ditampilkan informasi *driver* dan *order*, serta opsi un
 
 ### History
 
-![](img/screenshot/historypenumpang.PNG)
+![](img/screenshot/historypenumpang.gif)
 
-![](mocks/history-driver.PNG)
+![](img/screenshot/driverhistory.PNG)
 
 Pada halaman ini, terdapat dua *tab*, yaitu **My Previous Orders** dan **Driver History**. **My Previous Orders** menampilkan daftar *order* yang pernah diambil pengguna sebagai penumpang, dan **Driver History** menampilkan daftar order yang pernah diambil pengguna sebagai *driver*. Pada tiap entri pada *history*, terdapat tombol HIDE. Jika tombol tersebut ditekan, *history* yang bersangkutan tidak akan ditampilkan, tapi tidak dihapus.
 
