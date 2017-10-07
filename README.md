@@ -19,37 +19,37 @@ Kelompok TrioFlabby terdiri dari tiga mahasiswa *flabby* yang diurutkan berdasar
 
 ### Login
 
-![](mocks/login.PNG)
+![](img/screenshot/login.PNG)
 
 Pengguna dapat melakukan *login* sebagai *user*. *Login* hanya membandingkan *username* dan *password* saja. Halaman ini merupakan halaman pertama yang dibuka oleh pengguna ketika menjalankan aplikasi. Ketika pengguna hanya mengisi *field username* atau *password* atau bahkan keduanya,  ketika ditekan tombol GO! maka akan muncul peringatan bahwa *field* tersebut harus diisi dan *form* tidak bisa di *submit* sebelum kedua *field* diisi. Ketika kedua *field* sudah terisi dan tombol GO! sudah ditekan maka pengguna akan masuk ke halaman *order*. Jika pengguna belum memiliki akun, pengguna dapat melakukan registrasi akun dengan menekan tulisan *Don't have an account?* yang akan membuat pengguna masuk ke halaman registrasi.
 
 ### Register
 
-![](mocks/register.PNG)
+![](img/screenshot/signup.PNG)
 
 Pada halaman ini pengguna dapat mendaftarkan diri sebagai *user* agar dapat menggunakan aplikasi ini. Satu *user* akan memiliki satu akun yang dapat digunakan sebagai penumpang maupun sebagai *driver*. *User* disediakan opsi untuk memilih apakah dia mau menjadi *driver* atau tidak saat registrasi. Pengguna tidak dapat menggunakan *username* maupun *email* yang sudah dipakai oleh orang lain. Jika pengguna memasukkan *username* atau *email* yang sudah terdaftar pada aplikasi sebelumnya maka akan ditampilkan tanda silang dan pengguna tidak dapat melakukan registrasi sebelum memasukkan *username* atau *email* yang *valid* yang akan ditandai dengan tanda centang. Untuk melakukan registrasi, pengguna diharuskan untuk mengisi setiap *field* yang ada, jika ada *field* yang masih kosong maka pengguna belum bisa melakukan registrasi. Jika pengguna tidak memilih opsi untuk menjadi *driver*, pengguna otomatis masuk ke halaman *order* dengan keadaan sudah *login*. Jika pengguna memilih opsi menjadi *driver*, pengguna otomatis masuk ke halaman *profile* dengan keadaan sudah *login*.
 
 ### Profile
 
-![](mocks/profile.PNG)
+![](img/screenshot/profile.gif)
 
 Pada halaman ini, ditampilkan *username*, nama lengkap, *email*, dan nomor HP. Selain itu, ditampilkan keterangan apakah pengguna merupakan *driver* atau bukan. Jika pengguna merupakan *driver*, ditampilkan tulisan **Driver** diikuti *rating* dan jumlah *vote* dan pada bagian bawah, terdapat **Preferred Location**, yang berisi daftar lokasi yang dilayani pengguna. Pada bagian kanan atas, terdapat tombol *edit*, jika pengguna menekan tombol tersebut, pengguna dibawa ke halaman *edit preferred location*. Jika pengguna bukan *driver*, ditampilkan tulisan **Non-Driver**, tanpa diikuti *rating*. Pada bagian kanan atas, terdapat tombol *edit*, jika pengguna menekan tombol tersebut, pengguna dibawa ke halaman *edit profile*. Pengguna dapat melakukan *logout* dengan menekan tulisan *logut* yang terdapat pada bagian kanan atas dari *navigation bar*.
 
 ### Edit-Profile
 
-![](mocks/edit-profile.PNG)
+![](img/screenshot/editprofile.PNG)
 
 Pada halaman ini, pengguna dapat mengedit nama yang ditampilkan, nomor telepon, foto, dan status *driver*. Untuk mengganti foto pengguna dapat menekan tombol *browse* dan memilih foto yang akan digunakan. Status *driver* berupa tombol toggle *Yes/No* yang dapat diklik oleh pengguna untuk diganti. Pada bagian bawah halaman, terdapat tombol BACK dan SAVE. Jika tombol BACK ditekan, pengguna kembali ke halaman *profile*. Jika tombol tersebut ditekan, nama dan nomor telepon pengguna akan diganti sesuai *input field*. Setelah tombol SAVE ditekan, pengguna dibawa ke halaman *profile*.
 
 ### Edit-Preferred-Location
 
-![](mocks/edit-preferred-location.PNG)
+![](img/screenshot/editlocation.PNG)
 
 Pada halaman ini, ditampilkan lokasi-lokasi yang dapat dicapai jika menjadi *driver*. Pada tiap baris lokasi, ada tombol Delete. Jika tombol tersebut ditekan, akan tampil konfirmasi untuk *delete*. Pada bagian **Add New Location**, pengguna dapat mengisikan lokasi untuk ditambahkan. Ketika tombol Add ditekan, alamat tersebut ditambahkan pada bagian *preferred location* pengguna. Jika tombol Back ditekan, pengguna dibawa kembali ke halaman *profile*. Ketika tombol *edit* ditekan, pengguna dapat mengedit nama lokasi, dan tombol *edit* berubah menjadi tombol *save*. Jika tombol *save* ditekan, data akan diupdate.
 
 ### Order-Ojek
 
-![](mocks/order-ojek.PNG)
+![](img/screenshot/selectdestination.gif)
 
 Pada halaman ini, terdapat sebuah *form* yang dapat diisi pengguna untuk melakukan *order*. Setelah pengguna mengisi *field* pada *form order* dan menekan tombol NEXT, pengguna akan dibawa ke halaman *select driver*. Pengguna wajib mengisi semua *field*, kecuali *field Preferred Driver*.
 
