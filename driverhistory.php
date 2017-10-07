@@ -34,7 +34,7 @@
     <?php
         require 'connection.php';
         $id = $_GET['id_active'];
-        $sql = "SELECT * FROM orderhistory WHERE id_driver=$id AND hidden_d=0";
+        $sql = "SELECT * FROM orderhistory WHERE id_driver=$id AND hidden_d=0 ORDER BY order_date DESC, id_order DESC";
         $result = $mysqli->query($sql);
 
         if ($result->num_rows > 0) {
@@ -65,7 +65,7 @@
                             <td colspan="2" class="history-driver-name">'.$rowc['fullname'].'</td>
                         </tr>
                         <tr>
-                            <td colspan="2" class="history-route">Saffron City-Pewter City</td>
+                            <td colspan="2" class="history-route">'.$row['pickup'].'-'.$row['dest'].'</td>
                         </tr>
                         <tr>
                             <td colspan="2" class="history-rating">gave <font color="orange">'.$row['rating'].'</font> stars for this order</td>
