@@ -21,8 +21,8 @@
         $oldStar = $rating['star'];
         $newStar = ($oldStar * $count + $star) / ($count + 1);
         
-        $insert = "INSERT INTO orderhistory(id_customer, id_driver, rating, feedback, order_date)" .
-        "VALUES ('$id_customer', '$id_driver', '$star', '$comment', '$date')";
+        $insert = "INSERT INTO orderhistory(id_customer, id_driver, rating, feedback, order_date, pickup, dest)" .
+        "VALUES ('$id_customer', '$id_driver', '$star', '$comment', '$date', '$pickup', '$dest')";
         $mysqli->query($insert);
 
         $update = "UPDATE user SET vote=vote+1, star='$newStar' WHERE id='$id_driver'";

@@ -4,7 +4,7 @@ CREATE TABLE `User` (
 	`email` varchar(255) NOT NULL UNIQUE,
 	`pass` varchar(255) NOT NULL,
 	`phone_num` varchar(12) NOT NULL,
-	`img_path` varchar(255) NOT NULL,
+	`img_path` varchar(255) NOT NULL DEFAULT 'profiles/default.png',
 	`fullname` varchar(20) NOT NULL,
 	`is_driver` bool NOT NULL DEFAULT false,
 	`star` numeric(2,1) NOT NULL DEFAULT '0',
@@ -25,8 +25,10 @@ CREATE TABLE `OrderHistory` (
 	`rating` int(1) NOT NULL,
 	`feedback` TEXT NOT NULL,
 	`order_date` DATE NOT NULL,
-	`hidden_c` bool NOT NULL,
-	`hidden_d` bool NOT NULL,
+	`pickup` varchar(255) NOT NULL,
+	`dest` varchar(255) NOT NULL,
+	`hidden_c` bool NOT NULL DEFAULT false,
+	`hidden_d` bool NOT NULL DEFAULT false,
 	PRIMARY KEY (`id_order`)
 );
 

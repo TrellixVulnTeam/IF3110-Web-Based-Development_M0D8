@@ -29,12 +29,12 @@
 				</tr>
 				<tr>
 					<td><label class="label" for="username">Username</label></td>
-					<td><input class="small-text-field" type="text" name="username" id="username" maxlength="20" onblur="validate_username('username', this.value)"></td>
+					<td><input class="small-text-field" type="text" name="username" id="username" onblur="validate_username('username', this.value)"></td>
 					<td><div id="txtHint"></div></td>
 				</tr>
 				<tr>
 					<td><label class="label" for="email">Email</label></td>
-					<td><input class="small-text-field" type="email" name="email" id="email" maxlength="20" onblur="validate_email('email', this.value)"></td>
+					<td><input class="small-text-field" type="email" name="email" id="email" onblur="validate_email('email', this.value)"></td>
 					<td><div id="txtHint1"></div></td>
 				</tr>
 				<tr>
@@ -56,8 +56,8 @@
 			<div class="empty-space"></div>
 
 			<div class="block-container">
-				<div class="no-account"><a href="index.php">Already have an account?</a></div>
-				<button class="button" name="register" value="submit">REGISTER</button>
+				<div class="no-account"><a class="link-format" href="index.php">Already have an account?</a></div>
+				<button class="button-index" name="register" value="submit">REGISTER</button>
 			</div>
 		</form>
 	</div>

@@ -47,6 +47,12 @@ function validateForm1() {
       return false;
   }
 
+  var isnum = /^\d+$/.test(d);
+  if (isnum == false) {
+    alert("Wrong phone number format");
+    return false;
+  }
+
   if (d.length < 9 || d.length > 12) {
     alert("Phone number must be filled with 9-12 digits number");
     return false;
@@ -77,8 +83,14 @@ function validateEditProfileForm() {
       return false;
   }
 
+  var isnum = /^\d+$/.test(d);
+  if (isnum == false) {
+    alert("Wrong phone number format");
+    return false;
+  }
+
   if (d.length < 9 || d.length > 12) {
-    alert("Phone number must be filled with 9-12 digits number");
+    //alert("Phone number must be filled with 9-12 digits number");
     return false;
   }
 }
@@ -160,3 +172,24 @@ function starValidation() {
     return true;
   }
 }
+<<<<<<< HEAD
+=======
+
+function validateFileUpload() {
+  var fuData = document.getElementById('user_image');
+  var FileUploadPath = fuData.value;
+  var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
+  if (Extension == "gif" || Extension == "png" || Extension == "jpeg" || Extension == "jpg") {
+    if (fuData.files && fuData.files[0]) {
+      var size = fuData.files[0].size;
+      if (size > 5000000){
+        alert("Maximum file size exceeds");
+        return false;
+      }
+    }
+  } else {
+    alert("Photo only allows file types of GIF, PNG, JPG, and JPEG. ");
+    return false;
+  }
+}
+>>>>>>> 73b4ee7de37692f17ebb439cd0426f1745b00995

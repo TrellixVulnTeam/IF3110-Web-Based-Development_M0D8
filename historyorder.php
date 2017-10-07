@@ -25,8 +25,8 @@
     <div id="mini-navbar">
 	    <table>
 	    	<tr>
-	    		<td class="selected-navbar"><a href="historyorder.php?id_active=<?php echo $_GET['id_active']; ?>">MY PREVIOUS ORDERS</a></td>
-	    		<td class="mini-navbar"><a href="driverhistory.php?id_active=<?php echo $_GET['id_active']; ?>">DRIVER HISTORY</a></td>
+	    		<td class="selected-navbar" onclick="location.href='historyorder.php?id_active=<?php echo $_GET['id_active']; ?>'"><a href="historyorder.php?id_active=<?php echo $_GET['id_active']; ?>">MY PREVIOUS ORDERS</a></td>
+	    		<td class="mini-navbar" onclick="location.href='driverhistory.php?id_active=<?php echo $_GET['id_active']; ?>'"><a href="driverhistory.php?id_active=<?php echo $_GET['id_active']; ?>">DRIVER HISTORY</a></td>
 	    	</tr>
 	    </table>
     </div>
@@ -34,7 +34,7 @@
     <?php
         require 'connection.php';
         $id = $_GET['id_active'];
-        $sql = "SELECT * FROM orderhistory WHERE id_customer=$id AND hidden_c=0";
+        $sql = "SELECT * FROM orderhistory WHERE id_customer=$id AND hidden_c=0 ORDER BY order_date DESC, id_order DESC";
         $result = $mysqli->query($sql);
 
         if ($result->num_rows > 0) {
@@ -65,7 +65,7 @@
                             <td colspan="2" class="history-driver-name">'.$rowd['fullname'].'</td>
                         </tr>
                         <tr>
-                            <td colspan="2" class="history-route">Saffron City-Pewter City</td>
+                            <td colspan="2" class="history-route">'.$row['pickup'].'-'.$row['dest'].'</td>
                         </tr>
                         <tr>
                             <td colspan="2" class="history-rating">You rated: <font color="orange">';

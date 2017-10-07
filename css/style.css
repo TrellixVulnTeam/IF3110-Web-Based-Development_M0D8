@@ -40,7 +40,30 @@
   float: right;
   cursor: pointer;
 }
+.no-account {
+  width: auto;
+  height: 40px;
+}
+.button-index{
+  width: 100px;
+  height: 40px;
+  background-color: #85D507;
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 18px;
+  color: black;
+  margin-left: auto;
+  margin-right: 0;
+  float: right;
+  cursor: pointer;
+}
 .button:hover{
+  background-color: #66a405;
+}
+.button-index:hover{
   background-color: #66a405;
 }
 .title{
@@ -74,8 +97,14 @@
   width: 92%;
   height: 20px;
 }
+.block-container {
+  height: 40px;
+}
 .block-container .button, .block-container .no-account{
   display: inline;
+}
+.link-format {
+  color: black;
 }
 .checkbox-box, .checkbox-text{
   display: inline;
@@ -176,16 +205,16 @@
     font-size: 25px;
   }
   .list-item-profile:hover {
-    background-color: #9cdc9d;
+    background-color: #87a583;
   }
   .list-item-history:hover {
-    background-color: #9cdc9d;
+    background-color: #87a583;
   }
   .list-item-order:hover {
-    background-color: #9cdc9d;
+    background-color: #87a583;
   }
   .active-profile {
-    background: #4CAF50;
+    background: #465D43;
     display: inline-flex;
     width: 230px;
     height: 50px;
@@ -198,14 +227,14 @@
     border: 0;
     border-style: solid;
     border-width: thin;
-    border-color: #4CAF50;
+    border-color: #465D43;
     color: white;
     font-family: sans-serif;
     font-weight: bold;
     font-size: 25px;
   }
   .active-order {
-    background: #4CAF50;
+    background: #465D43;
     display: inline-flex;
     width: 200px;
     height: 50px;
@@ -218,14 +247,14 @@
     border: 0;
     border-style: solid;
     border-width: thin;
-    border-color: #4CAF50;
+    border-color: #465D43;
     color: white;
     font-family: sans-serif;
     font-weight: bold;
     font-size: 25px;
   }
   .active-history {
-    background: #4CAF50;
+    background: #465D43;
     display: inline-flex;
     width: 220px;
     height: 50px;
@@ -238,7 +267,7 @@
     border: 0;
     border-style: solid;
     border-width: thin;
-    border-color: #4CAF50;
+    border-color: #465D43;
     color: white;
     font-family: sans-serif;
     font-weight: bold;
@@ -720,9 +749,11 @@ input:checked + .slider:before {
   font-family: sans-serif;
   font-size: 25px;
   text-align: center;
+  cursor: pointer;
 }
 .selected-navbar {
   background-color: #4CAF50;
+  cursor: pointer;
 }
 .history-list-item{
   width: 700px;

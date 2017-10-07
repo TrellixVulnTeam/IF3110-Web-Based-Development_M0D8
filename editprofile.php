@@ -50,7 +50,7 @@
 			$mysqli->query($query);
 		}
 		$idactive=$_GET['id_active'];
-		/*header('Location: profile.php?id_active='.$idactive.'');*/
+		header('Location: profile.php?id_active='.$idactive.'');
 		// query update isdriver
 	}
 ?>
@@ -68,7 +68,8 @@
         <span>EDIT PROFILE INFORMATION</span>
     </div>
     <div id="edit-profile-content">
-    <form action="editprofile.php?id_active=<?=$_GET['id_active']?>" method="POST" name="editprofile-form" enctype="multipart/form-data">
+    <script src="js/validation.js"></script>
+    <form onsubmit="return validateEditProfileForm()" method="POST" action="editprofile.php?id_active=<?=$_GET['id_active']?>"  name="editprofile-form" enctype="multipart/form-data">
     	<table>
 			<?php
 				require 'connection.php';
@@ -87,7 +88,7 @@
 	    	</tr>
 	    	<tr>
 	    		<td class="horizontal-space"></td>
-	    		<td class="upper-table"><input type="file" name="user_image" accept="image/*"></td>
+	    		<td class="upper-table"><input type="file" name="user_image" id="user_image" accept="image/*" onchange="return validateFileUpload()"></td>
 	    	</tr>
 	    	<tr>
 	    		<td colspan="3" class="vertical-space"></td>
@@ -126,7 +127,7 @@
 	    	<tr>
 	    		<td><input type="button" class="back-button" value="BACK" onclick="window.location.href='profile.php?id_active=<?php echo $_GET['id_active']; ?>'"></td>
 	    		<td class="horizontal-space"></td>
-	    		<td><button class="save-button" name="editprofile" value="submit" onclick="window.location.href='profile.php?id_active=<?php echo $_GET['id_active']; ?>'">SAVE</button></td>
+	    		<td><button class="save-button" name="editprofile" value="submit">SAVE</button></td>
 	    	</tr>
 	    </table>
     </form>
