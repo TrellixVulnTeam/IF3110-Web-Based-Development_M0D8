@@ -40,7 +40,30 @@
   float: right;
   cursor: pointer;
 }
+.no-account {
+  width: auto;
+  height: 40px;
+}
+.button-index{
+  width: 100px;
+  height: 40px;
+  background-color: #85D507;
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 18px;
+  color: black;
+  margin-left: auto;
+  margin-right: 0;
+  float: right;
+  cursor: pointer;
+}
 .button:hover{
+  background-color: #66a405;
+}
+.button-index:hover{
   background-color: #66a405;
 }
 .title{
@@ -74,8 +97,14 @@
   width: 92%;
   height: 20px;
 }
+.block-container {
+  height: 40px;
+}
 .block-container .button, .block-container .no-account{
   display: inline;
+}
+.link-format {
+  color: black;
 }
 .checkbox-box, .checkbox-text{
   display: inline;

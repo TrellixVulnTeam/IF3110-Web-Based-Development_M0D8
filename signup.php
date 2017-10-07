@@ -56,8 +56,8 @@
 			<div class="empty-space"></div>
 
 			<div class="block-container">
-				<div class="no-account"><a href="index.php">Already have an account?</a></div>
-				<button class="button" name="register" value="submit">REGISTER</button>
+				<div class="no-account"><a class="link-format" href="index.php">Already have an account?</a></div>
+				<button class="button-index" name="register" value="submit">REGISTER</button>
 			</div>
 		</form>
 	</div>
