@@ -51,6 +51,12 @@ function validateForm1() {
     alert("Phone number must be filled with 9-12 digits number");
     return false;
   }
+
+  var e = document.forms["register-form"]["username"].value;
+  if (e.length < 5) {
+    alert("Username must be filled with minimum of 5 characters");
+    return false;
+  }
 }
 
 function validateEditProfileForm() {
