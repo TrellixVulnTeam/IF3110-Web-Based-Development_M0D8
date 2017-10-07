@@ -1,7 +1,7 @@
 <?php
 	require 'connection.php';
 	if (isset($_POST['addloc'])) {
-		$newloc = $_POST['newloc'];
+		$newloc = $mysqli->real_escape_string($_POST['newloc']);
 		$id = $_GET['id_active'];
 		$sql = ("INSERT INTO preferredlocation (id, location) VALUES ('$id', '$newloc')");
 		if ($mysqli->query($sql) === true) {
@@ -19,7 +19,7 @@
 	<title>Ojek Panas | Edit</title>
 	<link rel="stylesheet" type="text/css" href="./css/style.css">
 	<script type="text/javascript" src="./js/editlocation.js"></script>
-    
+    <script type="text/javascript" src="js/validation.js"></script>
 </head>
 <body>
 	<div class="edit-title">
@@ -67,11 +67,11 @@
     		<div class="small-title">
         		<span>ADD NEW LOCATIONS:</span>
     		</div>
-    		<form method="POST" action="editlocation.php?id_active=<?=$_GET['id_active']?>">
+    		<form method="POST" action="editlocation.php?id_active=<?=$_GET['id_active']?>" onsubmit="return validateAddLocation()">
     			<table width="550px">
     				<tr>
     					<td>
-    						<input class="text-field" type="text" name="newloc" id="newloc" required>
+    						<input class="text-field" type="text" name="newloc" id="newloc">
     					</td>
     					<td><button class="save-button" name="addloc">ADD</button></td>
     				</tr>

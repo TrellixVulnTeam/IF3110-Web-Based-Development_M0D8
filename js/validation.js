@@ -90,7 +90,7 @@ function validateEditProfileForm() {
   }
 
   if (d.length < 9 || d.length > 12) {
-    //alert("Phone number must be filled with 9-12 digits number");
+    alert("Phone number must be filled with 9-12 digits number");
     return false;
   }
 }
@@ -172,8 +172,6 @@ function starValidation() {
     return true;
   }
 }
-<<<<<<< HEAD
-=======
 
 function validateFileUpload() {
   var fuData = document.getElementById('user_image');
@@ -192,4 +190,13 @@ function validateFileUpload() {
     return false;
   }
 }
->>>>>>> 73b4ee7de37692f17ebb439cd0426f1745b00995
+
+function validateAddLocation() {
+  var newLocation = document.getElementById('newloc');
+  if (!newLocation.value) {
+    alert("Location name is empty");
+    return false;
+  }
+  return true;
+}
+
