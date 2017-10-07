@@ -82,13 +82,13 @@
 			?>
 
 	    	<tr>
-	    		<td rowspan="2"><img class="square-image" src="<?=$row['img_path']?>" alt="Profile Picture"></td>
+	    		<td rowspan="2"><img class="square-image" id="output" src="<?=$row['img_path']?>" alt="Profile Picture"></td>
 	    		<td class="horizontal-space"></td>
 	    		<td class="bottom-table"><label class="label">Update profile picture</label></td>
 	    	</tr>
 	    	<tr>
 	    		<td class="horizontal-space"></td>
-	    		<td class="upper-table"><input type="file" name="user_image" id="user_image" accept="image/*" onchange="return validateFileUpload()"></td>
+	    		<td class="upper-table"><input type="file" name="user_image" id="user_image" accept="image/*" onchange="return uploadFileHandler(event)"></td>
 	    	</tr>
 	    	<tr>
 	    		<td colspan="3" class="vertical-space"></td>

@@ -200,3 +200,13 @@ function validateAddLocation() {
   return true;
 }
 
+function loadFile(event) {
+  var output = document.getElementById('output');
+  output.src = URL.createObjectURL(event.target.files[0]);
+}
+
+function uploadFileHandler(event) {
+  if (validateFileUpload() != false) {
+    loadFile(event);
+  }
+}
