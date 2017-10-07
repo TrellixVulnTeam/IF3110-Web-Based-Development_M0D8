@@ -86,7 +86,7 @@ function validateEditProfileForm() {
   }
 
   if (d.length < 9 || d.length > 12) {
-    //alert("Phone number must be filled with 9-12 digits number");
+    alert("Phone number must be filled with 9-12 digits number");
     return false;
   }
 }
@@ -185,4 +185,13 @@ function validateFileUpload() {
     alert("Photo only allows file types of GIF, PNG, JPG, and JPEG. ");
     return false;
   }
+}
+
+function validateAddLocation() {
+  var newLocation = document.getElementById('newloc');
+  if (!newLocation.value) {
+    alert("Location name is empty");
+    return false;
+  }
+  return true;
 }

@@ -21,7 +21,7 @@
 <body>
 	<div id="signup-rectangle">
 		<div class="title"><span>SIGN UP</span></div>
-		<form name="register-form" action="signup.php" method="POST" onsubmit="return validateForm()">
+		<form name="register-form" action="signup.php" method="POST">
 			<table class="form" border="0">
 				<tr>
 					<td><label class="label" for="fullname">Your Name</label></td>
