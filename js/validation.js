@@ -58,7 +58,11 @@ function validateForm1() {
     return false;
   }
 
-  
+  var e = document.forms["register-form"]["username"].value;
+  if (e.length < 5) {
+    alert("Username must be filled with minimum of 5 characters");
+    return false;
+  }
 }
 
 function validateEditProfileForm() {
@@ -195,3 +199,4 @@ function validateAddLocation() {
   }
   return true;
 }
+
