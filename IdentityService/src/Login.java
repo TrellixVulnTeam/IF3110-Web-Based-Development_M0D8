@@ -1,5 +1,3 @@
-
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -7,8 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -50,6 +46,7 @@ public class Login extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@SuppressWarnings("resource")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Connection conn = null;
