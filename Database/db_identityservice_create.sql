@@ -2,13 +2,13 @@ CREATE TABLE `account` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL UNIQUE,
   `password` varchar(255) NOT NULL,
-  `token` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `account_token` (
   `id` INT NOT NULL,
   `token` varchar(255) NOT NULL,
+  `expiry_time` date NOT NULL,
   PRIMARY KEY (`token`)
 );
 
