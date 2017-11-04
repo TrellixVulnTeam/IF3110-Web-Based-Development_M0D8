@@ -6,6 +6,9 @@ public class Token {
 	
 	public Token() {
 		token = new StringBuilder(length);
+		for (int i = 0; i < length; ++i) {
+			token.append((char) 0);
+		}
 	}
 	
 	public void generate() {

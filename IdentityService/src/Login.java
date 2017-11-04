@@ -1,5 +1,3 @@
-
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -7,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -47,10 +46,12 @@ public class Login extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@SuppressWarnings("resource")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		try {
 			Class.forName(DB.JDBC_DRIVER);
 			
@@ -62,7 +63,7 @@ public class Login extends HttpServlet {
 			pstmt.setString(1, request.getParameter("username"));
 			pstmt.setString(2, request.getParameter("pass"));
 			
-			ResultSet rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			if (!rs.isBeforeFirst()) {    
 				response.setContentType("text/html");
 				PrintWriter out = response.getWriter();
@@ -74,7 +75,27 @@ public class Login extends HttpServlet {
 				out.print("</body></html>");
 			} else {
 				rs.next();
+				int id = rs.getInt(1);
+				
 				// Generate Token
+				Token token = new Token();
+				do {
+					token.generate();
+					pstmt = conn.prepareStatement("SELECT * FROM account_token WHERE token=?");
+					pstmt.setString(1, token.get());
+					rs = pstmt.executeQuery();
+				} while (rs.isBeforeFirst());
+				
+				// Generate current datetime for expiry time
+				java.util.Date date = new Date();
+				Object datetime = new java.sql.Timestamp(date.getTime() + 60000 * 2);
+				
+				// Update DB
+				pstmt = conn.prepareStatement("INSERT INTO account_token(id,token,expiry_time) VALUES(?,?,?)");
+				pstmt.setInt(1, id);
+				pstmt.setString(2, token.get());
+				pstmt.setObject(3, datetime);
+				pstmt.executeUpdate();
 				
 				response.setContentType("text/html");
 				PrintWriter out = response.getWriter();
@@ -83,13 +104,9 @@ public class Login extends HttpServlet {
 				out.print("<h2>Valid</h2>");
 				out.print(request.getParameter("username"));
 				out.print(request.getParameter("pass"));
+				out.print("<h2>" + id + " " + token.get() + "</h2>");
 				out.print("</body></html>");
 			}
-
-	        // Clean-up environment
-	        rs.close();
-	        pstmt.close();
-	        conn.close();
 	        
 	    } catch(SQLException se) {
 	        se.printStackTrace();
@@ -97,10 +114,17 @@ public class Login extends HttpServlet {
 	        e.printStackTrace();
 	    } finally {
 	        //finally block used to close resources
+	    	try {
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 	        try {
 	        	if(pstmt!=null)
 	        		pstmt.close();
-	        } catch(SQLException se2) {}
+	        } catch(SQLException se2) {
+	        	se2.printStackTrace();
+	        }
 	        try {
 	            if(conn!=null)
 	            	conn.close();
