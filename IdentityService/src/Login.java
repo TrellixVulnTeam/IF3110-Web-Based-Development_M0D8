@@ -59,8 +59,8 @@ public class Login extends HttpServlet {
 			
 			// Execute SQL query
 			pstmt = conn.prepareStatement("SELECT * FROM account WHERE username=? AND password=?");
-			pstmt.setString(1, "erick"/*request.getParameter("username")*/);
-			pstmt.setString(2, "bertus"/*request.getParameter("password")*/);
+			pstmt.setString(1, request.getParameter("username"));
+			pstmt.setString(2, request.getParameter("pass"));
 			
 			ResultSet rs = pstmt.executeQuery();
 			if (!rs.isBeforeFirst()) {    
@@ -69,6 +69,8 @@ public class Login extends HttpServlet {
 				
 				out.print("<html><body>");
 				out.print("<h2>Username Password is not valid</h2>");
+				out.print(request.getParameter("username"));
+				out.print(request.getParameter("pass"));
 				out.print("</body></html>");
 			} else {
 				rs.next();
@@ -79,6 +81,8 @@ public class Login extends HttpServlet {
 				
 				out.print("<html><body>");
 				out.print("<h2>Valid</h2>");
+				out.print(request.getParameter("username"));
+				out.print(request.getParameter("pass"));
 				out.print("</body></html>");
 			}
 
