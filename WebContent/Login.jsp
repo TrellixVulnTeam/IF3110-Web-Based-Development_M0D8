@@ -25,7 +25,7 @@
 			</table>
 			<div class="empty-space"></div>
 			<div class="block-container">
-				<div class="no-account"><a class="link-format"> <!-- href="signup.php" --> Don't have an account?</a></div>
+				<div class="no-account"><a class="link-format" href="Register.jsp"> Don't have an account?</a></div>
 				<button class="button-index" name="login">GO!</button>
 			</div>
 		</form>

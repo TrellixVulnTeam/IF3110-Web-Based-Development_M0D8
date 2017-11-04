@@ -38,15 +38,22 @@ public class Register extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//String fullName = request.getParameter("fullname");
-		String userName = "ericksa"; //request.getParameter("username");
-		String email = "bertussa"; //request.getParameter("email");
-		String pass = "gmailsa"; //request.getParameter("pass");
-		//String cpass = request.getParameter("cpass");
-		//String phone = request.getParameter("phone");
+		String fullName = request.getParameter("fullname");
+		String userName = request.getParameter("username");
+		String email = request.getParameter("email");
+		String pass = request.getParameter("pass");
+		String cpass = request.getParameter("cpass");
+		String phone = request.getParameter("phone");
 		
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
+		
+		out.print(fullName);
+		out.print(userName);
+		out.print(email);
+		out.print(pass);
+		out.print(cpass);
+		out.print(phone);
 		
 		try {
 			Class.forName(DB.JDBC_DRIVER);  
