@@ -54,6 +54,7 @@ public class Login extends HttpServlet {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		try {
 			Class.forName(DB.JDBC_DRIVER);
 			
@@ -65,7 +66,7 @@ public class Login extends HttpServlet {
 			pstmt.setString(1, "erick"/*request.getParameter("username")*/);
 			pstmt.setString(2, "bertus"/*request.getParameter("password")*/);
 			
-			ResultSet rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			if (!rs.isBeforeFirst()) {    
 				response.setContentType("text/html");
 				PrintWriter out = response.getWriter();
@@ -81,7 +82,7 @@ public class Login extends HttpServlet {
 				Token token = new Token();
 				do {
 					token.generate();
-					pstmt = conn.prepareStatement("SELECT * account_token WHERE token=?");
+					pstmt = conn.prepareStatement("SELECT * FROM account_token WHERE token=?");
 					pstmt.setString(1, token.get());
 					rs = pstmt.executeQuery();
 				} while (rs.isBeforeFirst());
@@ -101,14 +102,9 @@ public class Login extends HttpServlet {
 				PrintWriter out = response.getWriter();
 				
 				out.print("<html><body>");
-				out.print("<h2>" + id + " " + token + "</h2>");
+				out.print("<h2>" + id + " " + token.get() + "</h2>");
 				out.print("</body></html>");
 			}
-
-	        // Clean-up environment
-	        rs.close();
-	        pstmt.close();
-	        conn.close();
 	        
 	    } catch(SQLException se) {
 	        se.printStackTrace();
@@ -116,10 +112,17 @@ public class Login extends HttpServlet {
 	        e.printStackTrace();
 	    } finally {
 	        //finally block used to close resources
+	    	try {
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 	        try {
 	        	if(pstmt!=null)
 	        		pstmt.close();
-	        } catch(SQLException se2) {}
+	        } catch(SQLException se2) {
+	        	se2.printStackTrace();
+	        }
 	        try {
 	            if(conn!=null)
 	            	conn.close();
