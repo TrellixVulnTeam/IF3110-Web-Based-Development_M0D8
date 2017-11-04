@@ -7,6 +7,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -72,13 +75,33 @@ public class Login extends HttpServlet {
 				out.print("</body></html>");
 			} else {
 				rs.next();
+				int id = rs.getInt(1);
+				
 				// Generate Token
+				Token token = new Token();
+				do {
+					token.generate();
+					pstmt = conn.prepareStatement("SELECT * account_token WHERE token=?");
+					pstmt.setString(1, token.get());
+					rs = pstmt.executeQuery();
+				} while (rs.isBeforeFirst());
+				
+				// Generate current datetime for expiry time
+				java.util.Date date = new Date();
+				Object datetime = new java.sql.Timestamp(date.getTime() + 60000 * 2);
+				
+				// Update DB
+				pstmt = conn.prepareStatement("INSERT INTO account_token(id,token,expiry_time) VALUES(?,?,?)");
+				pstmt.setInt(1, id);
+				pstmt.setString(2, token.get());
+				pstmt.setObject(3, datetime);
+				pstmt.executeUpdate();
 				
 				response.setContentType("text/html");
 				PrintWriter out = response.getWriter();
 				
 				out.print("<html><body>");
-				out.print("<h2>Valid</h2>");
+				out.print("<h2>" + id + " " + token + "</h2>");
 				out.print("</body></html>");
 			}
 
