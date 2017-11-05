@@ -28,7 +28,7 @@ public class User {
 		isDriver = false;
 		star = 0;
 		vote = 0;
-		preferredLocations = new ArrayList();
+		preferredLocations = new ArrayList<Location>();
 	}
 
 	public User(ResultSet rs) {
@@ -37,12 +37,12 @@ public class User {
 			email = rs.getString("email");
 			username = rs.getString("username");
 			phoneNumber = rs.getString("phone_num");
-			imgPath = rs.getString("imgPath");
+			imgPath = rs.getString("img_path");
 			fullName = rs.getString("fullName");
 			isDriver = rs.getBoolean("is_driver");
 			star = rs.getFloat("star");
 			vote = rs.getInt("vote");
-			preferredLocations = new ArrayList();
+			preferredLocations = new ArrayList<Location>();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			id = 0;
@@ -54,7 +54,7 @@ public class User {
 			isDriver = false;
 			star = 0;
 			vote = 0;
-			preferredLocations = new ArrayList();
+			preferredLocations = new ArrayList<Location>();
 		}
 	}
 

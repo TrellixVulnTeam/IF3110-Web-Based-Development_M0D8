@@ -33,6 +33,7 @@ public class UserServiceImpl implements UserService {
 			if (!rs.isBeforeFirst()) { // rs is empty
 				return new User();
 			} else {
+				rs.next();
 				return new User(rs);
 			}
 		} catch (Exception e) {

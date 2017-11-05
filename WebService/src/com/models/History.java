@@ -60,11 +60,11 @@ public class History {
 		return dest;
 	}
 
-	public isHiddenByCustomer() {
+	public boolean isHiddenByCustomer() {
 		return isHiddenCust;
 	}
 
-	public isHiddenByDriver() {
+	public boolean isHiddenByDriver() {
 		return isHiddenDriver;
 	}
 
@@ -80,7 +80,7 @@ public class History {
 		this.idDriver = idDriver;
 	}
 
-	public void setRating(in rating) {
+	public void setRating(int rating) {
 		this.rating = rating;
 	}
 

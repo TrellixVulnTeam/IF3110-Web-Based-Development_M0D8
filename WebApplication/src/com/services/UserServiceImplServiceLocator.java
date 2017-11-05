@@ -22,7 +22,7 @@ public class UserServiceImplServiceLocator extends org.apache.axis.client.Servic
     }
 
     // Use to get a proxy class for UserServiceImplPort
-    private java.lang.String UserServiceImplPort_address = "http://localhost:8000/WebService/User";
+    private java.lang.String UserServiceImplPort_address = "http://localhost:8003/WebService/User";
 
     public java.lang.String getUserServiceImplPortAddress() {
         return UserServiceImplPort_address;
