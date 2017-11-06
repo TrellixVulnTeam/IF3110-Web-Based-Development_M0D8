@@ -1,5 +1,5 @@
 /**
- * UserServiceImplServiceLocator.java
+ * LocationServiceImplServiceLocator.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
@@ -7,53 +7,53 @@
 
 package com.services;
 
-public class UserServiceImplServiceLocator extends org.apache.axis.client.Service implements com.services.UserServiceImplService {
+public class LocationServiceImplServiceLocator extends org.apache.axis.client.Service implements com.services.LocationServiceImplService {
 
-    public UserServiceImplServiceLocator() {
+    public LocationServiceImplServiceLocator() {
     }
 
 
-    public UserServiceImplServiceLocator(org.apache.axis.EngineConfiguration config) {
+    public LocationServiceImplServiceLocator(org.apache.axis.EngineConfiguration config) {
         super(config);
     }
 
-    public UserServiceImplServiceLocator(java.lang.String wsdlLoc, javax.xml.namespace.QName sName) throws javax.xml.rpc.ServiceException {
+    public LocationServiceImplServiceLocator(java.lang.String wsdlLoc, javax.xml.namespace.QName sName) throws javax.xml.rpc.ServiceException {
         super(wsdlLoc, sName);
     }
 
-    // Use to get a proxy class for UserServiceImplPort
-    private java.lang.String UserServiceImplPort_address = "http://localhost:8001/WebService/User";
+    // Use to get a proxy class for LocationServiceImplPort
+    private java.lang.String LocationServiceImplPort_address = "http://localhost:8001/WebService/Location";
 
-    public java.lang.String getUserServiceImplPortAddress() {
-        return UserServiceImplPort_address;
+    public java.lang.String getLocationServiceImplPortAddress() {
+        return LocationServiceImplPort_address;
     }
 
     // The WSDD service name defaults to the port name.
-    private java.lang.String UserServiceImplPortWSDDServiceName = "UserServiceImplPort";
+    private java.lang.String LocationServiceImplPortWSDDServiceName = "LocationServiceImplPort";
 
-    public java.lang.String getUserServiceImplPortWSDDServiceName() {
-        return UserServiceImplPortWSDDServiceName;
+    public java.lang.String getLocationServiceImplPortWSDDServiceName() {
+        return LocationServiceImplPortWSDDServiceName;
     }
 
-    public void setUserServiceImplPortWSDDServiceName(java.lang.String name) {
-        UserServiceImplPortWSDDServiceName = name;
+    public void setLocationServiceImplPortWSDDServiceName(java.lang.String name) {
+        LocationServiceImplPortWSDDServiceName = name;
     }
 
-    public com.services.UserService getUserServiceImplPort() throws javax.xml.rpc.ServiceException {
+    public com.services.LocationService getLocationServiceImplPort() throws javax.xml.rpc.ServiceException {
        java.net.URL endpoint;
         try {
-            endpoint = new java.net.URL(UserServiceImplPort_address);
+            endpoint = new java.net.URL(LocationServiceImplPort_address);
         }
         catch (java.net.MalformedURLException e) {
             throw new javax.xml.rpc.ServiceException(e);
         }
-        return getUserServiceImplPort(endpoint);
+        return getLocationServiceImplPort(endpoint);
     }
 
-    public com.services.UserService getUserServiceImplPort(java.net.URL portAddress) throws javax.xml.rpc.ServiceException {
+    public com.services.LocationService getLocationServiceImplPort(java.net.URL portAddress) throws javax.xml.rpc.ServiceException {
         try {
-            com.services.UserServiceImplPortBindingStub _stub = new com.services.UserServiceImplPortBindingStub(portAddress, this);
-            _stub.setPortName(getUserServiceImplPortWSDDServiceName());
+            com.services.LocationServiceImplPortBindingStub _stub = new com.services.LocationServiceImplPortBindingStub(portAddress, this);
+            _stub.setPortName(getLocationServiceImplPortWSDDServiceName());
             return _stub;
         }
         catch (org.apache.axis.AxisFault e) {
@@ -61,8 +61,8 @@ public class UserServiceImplServiceLocator extends org.apache.axis.client.Servic
         }
     }
 
-    public void setUserServiceImplPortEndpointAddress(java.lang.String address) {
-        UserServiceImplPort_address = address;
+    public void setLocationServiceImplPortEndpointAddress(java.lang.String address) {
+        LocationServiceImplPort_address = address;
     }
 
     /**
@@ -72,9 +72,9 @@ public class UserServiceImplServiceLocator extends org.apache.axis.client.Servic
      */
     public java.rmi.Remote getPort(Class serviceEndpointInterface) throws javax.xml.rpc.ServiceException {
         try {
-            if (com.services.UserService.class.isAssignableFrom(serviceEndpointInterface)) {
-                com.services.UserServiceImplPortBindingStub _stub = new com.services.UserServiceImplPortBindingStub(new java.net.URL(UserServiceImplPort_address), this);
-                _stub.setPortName(getUserServiceImplPortWSDDServiceName());
+            if (com.services.LocationService.class.isAssignableFrom(serviceEndpointInterface)) {
+                com.services.LocationServiceImplPortBindingStub _stub = new com.services.LocationServiceImplPortBindingStub(new java.net.URL(LocationServiceImplPort_address), this);
+                _stub.setPortName(getLocationServiceImplPortWSDDServiceName());
                 return _stub;
             }
         }
@@ -94,8 +94,8 @@ public class UserServiceImplServiceLocator extends org.apache.axis.client.Servic
             return getPort(serviceEndpointInterface);
         }
         java.lang.String inputPortName = portName.getLocalPart();
-        if ("UserServiceImplPort".equals(inputPortName)) {
-            return getUserServiceImplPort();
+        if ("LocationServiceImplPort".equals(inputPortName)) {
+            return getLocationServiceImplPort();
         }
         else  {
             java.rmi.Remote _stub = getPort(serviceEndpointInterface);
@@ -105,7 +105,7 @@ public class UserServiceImplServiceLocator extends org.apache.axis.client.Servic
     }
 
     public javax.xml.namespace.QName getServiceName() {
-        return new javax.xml.namespace.QName("http://services.com/", "UserServiceImplService");
+        return new javax.xml.namespace.QName("http://services.com/", "LocationServiceImplService");
     }
 
     private java.util.HashSet ports = null;
@@ -113,7 +113,7 @@ public class UserServiceImplServiceLocator extends org.apache.axis.client.Servic
     public java.util.Iterator getPorts() {
         if (ports == null) {
             ports = new java.util.HashSet();
-            ports.add(new javax.xml.namespace.QName("http://services.com/", "UserServiceImplPort"));
+            ports.add(new javax.xml.namespace.QName("http://services.com/", "LocationServiceImplPort"));
         }
         return ports.iterator();
     }
@@ -123,8 +123,8 @@ public class UserServiceImplServiceLocator extends org.apache.axis.client.Servic
     */
     public void setEndpointAddress(java.lang.String portName, java.lang.String address) throws javax.xml.rpc.ServiceException {
         
-if ("UserServiceImplPort".equals(portName)) {
-            setUserServiceImplPortEndpointAddress(address);
+if ("LocationServiceImplPort".equals(portName)) {
+            setLocationServiceImplPortEndpointAddress(address);
         }
         else 
 { // Unknown Port Name
