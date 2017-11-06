@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     
-<jsp:useBean id="sampleUserServiceProxyid" scope="session" class="com.services.UserServiceProxy" />
+<jsp:useBean id="profileProxy" scope="request" class="com.services.UserServiceProxy" />
 <%
-sampleUserServiceProxyid.setEndpoint("http://localhost:8003/WebService/User");
+profileProxy.setEndpoint("http://localhost:8000/WebService/User");
 String idStr = request.getParameter("id_active");
 int id = Integer.parseInt(idStr);
-com.services.User user = sampleUserServiceProxyid.getUser(id);
+com.services.User user = profileProxy.getUser(id);
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -18,6 +18,7 @@ com.services.User user = sampleUserServiceProxyid.getUser(id);
 </head>
 <body>
 	<div id="navbar">
+	  <%@include file="Navbar.jsp" %>
 	  <div class="after-box">
 	    <div class="centered">
 	      <a href="Order.jsp?id_active=<%= request.getParameter("id_active") %>" class="list-item-order">ORDER </a>
