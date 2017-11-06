@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <jsp:useBean id="navbarProxy" scope="request" class="com.services.UserServiceProxy" />
 <%
-navbarProxy.setEndpoint("http://localhost:8001/WebService/User");
+navbarProxy.setEndpoint("http://localhost:8000/WebService/User");
 String idStrNavbar = request.getParameter("id_active");
 int idNavbar = Integer.parseInt(idStrNavbar);
 com.services.User userNavbar = navbarProxy.getUser(idNavbar);

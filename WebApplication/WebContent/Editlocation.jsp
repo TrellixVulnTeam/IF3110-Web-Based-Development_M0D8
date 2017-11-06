@@ -3,12 +3,10 @@
     
 <jsp:useBean id="locationProxy" scope="request" class="com.services.UserServiceProxy" />
 <%
-	locationProxy.setEndpoint("http://localhost:8001/WebService/User");
+	locationProxy.setEndpoint("http://localhost:8000/WebService/User");
 	String idStr = request.getParameter("id_active");
 	int id = Integer.parseInt(idStr);
-	com.services.User user = new com.services.User();
-	user.setId(id);
-	java.util.ArrayList<com.models.Location> arrLoc = locationProxy.loadPreferredLocations(user);
+	com.services.User user = locationProxy.getUser(id);
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -34,6 +32,18 @@
 		    		<th>Location</th>
 		    		<th colspan="2">Actions</th>
 		    	</tr>
+		    	<%
+		    		for (int i = 0; i < user.getPreferredLocations().length; ++i) { 
+		    			String val = user.getPreferredLocations(i).getLocation(); %>
+		    			<tr id="tabel<%= val %>">
+		    				<td><%= i+1 %></td>
+		    				<td id="data<%= val %>"><%= val %></td>
+		    				<td class="pencil-image"><a href="javascript:" id="<%= val %>" name="pencil" class="pencil" onclick="return editdata(this.id, this.name)"><img id="image<%= val %>" width="20px" height="20px" src="img/pencil.png"></a>
+		    					<center><a href="javascript:" id="save<%= val %>" name="<%= idStr %>" class="functionalSave"  onclick="return savedata(this.id, this.name)"><img id="imagefunc<%= val %>" width="20px" height="20px" src="img/save.png" style="display:none;"></a></center>
+		    					</td>
+		    				<td class="cancel-image"><a href="Delete.jsp?id_active=<%= idStr %>&loc=<%= val %>" class="confirmation" onclick="return confirm_delete()"><img src="img/cancel.png" width="20px" height="20px"></a></td>
+		    				</tr>
+		    	<% 	} %>
 		    </table>
 		    <div class="small-empty-space"></div>
     		<div class="small-title">

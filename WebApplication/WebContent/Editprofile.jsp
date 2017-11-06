@@ -2,10 +2,29 @@
     pageEncoding="ISO-8859-1"%>
 <jsp:useBean id="editProfileProxy" scope="request" class="com.services.UserServiceProxy" />
 <%
-	editProfileProxy.setEndpoint("http://localhost:8001/WebService/User");
+	editProfileProxy.setEndpoint("http://localhost:8000/WebService/User");
 	String idStr = request.getParameter("id_active");
 	int id = Integer.parseInt(idStr);
 	com.services.User user = editProfileProxy.getUser(id);
+%>
+
+<%
+	if (request.getMethod().equals("POST")) {
+		if (request.getParameter("yourname") != null) {
+			user.setName(request.getParameter("yourname"));
+		}
+		if (request.getParameter("phone") != null) {
+			user.setPhoneNumber(request.getParameter("phone"));
+		}
+		if (request.getParameter("isdriver") != null) {
+			user.setDriver(true);
+		} else {
+			user.setDriver(false);
+		}
+		editProfileProxy.saveUser(user);
+		response.sendRedirect("http://localhost:7000/WebApplication/Profile.jsp?id_active=" + request.getParameter("id_active"));
+		/* response.sendRedirect("http://localhost:9000/WebApplication/Profile.jsp?id_active=" + request.getParameter("id_active")); */
+	}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -23,10 +42,10 @@
 
     <div id="edit-profile-content">
     <script src="js/validation.js"></script>
-    <form onsubmit="return validateEditProfileForm()" method="POST" action="editprofile.php?id_active=<%= request.getParameter("idactive") %>"  name="editprofile-form" enctype="multipart/form-data">
+    <form onsubmit="return validateEditProfileForm()" method="POST" action="Editprofile.jsp?id_active=<%= request.getParameter("id_active") %>"  name="editprofile-form">
     	<table>
 	    	<tr>
-	    		<td rowspan="2"><img class="square-image" id="output" src="<?=$row['img_path']?>" alt="Profile Picture"></td>
+	    		<td rowspan="2"><img class="square-image" id="output" src="<%= user.getImagePath() %>" alt="Profile Picture"></td>
 	    		<td class="horizontal-space"></td>
 	    		<td class="bottom-table"><label class="label">Update profile picture</label></td>
 	    	</tr>
@@ -52,15 +71,11 @@
 	    		<td class="horizontal-space"></td>
 	    		<td class="content-right">
 		    		<label class="switch">
-		    			<?php
-		    				if ($row['is_driver'] == 0) {
-		    					echo '<input name="isdriver" id="isdriver" type="checkbox">';
-
-		    				} else {
-		    					echo '<input name="isdriver" id="isdriver" type="checkbox" checked>';
-		    				}
-		    			?>
-	  					
+		    			<% if (!user.isDriver()) { %>
+		    				<input name="isdriver" id="isdriver" type="checkbox">
+		    			<% } else { %>
+		    				<input name="isdriver" id="isdriver" type="checkbox" checked>
+		    			<% } %>
 	  					<span class="slider round"></span>
 					</label>
 				</td>
@@ -69,7 +84,7 @@
 	    		<td colspan="3" class="vertical-space"></td>
 	    	</tr>
 	    	<tr>
-	    		<td><input type="button" class="back-button" value="BACK" onclick="window.location.href='profile.php?id_active=<?php echo $_GET['id_active']; ?>'"></td>
+	    		<td><input type="button" class="back-button" value="BACK" onclick="window.location.href='profile.php?id_active=<%= request.getParameter("id_active") %>'"></td>
 	    		<td class="horizontal-space"></td>
 	    		<td><button class="save-button" name="editprofile" value="submit">SAVE</button></td>
 	    	</tr>

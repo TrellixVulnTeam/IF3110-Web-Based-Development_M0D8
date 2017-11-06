@@ -1,9 +1,10 @@
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     
 <jsp:useBean id="profileProxy" scope="request" class="com.services.UserServiceProxy" />
 <%
-profileProxy.setEndpoint("http://localhost:8001/WebService/User");
+profileProxy.setEndpoint("http://localhost:8000/WebService/User");
 String idStr = request.getParameter("id_active");
 int id = Integer.parseInt(idStr);
 com.services.User user = profileProxy.getUser(id);
@@ -42,7 +43,7 @@ com.services.User user = profileProxy.getUser(id);
       <p class="username">@<%= user.getUsername() %></p>
       <p class="data"><%= user.getName() %></p>
 	
-	  <% if (true) {%>
+	  <% if (user.isDriver()) {%>
 	  	<p class="data">Driver | <font color="orange">&#9734;<%= user.getStar() %></font> (<%= user.getVote() %>) </p>
 	  <% } else {%>
 	  	<p class="data">Non-Driver</p>
@@ -51,5 +52,25 @@ com.services.User user = profileProxy.getUser(id);
 	  <p class="data">&#9993; <%= user.getEmail() %></p>
 	  <p class="data">&#9743; <%= user.getPhoneNumber() %></p>
 	</div>
+	<%
+		String print = "";
+		if (user.isDriver()) { %>
+			<div id="preferred-header">
+				<div class="floating-box-left-1">
+					<span>PREFERRED LOCATIONS:</span>
+	<%  	for (int i = 0; i < user.getPreferredLocations().length; ++i) { %>
+				<div id="triangle"><ul><li><%= user.getPreferredLocations(i).getLocation() %>	
+	<%		}
+			for (int i = 0; i < user.getPreferredLocations().length; ++i) { %>
+				</li></ul></div>
+	<% 		} %>
+			</div>
+			<div class="floating-box-right-p">
+				<a href="Editlocation.jsp?id_active=<%= request.getParameter("id_active") %>">
+				<img src="img/pencil.png" width="30px" height="30px" /> </a>
+			</div>
+			</div>
+	<% 		 
+		}%>
 </body>
 </html>
