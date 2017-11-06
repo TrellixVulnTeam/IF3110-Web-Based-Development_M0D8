@@ -15,4 +15,10 @@ public interface UserService {
 	*/
 	@WebMethod
 	public User getUser(int id);
+	
+	/*
+	 * Mendapatkan preferred location dari database dan mengeluarkannya.
+	 */
+	@WebMethod
+	public void loadPreferredLocations(User user);
 }

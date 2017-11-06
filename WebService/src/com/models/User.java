@@ -57,6 +57,32 @@ public class User {
 			preferredLocations = new ArrayList<Location>();
 		}
 	}
+	
+	public User(int id) {
+		this.id = id;
+		email = "";
+		username = "";
+		phoneNumber = "";
+		imgPath = "";
+		fullName = "";
+		isDriver = false;
+		star = 0;
+		vote = 0;
+		preferredLocations = new ArrayList<Location>();
+	}
+	
+	public void loadPreferredLocations(ResultSet rs) {
+		preferredLocations.clear();
+		try {
+			while (!rs.isAfterLast()) {
+				Location loc = new Location(rs.getString("location"));
+				preferredLocations.add(loc);
+				rs.next();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	public int getId() {
 		return id;
