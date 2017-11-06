@@ -72,10 +72,12 @@ public class User {
 	}
 	
 	public void loadPreferredLocations(ResultSet rs) {
-		preferredLocations.clear();
+		preferredLocations = new ArrayList<Location>();
 		try {
+			Location loc = new Location(rs.getString("location"));
+			preferredLocations.add(loc);
 			while (!rs.isAfterLast()) {
-				Location loc = new Location(rs.getString("location"));
+				loc = new Location(rs.getString("location"));
 				preferredLocations.add(loc);
 				rs.next();
 			}

@@ -124,13 +124,13 @@ public class UserServiceImpl implements UserService {
 			ps.setString(4, user.getImagePath());
 			ps.setString(5, user.getName());
 			if (user.isDriver()) {
-				ps.setString(5, "true");	
+				ps.setString(6, String.valueOf(1));	
 			} else {
-				ps.setString(5, "false");
+				ps.setString(6, String.valueOf(0));
 			}
-			ps.setString(6, String.valueOf(user.getStar()));
-			ps.setString(7, String.valueOf(user.getVote()));
-			ps.setString(8, String.valueOf(id));
+			ps.setString(7, String.valueOf(user.getStar()));
+			ps.setString(8, String.valueOf(user.getVote()));
+			ps.setString(9, String.valueOf(id));
 
 
 			// Execute query
