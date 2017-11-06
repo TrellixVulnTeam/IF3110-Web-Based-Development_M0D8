@@ -3,7 +3,7 @@
     
 <jsp:useBean id="profileProxy" scope="request" class="com.services.UserServiceProxy" />
 <%
-profileProxy.setEndpoint("http://localhost:8000/WebService/User");
+profileProxy.setEndpoint("http://localhost:8001/WebService/User");
 String idStr = request.getParameter("id_active");
 int id = Integer.parseInt(idStr);
 com.services.User user = profileProxy.getUser(id);
