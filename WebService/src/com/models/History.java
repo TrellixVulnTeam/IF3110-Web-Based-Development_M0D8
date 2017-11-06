@@ -1,6 +1,7 @@
 package com.models;
 
-import java.util.Date;
+import java.sql.ResultSet;
+import java.sql.Date;
 
 public class History {
 
@@ -21,11 +22,38 @@ public class History {
 		idDriver = 0;
 		rating = 0;
 		feedback = "";
-		date = new Date();
+		date = new Date(0);
 		pickup = "";
 		dest = "";
 		isHiddenDriver = false;
 		isHiddenCust = false;
+	}
+
+	public History(ResultSet rs) {
+		try {
+			id = rs.getInt("id_order");
+			idCustomer = rs.getInt("id_customer");
+			idDriver = rs.getInt("id_driver");
+			rating = rs.getInt("rating");
+			feedback = rs.getString("feedback");
+			date = rs.getDate("order_date");
+			pickup = rs.getString("pickup");
+			dest = rs.getString("dest");
+			isHiddenCust = rs.getBoolean("hidden_c");
+			isHiddenDriver = rs.getBoolean("hidden_d");
+		} catch (Exception e) {
+			e.printStackTrace();
+			id = 0;
+			idCustomer = 0;
+			idDriver = 0;
+			rating = 0;
+			feedback = "";
+			date = new Date(0);
+			pickup = "";
+			dest = "";
+			isHiddenDriver = false;
+			isHiddenCust = false;
+		}
 	}
 
 	public int getId() {
