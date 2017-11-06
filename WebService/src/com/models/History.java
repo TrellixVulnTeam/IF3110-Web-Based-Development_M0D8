@@ -13,8 +13,8 @@ public class History {
 	private Date date;
 	private String pickup;
 	private String dest;
-	private boolean isHiddenCust;
-	private boolean isHiddenDriver;
+	private boolean hiddenCust;
+	private boolean hiddenDriver;
 
 	public History() {
 		id = 0;
@@ -25,8 +25,8 @@ public class History {
 		date = new Date(0);
 		pickup = "";
 		dest = "";
-		isHiddenDriver = false;
-		isHiddenCust = false;
+		hiddenDriver = false;
+		hiddenCust = false;
 	}
 
 	public History(ResultSet rs) {
@@ -39,8 +39,8 @@ public class History {
 			date = rs.getDate("order_date");
 			pickup = rs.getString("pickup");
 			dest = rs.getString("dest");
-			isHiddenCust = rs.getBoolean("hidden_c");
-			isHiddenDriver = rs.getBoolean("hidden_d");
+			hiddenCust = rs.getBoolean("hidden_c");
+			hiddenDriver = rs.getBoolean("hidden_d");
 		} catch (Exception e) {
 			e.printStackTrace();
 			id = 0;
@@ -51,8 +51,8 @@ public class History {
 			date = new Date(0);
 			pickup = "";
 			dest = "";
-			isHiddenDriver = false;
-			isHiddenCust = false;
+			hiddenDriver = false;
+			hiddenCust = false;
 		}
 	}
 
@@ -88,12 +88,20 @@ public class History {
 		return dest;
 	}
 
-	public boolean isHiddenByCustomer() {
-		return isHiddenCust;
+	public boolean isHiddenCust() {
+		return hiddenCust;
+	}
+	
+	public boolean getHiddenCust() {
+		return hiddenCust;
 	}
 
-	public boolean isHiddenByDriver() {
-		return isHiddenDriver;
+	public boolean isHiddenDriver() {
+		return hiddenDriver;
+	}
+	
+	public boolean getHiddenDriver() {
+		return hiddenDriver;
 	}
 
 	public void setId(int id) {
@@ -128,11 +136,11 @@ public class History {
 		this.dest = dest;
 	}
 
-	public void setHiddenCustomer() {
-		isHiddenCust = true;
+	public void setHiddenCust(boolean hiddenCust) {
+		this.hiddenCust = hiddenCust;
 	}
 
-	public void setHiddenDriver() {
-		isHiddenDriver = true;
+	public void setHiddenDriver(boolean hiddenDriver) {
+		this.hiddenDriver = hiddenDriver;
 	}
 }

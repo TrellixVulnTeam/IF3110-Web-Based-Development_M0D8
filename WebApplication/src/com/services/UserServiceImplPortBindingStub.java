@@ -108,6 +108,13 @@ public class UserServiceImplPortBindingStub extends org.apache.axis.client.Stub 
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
 
+            qName = new javax.xml.namespace.QName("http://services.com/", "location");
+            cachedSerQNames.add(qName);
+            cls = com.services.Location.class;
+            cachedSerClasses.add(cls);
+            cachedSerFactories.add(beansf);
+            cachedDeserFactories.add(beandf);
+
             qName = new javax.xml.namespace.QName("http://services.com/", "user");
             cachedSerQNames.add(qName);
             cls = com.services.User.class;

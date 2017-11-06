@@ -13,7 +13,7 @@ public class User {
 	private String phoneNumber;
 	private String imgPath;
 	private String fullName;
-	private boolean isDriver;
+	private boolean driver;
 	private float star;
 	private int vote;
 	private ArrayList<Location> preferredLocations;
@@ -25,7 +25,7 @@ public class User {
 		phoneNumber = "";
 		imgPath = "";
 		fullName = "";
-		isDriver = false;
+		driver = false;
 		star = 0;
 		vote = 0;
 		preferredLocations = new ArrayList<Location>();
@@ -39,7 +39,7 @@ public class User {
 			phoneNumber = rs.getString("phone_num");
 			imgPath = rs.getString("img_path");
 			fullName = rs.getString("fullName");
-			isDriver = rs.getBoolean("is_driver");
+			driver = rs.getBoolean("is_driver");
 			star = rs.getFloat("star");
 			vote = rs.getInt("vote");
 			preferredLocations = new ArrayList<Location>();
@@ -51,7 +51,7 @@ public class User {
 			phoneNumber = "";
 			imgPath = "";
 			fullName = "";
-			isDriver = false;
+			driver = false;
 			star = 0;
 			vote = 0;
 			preferredLocations = new ArrayList<Location>();
@@ -65,7 +65,7 @@ public class User {
 		phoneNumber = "";
 		imgPath = "";
 		fullName = "";
-		isDriver = false;
+		driver = false;
 		star = 0;
 		vote = 0;
 		preferredLocations = new ArrayList<Location>();
@@ -121,7 +121,11 @@ public class User {
 	}
 
 	public boolean isDriver() {
-		return isDriver;
+		return driver;
+	}
+	
+	public boolean getDriver() {
+		return driver;
 	}
 
 	public void setId(int id) {
@@ -163,12 +167,20 @@ public class User {
 	public void addLocation(String loc) {
 		preferredLocations.add(new Location(loc));
 	}
-
-	public void setDriver() {
-		isDriver = true;
+	
+	public void setDriver(boolean driver) {
+		this.driver = driver;
 	}
 
-	public void setNonDriver() {
-		isDriver = false;
+	public void setAsDriver() {
+		driver = true;
+	}
+
+	public void setAsNonDriver() {
+		driver = false;
+	}
+	
+	public void setPreferredLocations(ArrayList<Location> loc) {
+		preferredLocations = loc;
 	}
 }

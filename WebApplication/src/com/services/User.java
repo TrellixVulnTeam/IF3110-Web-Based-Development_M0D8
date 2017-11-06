@@ -8,6 +8,8 @@
 package com.services;
 
 public class User  implements java.io.Serializable {
+    private boolean driver;
+
     private java.lang.String email;
 
     private int id;
@@ -17,6 +19,8 @@ public class User  implements java.io.Serializable {
     private java.lang.String name;
 
     private java.lang.String phoneNumber;
+
+    private com.services.Location[] preferredLocations;
 
     private float star;
 
@@ -28,22 +32,46 @@ public class User  implements java.io.Serializable {
     }
 
     public User(
+           boolean driver,
            java.lang.String email,
            int id,
            java.lang.String imagePath,
            java.lang.String name,
            java.lang.String phoneNumber,
+           com.services.Location[] preferredLocations,
            float star,
            java.lang.String username,
            int vote) {
+           this.driver = driver;
            this.email = email;
            this.id = id;
            this.imagePath = imagePath;
            this.name = name;
            this.phoneNumber = phoneNumber;
+           this.preferredLocations = preferredLocations;
            this.star = star;
            this.username = username;
            this.vote = vote;
+    }
+
+
+    /**
+     * Gets the driver value for this User.
+     * 
+     * @return driver
+     */
+    public boolean isDriver() {
+        return driver;
+    }
+
+
+    /**
+     * Sets the driver value for this User.
+     * 
+     * @param driver
+     */
+    public void setDriver(boolean driver) {
+        this.driver = driver;
     }
 
 
@@ -148,6 +176,34 @@ public class User  implements java.io.Serializable {
 
 
     /**
+     * Gets the preferredLocations value for this User.
+     * 
+     * @return preferredLocations
+     */
+    public com.services.Location[] getPreferredLocations() {
+        return preferredLocations;
+    }
+
+
+    /**
+     * Sets the preferredLocations value for this User.
+     * 
+     * @param preferredLocations
+     */
+    public void setPreferredLocations(com.services.Location[] preferredLocations) {
+        this.preferredLocations = preferredLocations;
+    }
+
+    public com.services.Location getPreferredLocations(int i) {
+        return this.preferredLocations[i];
+    }
+
+    public void setPreferredLocations(int i, com.services.Location _value) {
+        this.preferredLocations[i] = _value;
+    }
+
+
+    /**
      * Gets the star value for this User.
      * 
      * @return star
@@ -218,6 +274,7 @@ public class User  implements java.io.Serializable {
         __equalsCalc = obj;
         boolean _equals;
         _equals = true && 
+            this.driver == other.isDriver() &&
             ((this.email==null && other.getEmail()==null) || 
              (this.email!=null &&
               this.email.equals(other.getEmail()))) &&
@@ -231,6 +288,9 @@ public class User  implements java.io.Serializable {
             ((this.phoneNumber==null && other.getPhoneNumber()==null) || 
              (this.phoneNumber!=null &&
               this.phoneNumber.equals(other.getPhoneNumber()))) &&
+            ((this.preferredLocations==null && other.getPreferredLocations()==null) || 
+             (this.preferredLocations!=null &&
+              java.util.Arrays.equals(this.preferredLocations, other.getPreferredLocations()))) &&
             this.star == other.getStar() &&
             ((this.username==null && other.getUsername()==null) || 
              (this.username!=null &&
@@ -247,6 +307,7 @@ public class User  implements java.io.Serializable {
         }
         __hashCodeCalc = true;
         int _hashCode = 1;
+        _hashCode += (isDriver() ? Boolean.TRUE : Boolean.FALSE).hashCode();
         if (getEmail() != null) {
             _hashCode += getEmail().hashCode();
         }
@@ -259,6 +320,17 @@ public class User  implements java.io.Serializable {
         }
         if (getPhoneNumber() != null) {
             _hashCode += getPhoneNumber().hashCode();
+        }
+        if (getPreferredLocations() != null) {
+            for (int i=0;
+                 i<java.lang.reflect.Array.getLength(getPreferredLocations());
+                 i++) {
+                java.lang.Object obj = java.lang.reflect.Array.get(getPreferredLocations(), i);
+                if (obj != null &&
+                    !obj.getClass().isArray()) {
+                    _hashCode += obj.hashCode();
+                }
+            }
         }
         _hashCode += new Float(getStar()).hashCode();
         if (getUsername() != null) {
@@ -276,6 +348,12 @@ public class User  implements java.io.Serializable {
     static {
         typeDesc.setXmlType(new javax.xml.namespace.QName("http://services.com/", "user"));
         org.apache.axis.description.ElementDesc elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("driver");
+        elemField.setXmlName(new javax.xml.namespace.QName("", "driver"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "boolean"));
+        elemField.setNillable(false);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("email");
         elemField.setXmlName(new javax.xml.namespace.QName("", "email"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
@@ -308,6 +386,14 @@ public class User  implements java.io.Serializable {
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
         elemField.setMinOccurs(0);
         elemField.setNillable(false);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("preferredLocations");
+        elemField.setXmlName(new javax.xml.namespace.QName("", "preferredLocations"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://services.com/", "location"));
+        elemField.setMinOccurs(0);
+        elemField.setNillable(true);
+        elemField.setMaxOccursUnbounded(true);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("star");
