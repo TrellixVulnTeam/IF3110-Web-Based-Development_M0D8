@@ -37,7 +37,9 @@ public class UserServiceImpl implements UserService {
 				return new User();
 			} else {
 				rs.next();
-				return new User(rs);
+				User user = new User(rs);
+				loadPreferredLocations(user);
+				return user;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
