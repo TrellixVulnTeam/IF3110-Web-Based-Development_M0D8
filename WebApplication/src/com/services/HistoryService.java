@@ -8,8 +8,9 @@
 package com.services;
 
 public interface HistoryService extends java.rmi.Remote {
-    public boolean hideHistoryAsCustomer(int arg0) throws java.rmi.RemoteException;
-    public com.services.History[] getHistoryAsDriver(int arg0) throws java.rmi.RemoteException;
     public com.services.History[] getHistoryAsCustomer(int arg0) throws java.rmi.RemoteException;
+    public com.services.History[] getHistoryAsDriver(int arg0) throws java.rmi.RemoteException;
     public boolean hideHistoryAsDriver(int arg0) throws java.rmi.RemoteException;
+    public boolean hideHistoryAsCustomer(int arg0) throws java.rmi.RemoteException;
+    public boolean createHistory(com.services.History arg0) throws java.rmi.RemoteException;
 }
