@@ -1,11 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <% 
+String pickup;
+String dest;
+String pref;
 if (request.getMethod().equals("POST")) {
-	String pickup = request.getParameter("pickup");
-	String dest = request.getParameter("dest"); %>
-	<%= request.getParameterMap().keySet().size() %>
-<%
+	pickup = request.getParameter("pickup");
+	dest = request.getParameter("dest");
+	pref = "";
+	if (request.getParameter("pref") != null) {
+		pref = request.getParameter("pref");
+	}
 }
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -43,6 +48,14 @@ if (request.getMethod().equals("POST")) {
     <p class="header-pref">PREFERRED DRIVERS:</p>
 
     <table>
+      <% if (pref != null) { %>
+      	<div class="nothing-driver">Nothing to display &#128514;</div>
+      <% } else { %>
+      	<form action="Completeorder.jsp?id_active=<%= request.getParameter("id_active") %>" method="POST">
+      		<tr>
+      			<td rowspan="3"><img src='.$row['img_path'].' class="square-image"></td>
+      	</form>
+      <% } %>
 
       <?php
         if ($preferredDriver == NULL) { // empty preferred driver
