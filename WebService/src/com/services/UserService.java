@@ -20,6 +20,12 @@ public interface UserService {
 	public User getUser(int id);
 	
 	/*
+		Mengeluarkan user yang memiliki username yang sama dengan parameter
+	*/
+	@WebMethod
+	public User getPreferredDriver(String username, String pickup, String dest);
+	
+	/*
 	 * Mendapatkan preferred location dari database dan mengeluarkannya.
 	 */
 	@WebMethod

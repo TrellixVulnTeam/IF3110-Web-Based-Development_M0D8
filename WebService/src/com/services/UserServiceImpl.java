@@ -62,6 +62,51 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
+	public User getPreferredDriver(String username, String pickup, String dest) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			// Setting up
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			// Open connection
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gaussianlord_main", "root", "");
+
+			ps = conn.prepareStatement("SELECT * FROM user NATURAL JOIN preferredlocation WHERE username=? AND (location=? OR location=?) ");
+			ps.setString(1, username);
+			ps.setString(2, pickup);
+			ps.setString(3, dest);
+
+			// Execute query
+			rs = ps.executeQuery();
+			if (!rs.isBeforeFirst()) { // rs is empty
+				return new User();
+			} else {
+				rs.next();
+				return new User(rs);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+				if (ps != null) {
+					ps.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return new User();
+	}
+	
+	@Override
 	public ArrayList<Location> loadPreferredLocations(User user) {
 		int id = user.getId();
 		Connection conn = null;
