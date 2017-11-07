@@ -27,7 +27,7 @@ com.services.User userNavbar = navbarProxy.getUser(idNavbar);
 		<%= userNavbar.getUsername() %>
         </b> !</span><br>
     
-        <form id="loqout" action="LoqoutServlet" method="POST">
+        <form id="loqout" action="LogoutServlet" method="POST">
         	<%
         		String token = "";
         		Cookie[] cookies = request.getCookies();

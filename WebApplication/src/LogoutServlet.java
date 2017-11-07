@@ -60,7 +60,7 @@ public class LogoutServlet extends HttpServlet {
 		    	}
 		    }
 		}
-		
+		response.sendRedirect("http://localhost:9000/WebApplication/Login.jsp");
 	}
 
 	/**
