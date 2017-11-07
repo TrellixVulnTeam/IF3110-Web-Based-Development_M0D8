@@ -32,7 +32,7 @@ public class Hideorder extends HttpServlet {
 		com.services.HistoryServiceProxy proxy = new com.services.HistoryServiceProxy();
 		proxy.setEndpoint("http://localhost:8000/WebService/History");
 		proxy.hideHistoryAsCustomer(ido);
-		response.sendRedirect("http://localhost:9000/WebApplication/Historydriver.jsp?id_active=" + idStr);
+		response.sendRedirect("http://localhost:9000/WebApplication/Historyorder.jsp?id_active=" + idStr);
 	}
 
 	/**
