@@ -2,36 +2,12 @@
 
 Melakukan *upgrade* Website ojek online sederhana pada Tugas 1 dengan mengaplikasikan **arsitektur web service REST dan SOAP**.
 
-**Luangkan waktu untuk membaca spek ini sampai selesai. Kerjakan hal yang perlu saja.**
-
-### Tujuan Pembuatan Tugas
-
-Diharapkan dengan tugas ini anda dapat mengerti:
-* Produce dan Consume REST API
-* Mengimplementasikan service Single Sign-On (SSO) sederhana
-* Produce dan Consume Web Services dengan protokol SOAP
-* Membuat web application dengan menggunakan JSP yang akan memanggil web services dengan SOAP (dengan JAX-WS) dan REST (dengan Servlet).
-
-### Petunjuk Pengerjaan
 ## Anggota Tim
 
-Setiap kelompok beranggotakan **3 orang dari kelas yang sama**. Jika jumlah mahasiswa dalam satu kelas modulo 3 menghasilkan 1, maka hanya 1 kelompok terdiri dari 4 mahasiswa. Jika jumlah mahasiswa modulo 3 menghasilkan 2, maka ada dua kelompok yang beranggotakan 4 orang. Anggota kelompok harus berbeda dengan tugas 1.
-
-## Petunjuk Pengerjaan
-
-1. Buatlah organisasi pada gitlab dengan format "IF3110-2017-KXX-nama kelompok", dengan XX adalah nomor kelas.
-2. Tambahkan anggota tim pada organisasi anda.
-3. Fork pada repository ini dengan organisasi yang telah dibuat.
-4. Ubah hak akses repository hasil Fork anda menjadi **private**.
-5. [DELIVERABLE] Buat tugas sesuai spesifikasi dan silakan commit pada repository anda (hasil fork). Lakukan berberapa commit dengan pesan yang bermakna, contoh: `add register form`, `fix logout bug`, jangan seperti `final`, `benerin dikit`. Disarankan untuk tidak melakukan commit dengan perubahan yang besar karena akan mempengaruhi penilaian (contoh: hanya melakukan satu commit kemudian dikumpulkan). Sebaiknya commit dilakukan setiap ada penambahan fitur. **Commit dari setiap anggota tim akan mempengaruhi penilaian individu.** Jadi, setiap anggota tim harus melakukan sejumlah commit yang berpengaruh terhadap proses pembuatan aplikasi.
-6. Hapus bagian yang tidak perlu dari *readme* ini.
-7. [DELIVERABLE] Berikan penjelasan mengenai hal di bawah ini pada bagian **Penjelasan** dari *readme* repository git Anda:
-    - Basis data dari sistem yang Anda buat.
-    - Konsep *shared session* dengan menggunakan REST.
-    - Pembangkitan token dan expire time pada sistem yang anda buat.
-    - Kelebihan dan kelemahan dari arsitektur aplikasi tugas ini, dibandingkan dengan aplikasi monolitik (login, CRUD DB, dll jadi dalam satu aplikasi)
-8. Pada *readme* terdapat penjelasan mengenai pembagian tugas masing-masing anggota (lihat formatnya pada bagian **pembagian tugas**).
-9. Merge request dari repository anda ke repository ini dengan format **Nama kelompok** - **NIM terkecil** - **Nama Lengkap dengan NIM terkecil** sebelum **8 November 2017 23.59**.
+Kelompok GaussianLord terdiri dari seorang **dewa matematika** dan dua orang **manusia biasa** secara berurutan yaitu: 
+1. Dewita Sonya Tarabunga - 13515021
+2. Albertus Djauhari - 13515054
+3. Erick Wijaya - 13515057
 
 ### Arsitektur Umum Server
 ![Gambar Arsitektur Umum](arsitektur_umum.png)
@@ -42,11 +18,9 @@ Tugas 2 ini terdiri dari berberapa komponen yang harus dibuat:
 * `Identity service`: dipanggil oleh aplikasi untuk menerima email (sebagai username) dan password pengguna, dan menghasilkan *access token*. Identity Service juga dipanggil oleh *ojek online web service* untuk melakukan validasi terhadap *access token* yang sedang dipegang oleh *web app*. Service ini dibuat menggunakan REST. Namun, selain menghandle request secara REST biasa, Identity Service juga harus bisa **menerima SOAP request dan mengembalikan SOAP response** (contoh SOAP request dan response dapat dilihat pada [link berikut](https://www.tutorialspoint.com/soap/soap_examples.htm)). Identity service ini wajib dibuat dengan menggunakan **Java Servlet**.
 * `Database`: pisahkan basis data yang telah Anda buat pada tugas 1 menjadi basis data khusus manajemen *account* (menyimpan username, password, dkk) dan basis data ojek online tanpa manajemen *account*. Basis data *account* digunakan secara khusus oleh Identity Service. **Ojek Online Web Service tidak boleh secara langsung mengakses basis data account untuk melakukan validasi token** (harus melalui Identity Service).
 
-Perhatikan bahwa Anda tidak perlu menggunakan banyak mesin untuk membuat aplikasi ini. Contohnya, pada satu mesin anda bisa menggunakan port 8000 untuk JSP, port 8001 untuk identity service, dan port 8002 untuk ojek online web service.
-
 ### Deskripsi Tugas
 
-Anda diminta untuk membuat ojek online sederhana seperti tugas 1.  Kebutuhan fungsional dan non-fungsional tugas yang harus dibuat adalah sebagai berikut.
+Kebutuhan fungsional dan non-fungsional tugas yang dibuat adalah sebagai berikut.
 
 1. Halaman website yang memiliki tampilan serupa dengan tugas 1.
 2. Ojek Online web service dengan fungsi-fungsi sesuai kebutuhan sistem dalam mengakses data (kecuali login, register, dan logout).
@@ -97,42 +71,83 @@ Perhatikan pemanggilan pada contoh ini seperti melakukan remote procedure call.
 5. Untuk make an order, get history, dan lainnya kira-kira memiliki mekanisme yang sama dengan add preferred locations di atas.
 6. Silakan definisikan format object request dan response sesuai kebutuhan anda.
 
-#### Prosedur Demo
-Sebelum demo, asisten akan melakukan checkout ke hash commit terakhir yang dilakukan sebelum deadline. Hal ini digunakan untuk memastikan kode yang akan didemokan adalah kode yang terakhir disubmit sebelum deadline.
-
 #### Bonus
-Anda tidak dituntut untuk mengerjakan ini. Fokus terlebih dahulu menyelesaikan semua spesifikasi yang ada sebelum memikirkan bonus.
-- Mekanisme *auto-renew* access token yang tepat sehingga user tidak ter-logout secara paksa saat melakukan serangkaian aktivitas pada sistem dalam waktu yang cukup lama. Access token dapat di generate kembali ketika lifetime dari token tersebut habis. Cara implementasi dibebaskan.
+Mekanisme *auto-renew* access token yang tepat sehingga user tidak ter-logout secara paksa saat melakukan serangkaian aktivitas pada sistem dalam waktu yang cukup lama. Access token dapat di generate kembali ketika lifetime dari token tersebut habis. Cara implementasi dibebaskan.
 
 
 ### Penjelasan
-Berikan penjelasan mengenai konsep diatas.
+#### Deskripsi Singkat
+
+Pada tugas besar ini kelompok kami diminta untuk mengembangkan website ojek online pada tugas sebelumnya dengan menggunakan arsitektur web service 
+REST dan SOAP. Website ini menggunakan tampilan tugas pertama, namun semua proses backend diubah menjadi arsitektur tersebut. Project dibagi menjadi 
+tiga, yaitu WebApplication, WebService, dan IdentityService. WebApplication mengatur tampilan website layaknya seperti tugas pertama, tetapi semua kode php 
+diganti menjadi kode jsp. Selain itu akses basis data akun (Registrasi, Login, Loqout) dan data ojek online (History, Preferred Location, User) tidak 
+dilakukan secara langsung pada bagian ini. IdentityService berperan untuk memanage basis data akun dan membangkitkan/menghapus token. WebApplication 
+akan melakukan request ke IdentityService ketika melakukan registrasi/login/loqout. IdentityService akan menerima request dan akan menghasilkan response 
+dalam format JSON yang diterima WebApplication. 
+
+** TODO: lanjut jelasin SOAP **
+
+#### Basis Data
+
+Pada tugas ini digunakan dua basis data, yaitu basis data **GaussianLord_main** yang menyimpan data ojek online secara umum dan **GaussianLord_acc** yang secara khusus menyimpan data akun dan token. Berikut adalah skema basis data:
+
+**GaussianLord_main**
+
+![Basisdata1](_screenshot/basdat_main.png)
+
+**GaussianLord_acc**
+
+![Basisdata2](_screenshot/basdat_acc.png)
+
+#### Konsep <i>shared session</i> dengan menggunakan REST
+
+Pada sistem REST, server tidak menyimpan state dari session masing - masing client. Server hanya menyimpan data session
+dari client yang mengakses, namun tidak menyimpan state dari client tersebut. Untuk mengetahui state client, state harus 
+ditransfer oleh client menuju lokasi yang membutuhkan. Kondisi server yang stateless ini membuat server mampu memberikan
+layanan kepada client manapun pada setiap waktu.
+
+#### Token dan Expiry Time
+
+Pada sistem yang kami buat, token dan expire time dihasilkan saat pengguna berhasil login. Token dihasilkan secara random
+dan dipastikan bahwa setiap pengguna yang mengakses memiliki token yang berbeda. Setelah login, token dari pengguna
+akan  dicek setiap kali pengguna mengakses web. Jika saat pengecekan token pengguna masih valid, expire time
+dari pengguna akan diundur. Jika token pengguna sudah tidak valid (expired), pengguna akan langsung logout dan
+kembali ke halaman login.
+
+#### Kelebihan arsitektur Web service REST dan SOAP dengan aplikasi monolitik
+
+Implementasi dari setiap bagian program dapat dikerjakan secara terpisah. Implementasi yang terpisah ini juga 
+memudahkan proses debug program. Implementasi terpisah juga memperjelas pembagian kerja dari masing - masing anggota sehingga 
+dapat mengurangi jumlah konflik dalam pengerjaan sistem
+
+#### Kekurangan arsitektur Web service REST dan SOAP dengan aplikasi monolitik
+
+Setiap bagian dari program yang dibuat dapat saling bergantung satu - sama lain. Contohnya, web application akan bergantung pada jax-ws
+untuk menghubungi basis data. Hal ini dapat membuat proses pengerjaan program terhalang karena saling menunggu satu - sama lain.
+Implementasi terpisah ini juga menambah pekerjaan yaitu mengintegrasikan komponen - komponen sistem yang dibuat secara terpisah.
 
 ### Pembagian Tugas
-"Gaji buta dilarang dalam tugas ini. Bila tak mengerti, luangkan waktu belajar lebih banyak. Bila belum juga mengerti, belajarlah bersama-sama kelompokmu. Bila Anda sekelompok bingung, bertanyalah (bukan menyontek) ke teman seangkatanmu. Bila seangkatan bingung, bertanyalah pada asisten manapun."
 
-*Harap semua anggota kelompok mengerjakan SOAP dan REST API kedua-duanya*. Tuliskan pembagian tugas seperti berikut ini.
+**REST :**
+1. Generate token : 13515021
+2. Validasi token : 13515021
+3. Login : 13515057
+4. Loqout : 13515057
+5. Register : 13515054
 
-REST :
-1. Generate token : 1351xxxx
-2. Validasi token : 1351xxxx
-3. Fungsionalitas X : 1351xxxx
-4. ...
-
-SOAP :
+**SOAP :**
 1. Add Produce : 1351xxxx
 2. Fungsionalitas Y : 1351xxxx
-3. ...
 
-Web app (JSP) :
+**Web app (JSP) :**
 1. Halaman Login : 
 2. Halaman X :
-3. ...
 
 ## About
 
-Asisten IF3110 2017
+GaussianLord
 
-Ade | Johan | Kristianto | Micky | Michael | Rangga | Raudi | Robert | Sashi 
+Dewita | Bertus | Erick
 
 Dosen : Yudistira Dwi Wardhana | Riza Satria Perdana | Muhammad Zuhri Catur Candra
