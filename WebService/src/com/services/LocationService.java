@@ -19,5 +19,11 @@ public interface LocationService {
 	public ArrayList<Location> getLocation(int id);
 
 	@WebMethod
-	public boolean updateLocation(Location oldLoc, Location newLoc);
+	public boolean updateLocation(int id, Location oldLoc, Location newLoc);
+	
+	@WebMethod
+	public boolean deleteLocation(int id, Location loc);
+	
+	@WebMethod
+	public boolean insertLocation(int id, Location loc);
 }

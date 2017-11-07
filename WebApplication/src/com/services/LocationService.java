@@ -9,5 +9,7 @@ package com.services;
 
 public interface LocationService extends java.rmi.Remote {
     public com.services.ArrayList getLocation(int arg0) throws java.rmi.RemoteException;
-    public boolean updateLocation(com.services.Location arg0, com.services.Location arg1) throws java.rmi.RemoteException;
+    public boolean deleteLocation(int arg0, com.services.Location arg1) throws java.rmi.RemoteException;
+    public boolean insertLocation(int arg0, com.services.Location arg1) throws java.rmi.RemoteException;
+    public boolean updateLocation(int arg0, com.services.Location arg1, com.services.Location arg2) throws java.rmi.RemoteException;
 }

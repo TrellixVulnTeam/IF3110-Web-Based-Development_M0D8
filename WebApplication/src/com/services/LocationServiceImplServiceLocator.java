@@ -22,7 +22,7 @@ public class LocationServiceImplServiceLocator extends org.apache.axis.client.Se
     }
 
     // Use to get a proxy class for LocationServiceImplPort
-    private java.lang.String LocationServiceImplPort_address = "http://localhost:8001/WebService/Location";
+    private java.lang.String LocationServiceImplPort_address = "http://localhost:8000/WebService/Location";
 
     public java.lang.String getLocationServiceImplPortAddress() {
         return LocationServiceImplPort_address;

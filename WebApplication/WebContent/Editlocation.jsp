@@ -41,7 +41,7 @@
 		    				<td class="pencil-image"><a href="javascript:" id="<%= val %>" name="pencil" class="pencil" onclick="return editdata(this.id, this.name)"><img id="image<%= val %>" width="20px" height="20px" src="img/pencil.png"></a>
 		    					<center><a href="javascript:" id="save<%= val %>" name="<%= idStr %>" class="functionalSave"  onclick="return savedata(this.id, this.name)"><img id="imagefunc<%= val %>" width="20px" height="20px" src="img/save.png" style="display:none;"></a></center>
 		    					</td>
-		    				<td class="cancel-image"><a href="Delete.jsp?id_active=<%= idStr %>&loc=<%= val %>" class="confirmation" onclick="return confirm_delete()"><img src="img/cancel.png" width="20px" height="20px"></a></td>
+		    				<td class="cancel-image"><a href="DeleteLocation?id_active=<%= idStr %>&loc=<%= val %>" class="confirmation" onclick="return confirm_delete()"><img src="img/cancel.png" width="20px" height="20px"></a></td>
 		    				</tr>
 		    	<% 	} %>
 		    </table>
@@ -49,7 +49,7 @@
     		<div class="small-title">
         		<span>ADD NEW LOCATIONS:</span>
     		</div>
-    		<form method="POST" action="Editlocation.jsp?id_active=<%= request.getParameter("id_active") %>" onsubmit="return validateAddLocation()">
+    		<form method="POST" action="InsertLocation?id_active=<%= request.getParameter("id_active") %>" onsubmit="return validateAddLocation()">
     			<table width="550px">
     				<tr>
     					<td>

@@ -64,7 +64,7 @@ public class LocationServiceImpl implements LocationService {
 	}
 
 	@Override
-	public boolean updateLocation(Location oldLoc, Location newLoc) {
+	public boolean updateLocation(int id, Location oldLoc, Location newLoc) {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
@@ -74,12 +74,83 @@ public class LocationServiceImpl implements LocationService {
 			// Open connection
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gaussianlord_main", "root", "");
 
-			ps = conn.prepareStatement("UPDATE preferredlocation SET location=? WHERE location=?");
+			ps = conn.prepareStatement("UPDATE preferredlocation SET location=? WHERE location=? AND id=?");
 			ps.setString(1, newLoc.getLocation());
 			ps.setString(2, oldLoc.getLocation());
+			ps.setString(3,  String.valueOf(id));
 
 			// Execute query
-			ps.executeQuery();
+			ps.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+				if (ps != null) {
+					ps.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}	
+	}
+	
+	@Override
+	public boolean deleteLocation(int id, Location loc) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			// Setting up
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			// Open connection
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gaussianlord_main", "root", "");
+
+			ps = conn.prepareStatement("DELETE FROM preferredlocation WHERE id=? AND location=?");
+			ps.setString(1,  String.valueOf(id));
+			ps.setString(2,  loc.getLocation());
+
+			// Execute query
+			ps.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+				if (ps != null) {
+					ps.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}	
+	}
+	
+	@Override
+	public boolean insertLocation(int id, Location loc) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			// Setting up
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			// Open connection
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gaussianlord_main", "root", "");
+
+			ps = conn.prepareStatement("INSERT INTO preferredlocation (id, location) VALUES (?,?)");
+			ps.setString(1,  String.valueOf(id));
+			ps.setString(2,  loc.getLocation());
+
+			// Execute query
+			ps.executeUpdate();
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
