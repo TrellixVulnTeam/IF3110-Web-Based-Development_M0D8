@@ -58,12 +58,14 @@ com.services.User user = profileProxy.getUser(id);
 			<div id="preferred-header">
 				<div class="floating-box-left-1">
 					<span>PREFERRED LOCATIONS:</span>
+	<% if (user.getPreferredLocations() != null) { %>
 	<%  	for (int i = 0; i < user.getPreferredLocations().length; ++i) { %>
 				<div id="triangle"><ul><li><%= user.getPreferredLocations(i).getLocation() %>	
 	<%		}
 			for (int i = 0; i < user.getPreferredLocations().length; ++i) { %>
 				</li></ul></div>
 	<% 		} %>
+	<% } %>
 			</div>
 			<div class="floating-box-right-p">
 				<a href="Editlocation.jsp?id_active=<%= request.getParameter("id_active") %>">
