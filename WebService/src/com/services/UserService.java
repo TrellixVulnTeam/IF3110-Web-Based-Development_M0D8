@@ -28,4 +28,7 @@ public interface UserService {
 
 	@WebMethod
 	public boolean saveUser(User user);
+	
+	@WebMethod
+	public boolean createUser(User user);
 }

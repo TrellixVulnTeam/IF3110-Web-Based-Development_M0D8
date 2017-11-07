@@ -157,4 +157,58 @@ public class UserServiceImpl implements UserService {
 			}
 		}
 	}
+	
+	public boolean createUser(User user) {
+		
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			// Setting up
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			// Open connection
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gaussianlord_main", "root", "");
+
+			ps = conn.prepareStatement("insert into user(username, email, phone_num, img_path, fullname, is_driver, star, vote) "
+					+ "values(?,?,?,?,?,?,?,?)");
+			ps.setString(1, user.getUsername());
+			ps.setString(2, user.getEmail());
+			ps.setString(3, user.getPhoneNumber());
+			ps.setString(4, user.getImagePath());
+			ps.setString(5, user.getName());
+			ps.setBoolean(6, user.getDriver());
+			if (user.isDriver()) {
+				ps.setString(6, String.valueOf(1));	
+			} else {
+				ps.setString(6, String.valueOf(0));
+			}
+			ps.setString(7, String.valueOf(user.getStar()));
+			ps.setString(8, String.valueOf(user.getVote()));
+			
+
+
+			// Execute query
+			ps.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+				if (ps != null) {
+					ps.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
 }

@@ -30,7 +30,7 @@ public class User {
 		vote = 0;
 		preferredLocations = new ArrayList<Location>();
 	}
-
+	
 	public User(ResultSet rs) {
 		try {
 			id = rs.getInt("id");

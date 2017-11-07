@@ -50,16 +50,22 @@ public class UserServiceProxy implements com.services.UserService {
     return userService.loadPreferredLocations(arg0);
   }
   
-  public com.services.User getUser(int arg0) throws java.rmi.RemoteException{
-    if (userService == null)
-      _initUserServiceProxy();
-    return userService.getUser(arg0);
-  }
-  
   public boolean saveUser(com.services.User arg0) throws java.rmi.RemoteException{
     if (userService == null)
       _initUserServiceProxy();
     return userService.saveUser(arg0);
+  }
+  
+  public boolean createUser(com.services.User arg0) throws java.rmi.RemoteException{
+    if (userService == null)
+      _initUserServiceProxy();
+    return userService.createUser(arg0);
+  }
+  
+  public com.services.User getUser(int arg0) throws java.rmi.RemoteException{
+    if (userService == null)
+      _initUserServiceProxy();
+    return userService.getUser(arg0);
   }
   
   
