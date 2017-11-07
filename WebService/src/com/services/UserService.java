@@ -26,10 +26,16 @@ public interface UserService {
 	public User getUserByToken(String token);
 	
 	/*
-		Mengeluarkan user yang memiliki username yang sama dengan parameter
+		Mengeluarkan user yang memiliki username yang sama dengan parameter dan preferred location yang sesuai
 	*/
 	@WebMethod
 	public User getPreferredDriver(String username, String pickup, String dest);
+	
+	/*
+		Mengeluarkan user yang memiliki username yang sama dengan parameter dan preferred location yang sesuai
+	*/
+	@WebMethod
+	public User[] getDriver(String pickup, String dest);
 	
 	/*
 	 * Mendapatkan preferred location dari database dan mengeluarkannya.

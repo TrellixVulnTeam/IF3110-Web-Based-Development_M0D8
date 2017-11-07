@@ -117,7 +117,7 @@ public class UserServiceImpl implements UserService {
 			// Open connection
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gaussianlord_main", "root", "");
 
-			ps = conn.prepareStatement("SELECT * FROM user NATURAL JOIN preferredlocation WHERE username=? AND (location=? OR location=?) ");
+			ps = conn.prepareStatement("SELECT * FROM user NATURAL JOIN preferredlocation WHERE username=? AND is_driver=1 AND (location=? OR location=?) ");
 			ps.setString(1, username);
 			ps.setString(2, pickup);
 			ps.setString(3, dest);
@@ -148,6 +148,56 @@ public class UserServiceImpl implements UserService {
 			}
 		}
 		return new User();
+	}
+	
+	@Override
+	public User[] getDriver(String pickup, String dest) {
+		ArrayList<User> drivers = new ArrayList<User>();
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			// Setting up
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			// Open connection
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gaussianlord_main", "root", "");
+
+			ps = conn.prepareStatement("SELECT DISTINCT * FROM user NATURAL JOIN preferredlocation WHERE is_driver=1 AND (location=? OR location=?) ");
+			ps.setString(1, pickup);
+			ps.setString(2, dest);
+
+			// Execute query
+			rs = ps.executeQuery();
+			if (!rs.isBeforeFirst()) { // rs is empty
+				
+			} else {
+				rs.next();
+				while (!rs.isAfterLast()) {
+					User user = new User(rs);
+					drivers.add(user);
+					rs.next();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			drivers.clear();
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+				if (ps != null) {
+					ps.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return drivers.toArray(new User[drivers.size()]);
 	}
 	
 	@Override
