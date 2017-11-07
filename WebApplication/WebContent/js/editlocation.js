@@ -3,8 +3,6 @@ function editdata(clicked_id, clicked_name) {
     if (clicked_name == "pencil") {
         //Kalau belum ada pensil yang diklik sebelumnya
         if (isPencilAlreadyClicked.length == 0) {
-            document.getElementById(clicked_id).name = "save";
-            document.getElementById(clicked_id).className = "save";
             document.getElementById("data" +clicked_id).setAttribute("contenteditable", true);
             document.getElementById(clicked_id).style.display = "none";
             document.getElementById("imagefunc" + clicked_id).style.display = "block";
@@ -24,7 +22,7 @@ function savedata(clicked_id, clicked_name) {
     document.getElementById(id_hot).style.display = "block";
     document.getElementById("imagefunc" + id_hot).style.display = "none";
     var a = document.getElementById("data" + id_hot).innerHTML;
-    window.location.replace("edit.php?id_active=" + clicked_name + "&loc=" + id_hot + "&newloc=" + a);
+    window.location.replace("EditLocation?id_active=" + clicked_name + "&loc=" + id_hot + "&newloc=" + a);
 }
 function confirm_delete() {
   return confirm('Are you sure want to delete this location?');
