@@ -41,4 +41,10 @@ public interface HistoryService {
 	*/
 	@WebMethod
 	public boolean createHistory(History history);
+	
+	/*
+		Melakukan update rating dan vote pada driver setelah satu order
+	*/
+	@WebMethod
+	public boolean updateCustomer(int id, History history);
 }

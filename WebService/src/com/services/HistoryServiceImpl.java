@@ -228,4 +228,47 @@ public class HistoryServiceImpl implements HistoryService {
 			}
 		}
 	}
+	
+	@Override
+	public boolean updateCustomer(int id, History history) {
+
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			// Setting up
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			// Open connection
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gaussianlord_main", "root", "");
+			
+			String rating = String.valueOf(history.getRating());
+			
+
+			ps = conn.prepareStatement("UPDATE user SET star=((star*vote)+?)/(vote+1), vote=vote+1 WHERE id=?");
+			ps.setString(1, rating);
+			ps.setString(2, String.valueOf(id));
+
+			// Execute query
+			ps.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+				if (ps != null) {
+					ps.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }

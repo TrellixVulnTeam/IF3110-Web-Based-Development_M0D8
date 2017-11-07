@@ -45,6 +45,7 @@ public class Finishorder extends HttpServlet {
 		
 		com.services.HistoryServiceProxy proxy = new com.services.HistoryServiceProxy();
 		proxy.createHistory(history);
+		proxy.updateCustomer(Integer.parseInt(idd), history);
 		
 		response.sendRedirect("http://localhost:9000/WebApplication/Profile.jsp?id_active=" + idc);
 	}

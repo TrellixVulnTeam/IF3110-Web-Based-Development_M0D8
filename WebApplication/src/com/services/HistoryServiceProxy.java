@@ -74,5 +74,11 @@ public class HistoryServiceProxy implements com.services.HistoryService {
     return historyService.getHistoryAsCustomer(arg0);
   }
   
+  public boolean updateCustomer(int arg0, com.services.History arg1) throws java.rmi.RemoteException{
+    if (historyService == null)
+      _initHistoryServiceProxy();
+    return historyService.updateCustomer(arg0, arg1);
+  }
+  
   
 }
