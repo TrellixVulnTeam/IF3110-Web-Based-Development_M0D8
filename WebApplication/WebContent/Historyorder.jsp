@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-
-<jsp:useBean id="historyDriverProxy" scope="request" class="com.services.HistoryServiceProxy" />
-<jsp:useBean id="historyDriverProxyUser" scope="request" class="com.services.UserServiceProxy" />
+    
+<jsp:useBean id="historyOrderProxy" scope="request" class="com.services.HistoryServiceProxy" />
+<jsp:useBean id="historyOrderProxyUser" scope="request" class="com.services.UserServiceProxy" />
 <%
-	historyDriverProxy.setEndpoint("http://localhost:8000/WebService/History");
-	historyDriverProxyUser.setEndpoint("http://localhost:8000/WebService/User");
+	historyOrderProxy.setEndpoint("http://localhost:8000/WebService/History");
+	historyOrderProxyUser.setEndpoint("http://localhost:8000/WebService/User");
 	String idStr = request.getParameter("id_active");
 	int id = Integer.parseInt(idStr);
-	com.services.History[] hist = historyDriverProxy.getHistoryAsDriver(id);
+	com.services.History[] hist = historyOrderProxy.getHistoryAsCustomer(id);
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -20,7 +20,7 @@
   	<script src="js/hide.js"></script>
 </head>
 <body>
-  	<div id="navbar">
+	<div id="navbar">
     	<%@include file="Navbar.jsp" %>
     	<div class="after-box">
       		<div class="centered">
@@ -31,13 +31,14 @@
     	</div>
   	</div>
     <div class="floating-box-left-mo2">TRANSACTIONS HISTORY</div>
+    
     <div id="mini-navbar">
 	   	<table>
 	   		<tr>
-				<td class="mini-navbar" onclick="location.href='Historyorder.jsp?id_active=<%= request.getParameter("id_active") %>'">
+				<td class="selected-navbar" onclick="location.href='Historyorder.jsp?id_active=<%= request.getParameter("id_active") %>'">
 					<a href="Historyorder.jsp?id_active=<%= request.getParameter("id_active") %>">MY PREVIOUS ORDERS</a>
 				</td>
-	   			<td class="selected-navbar" onclick="location.href='Historydriver.jsp?id_active=<%= request.getParameter("id_active") %>'">
+	   			<td class="mini-navbar" onclick="location.href='Historydriver.jsp?id_active=<%= request.getParameter("id_active") %>'">
 	   				<a href="Historydriver.jsp?id_active=<%= request.getParameter("id_active") %>">DRIVER HISTORY</a>
 	   			</td>
 	   		</tr>
@@ -47,18 +48,18 @@
     
     <% if (hist != null && hist.length > 0) {
     		for (int i = 0; i < hist.length; ++i) {
-    			if (!hist[i].isHiddenDriver()) {
-    			int idc = hist[i].getIdCustomer();
-    			com.services.User cust = historyDriverProxyUser.getUser(idc);
+    			if (!hist[i].isHiddenCust()) {
     			int idd = hist[i].getIdDriver();
+    			com.services.User cust = historyOrderProxyUser.getUser(idd);
+    			int idc = hist[i].getIdCustomer();
     			int ido = hist[i].getId(); %>
     			<div class="history-list-item">
-    				<table width="670px">
+    				<table width="670px" id="tabel<%= ido %>">
     					<tr>
-    						<td rowspan="6" width="28"><img class="square-image" src="<%= cust.getImagePath() %>" alt="User Profile Picture"></td>
+    						<td rowspan="6" width="28"><img class="square-image" src="<%= cust.getImagePath() %>" alt="Driver Profile Picture"></td>
     						<td rowspan="6" class="horizontal-space" width="10px"></td>
     						<td colspan="2" class="history-date"><%= hist[i].getDate().toString() %></td>
-    						<td width="100" rowspan="2"><div class="hide-button"><a href="Hidedriver?id_active=<%= id %>&id_order=<%= ido %>" id="<%= ido %>" onclick="hidebutton(this.id)">HIDE</a></div></td>
+    						<td width="100" rowspan="2"><div class="hide-button"><a href="Hideorder?id_active=<%= id %>&id_order=<%= ido %>" id="<%= ido %>" onclick="hidebutton(this.id)">HIDE</a></div></td>
     					</tr>
     					<tr>
     						<td colspan="2" class="history-driver-name"><%= cust.getName() %></td>
@@ -67,10 +68,14 @@
     						<td colspan="2" class="history-route"><%= hist[i].getPickUp() %> - <%= hist[i].getDestination() %></td>
     					</tr>
     					<tr>
-    						<td colspan="2" class="history-rating">gave <font color="orange"><%= hist[i].getRating() %></font> stars for this order</td>
+    						<td colspan="2" class="history-rating">You rated <font color="orange">
+    							<% for (int j = 0; j < hist[i].getRating(); ++j) { %>
+    									&#9734;
+    							<%	} %>
+    						</font></td>
     					</tr>
     					<tr>
-    						<td colspan="2"> and left comment:</td>
+    						<td colspan="2">You commented:</td>
     					</tr>
     					<tr>
     						<td class="horizontal-space-small"></td>
@@ -83,5 +88,6 @@
     } else { %> 
     	<div class="nothing">Nothing to display &#128514;</div>;
     <% } %>
+    
 </body>
 </html>
