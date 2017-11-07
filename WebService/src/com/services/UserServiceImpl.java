@@ -17,7 +17,7 @@ import com.models.User;
 public class UserServiceImpl implements UserService {
 
 	@Override
-	public User getUserById(int id) {
+	public User getUser(int id) {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
 			} else {
 				rs.next();
 				int idActive = rs.getInt(1);
-				return getUserById(idActive);
+				return getUser(idActive);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

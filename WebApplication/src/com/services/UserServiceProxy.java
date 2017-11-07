@@ -50,16 +50,22 @@ public class UserServiceProxy implements com.services.UserService {
     return userService.loadPreferredLocations(arg0);
   }
   
+  public com.services.User getPreferredDriver(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2) throws java.rmi.RemoteException{
+    if (userService == null)
+      _initUserServiceProxy();
+    return userService.getPreferredDriver(arg0, arg1, arg2);
+  }
+  
   public boolean saveUser(com.services.User arg0) throws java.rmi.RemoteException{
     if (userService == null)
       _initUserServiceProxy();
     return userService.saveUser(arg0);
   }
   
-  public boolean createUser(com.services.User arg0) throws java.rmi.RemoteException{
+  public com.services.User getUser(int arg0) throws java.rmi.RemoteException{
     if (userService == null)
       _initUserServiceProxy();
-    return userService.createUser(arg0);
+    return userService.getUser(arg0);
   }
   
   public com.services.User getUserByToken(java.lang.String arg0) throws java.rmi.RemoteException{
@@ -68,16 +74,10 @@ public class UserServiceProxy implements com.services.UserService {
     return userService.getUserByToken(arg0);
   }
   
-  public com.services.User getUserById(int arg0) throws java.rmi.RemoteException{
+  public boolean createUser(com.services.User arg0) throws java.rmi.RemoteException{
     if (userService == null)
       _initUserServiceProxy();
-    return userService.getUserById(arg0);
-  }
-  
-  public com.services.User getPreferredDriver(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2) throws java.rmi.RemoteException{
-    if (userService == null)
-      _initUserServiceProxy();
-    return userService.getPreferredDriver(arg0, arg1, arg2);
+    return userService.createUser(arg0);
   }
   
   

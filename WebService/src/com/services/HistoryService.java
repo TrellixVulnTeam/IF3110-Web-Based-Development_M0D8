@@ -16,13 +16,13 @@ public interface HistoryService {
 		Mengeluarkan semua history dimana user dengan id id merupakan customer;
 	*/
 	@WebMethod
-	public ArrayList<History> getHistoryAsCustomer(int id);
+	public History[] getHistoryAsCustomer(int id);
 
 	/*
 		Mengeluarkan semua history dimana user dengan id id merupakan driver;
 	*/
 	@WebMethod
-	public ArrayList<History> getHistoryAsDriver(int id);
+	public History[] getHistoryAsDriver(int id);
 
 	/*
 		Menyembunyikan history sebagai driver

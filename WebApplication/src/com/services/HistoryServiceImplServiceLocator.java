@@ -22,7 +22,7 @@ public class HistoryServiceImplServiceLocator extends org.apache.axis.client.Ser
     }
 
     // Use to get a proxy class for HistoryServiceImplPort
-    private java.lang.String HistoryServiceImplPort_address = "http://localhost:8001/WebService/History";
+    private java.lang.String HistoryServiceImplPort_address = "http://localhost:8000/WebService/History";
 
     public java.lang.String getHistoryServiceImplPortAddress() {
         return HistoryServiceImplPort_address;

@@ -17,7 +17,7 @@ public interface UserService {
 		Mengeluarkan user yang memiliki id yang sama dengan parameter
 	*/
 	@WebMethod
-	public User getUserById(int id);
+	public User getUser(int id);
 	
 	/*
 		Mengeluarkan user yang memiliki token yang sama dengan parameter

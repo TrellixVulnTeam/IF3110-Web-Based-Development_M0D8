@@ -8,7 +8,7 @@ String idStr = request.getParameter("id_driver");
 String pickup = request.getParameter("pickup");
 String dest = request.getParameter("dest");
 int id = Integer.parseInt(idStr);
-com.services.User user = completeProxy.getUserById(id);
+com.services.User user = completeProxy.getUser(id);
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>

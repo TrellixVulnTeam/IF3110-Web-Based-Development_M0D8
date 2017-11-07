@@ -7,7 +7,7 @@
 profileProxy.setEndpoint("http://localhost:8000/WebService/User");
 String idStr = request.getParameter("id_active");
 int id = Integer.parseInt(idStr);
-com.services.User user = profileProxy.getUserById(id);
+com.services.User user = profileProxy.getUser(id);
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -58,12 +58,14 @@ com.services.User user = profileProxy.getUserById(id);
 			<div id="preferred-header">
 				<div class="floating-box-left-1">
 					<span>PREFERRED LOCATIONS:</span>
+	<% if (user.getPreferredLocations() != null) { %>
 	<%  	for (int i = 0; i < user.getPreferredLocations().length; ++i) { %>
 				<div id="triangle"><ul><li><%= user.getPreferredLocations(i).getLocation() %>	
 	<%		}
 			for (int i = 0; i < user.getPreferredLocations().length; ++i) { %>
 				</li></ul></div>
 	<% 		} %>
+	<% } %>
 			</div>
 			<div class="floating-box-right-p">
 				<a href="Editlocation.jsp?id_active=<%= request.getParameter("id_active") %>">
