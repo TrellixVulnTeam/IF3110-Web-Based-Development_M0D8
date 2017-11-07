@@ -123,10 +123,10 @@ public class RegisterServlet extends HttpServlet {
 				           0);
 				proxy.createUser(user);
 				if(temp) {
-					response.sendRedirect("http://localhost:9000/WebApplication/Profile.jsp");
+					response.sendRedirect("http://localhost:9000/WebApplication/Profile.jsp?id_active=" + );
 				}
 				else {
-					response.sendRedirect("http://localhost:9000/WebApplication/Order.jsp");
+					response.sendRedirect("http://localhost:9000/WebApplication/Order.jsp?id_active=" + );
 				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

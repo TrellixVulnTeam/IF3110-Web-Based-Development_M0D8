@@ -47,7 +47,6 @@
     
     <% if (hist != null && hist.length > 0) {
     		for (int i = 0; i < hist.length; ++i) {
-    			if (!hist[i].isHiddenDriver()) {
     			int idc = hist[i].getIdCustomer();
     			com.services.User cust = historyDriverProxyUser.getUser(idc);
     			int idd = hist[i].getIdDriver();
@@ -79,7 +78,7 @@
     					<tr><td class="vertical-space"></td></tr>
     				</table>
     			</div>
-    <%		}}
+    <%		}
     } else { %> 
     	<div class="nothing">Nothing to display &#128514;</div>;
     <% } %>
