@@ -28,7 +28,7 @@ public class HistoryServiceImpl implements HistoryService {
 			// Open connection
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gaussianlord_main", "root", "");
 
-			ps = conn.prepareStatement("SELECT * FROM orderhistory WHERE id_customer=?");
+			ps = conn.prepareStatement("SELECT * FROM orderhistory WHERE id_customer=? AND hidden_c=0");
 			ps.setString(1, String.valueOf(id));
 
 			// Execute query
@@ -77,7 +77,7 @@ public class HistoryServiceImpl implements HistoryService {
 			// Open connection
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gaussianlord_main", "root", "");
 
-			ps = conn.prepareStatement("SELECT * FROM orderhistory WHERE id_driver=?");
+			ps = conn.prepareStatement("SELECT * FROM orderhistory WHERE id_driver=? AND hidden_d=0");
 			ps.setString(1, String.valueOf(id));
 
 			// Execute query
@@ -124,9 +124,8 @@ public class HistoryServiceImpl implements HistoryService {
 			// Open connection
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gaussianlord_main", "root", "");
 
-			ps = conn.prepareStatement("UPDATE orderhistory SET hidden_d=? WHERE id_order=?");
-			ps.setString(1, "true");
-			ps.setString(2, String.valueOf(id));
+			ps = conn.prepareStatement("UPDATE orderhistory SET hidden_d=1 WHERE id_order=?");
+			ps.setString(1, String.valueOf(id));
 
 			// Execute query
 			ps.executeUpdate();
@@ -159,12 +158,11 @@ public class HistoryServiceImpl implements HistoryService {
 			// Open connection
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gaussianlord_main", "root", "");
 
-			ps = conn.prepareStatement("UPDATE orderhistory SET hidden_c=? WHERE id_order=?");
-			ps.setString(1, "true");
-			ps.setString(2, String.valueOf(id));
+			ps = conn.prepareStatement("UPDATE orderhistory SET hidden_c=1 WHERE id_order=?");
+			ps.setString(1, String.valueOf(id));
 
 			// Execute query
-			ps.executeQuery();
+			ps.executeUpdate();
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
