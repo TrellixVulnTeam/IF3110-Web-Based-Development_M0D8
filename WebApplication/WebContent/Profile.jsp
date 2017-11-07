@@ -7,7 +7,7 @@
 profileProxy.setEndpoint("http://localhost:8000/WebService/User");
 String idStr = request.getParameter("id_active");
 int id = Integer.parseInt(idStr);
-com.services.User user = profileProxy.getUser(id);
+com.services.User user = profileProxy.getUserById(id);
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -18,16 +18,16 @@ com.services.User user = profileProxy.getUser(id);
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	<div id="navbar">
-	  <%@include file="Navbar.jsp" %>
-	  <div class="after-box">
-	    <div class="centered">
-	      <a href="Order.jsp?id_active=<%= request.getParameter("id_active") %>" class="list-item-order">ORDER </a>
-	      <a href="Historyorder.jsp?id_active=<%= request.getParameter("id_active") %>" class="list-item-history">HISTORY </a>
-	      <a href="Profile.jsp?id_active=<%= request.getParameter("id_active") %>" class="active-profile">MY PROFILE</a>
-	    </div>
-	  </div>
-	</div>
+  	<div id="navbar">
+    	<%@include file="Navbar.jsp" %>
+    	<div class="after-box">
+      		<div class="centered">
+				<a href="Order.jsp" class="list-item-order">ORDER</a>
+	      		<a href="Historyorder.jsp" class="list-item-history">HISTORY</a>
+	      		<a href="Profile.jsp" class="active-profile">MY PROFILE</a>
+    		</div>
+    	</div>
+  	</div>
 	
 	<div id="profile-header">
 	  <div class="floating-box-left-p">

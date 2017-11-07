@@ -24,16 +24,20 @@
     <div id="mini-navbar">
 	   	<table>
 	   		<tr>
-				<td class="mini-navbar" onclick="location.href='Historyorder.jsp?id_active=<%= request.getParameter("id_active") %>'">
-					<a href="Historyorder.jsp?id_active=<%= request.getParameter("id_active") %>">MY PREVIOUS ORDERS</a>
+				<td class="mini-navbar" onclick="location.href='Historyorder.jsp'">
+					<a href="Historyorder.jsp">MY PREVIOUS ORDERS</a>
 				</td>
-	   			<td class="selected-navbar" onclick="location.href='Historydriver.jsp?id_active=<%= request.getParameter("id_active") %>'">
-	   				<a href="Historydriver.jsp?id_active=<%= request.getParameter("id_active") %>">DRIVER HISTORY</a>
+	   			<td class="selected-navbar" onclick="location.href='Historydriver.jsp'">
+	   				<a href="Historydriver.jsp">DRIVER HISTORY</a>
 	   			</td>
 	   		</tr>
 	   	</table>
     </div>
     <div class="empty-space"></div>
+    
+    <%
+    	
+    %>
     
     <?php
         require 'connection.php';
