@@ -63,12 +63,58 @@ if(getUserService10mtemp == null){
 break;
 case 13:
         gotMethod = true;
-        String arg0_1id=  request.getParameter("arg032");
-        int arg0_1idTemp  = Integer.parseInt(arg0_1id);
-        com.services.User getUser13mtemp = sampleUserServiceProxyid.getUser(arg0_1idTemp);
-if(getUser13mtemp == null){
+        String name_2id=  request.getParameter("name18");
+            java.lang.String name_2idTemp = null;
+        if(!name_2id.equals("")){
+         name_2idTemp  = name_2id;
+        }
+        String id_3id=  request.getParameter("id20");
+        int id_3idTemp  = Integer.parseInt(id_3id);
+        String username_4id=  request.getParameter("username22");
+            java.lang.String username_4idTemp = null;
+        if(!username_4id.equals("")){
+         username_4idTemp  = username_4id;
+        }
+        String star_5id=  request.getParameter("star24");
+        float star_5idTemp  = Float.parseFloat(star_5id);
+        String vote_6id=  request.getParameter("vote26");
+        int vote_6idTemp  = Integer.parseInt(vote_6id);
+        String imagePath_7id=  request.getParameter("imagePath28");
+            java.lang.String imagePath_7idTemp = null;
+        if(!imagePath_7id.equals("")){
+         imagePath_7idTemp  = imagePath_7id;
+        }
+        String email_8id=  request.getParameter("email30");
+            java.lang.String email_8idTemp = null;
+        if(!email_8id.equals("")){
+         email_8idTemp  = email_8id;
+        }
+        String phoneNumber_9id=  request.getParameter("phoneNumber32");
+            java.lang.String phoneNumber_9idTemp = null;
+        if(!phoneNumber_9id.equals("")){
+         phoneNumber_9idTemp  = phoneNumber_9id;
+        }
+        %>
+        <jsp:useBean id="com1services1User_1id" scope="session" class="com.services.User" />
+        <%
+        com1services1User_1id.setName(name_2idTemp);
+        com1services1User_1id.setId(id_3idTemp);
+        com1services1User_1id.setUsername(username_4idTemp);
+        com1services1User_1id.setStar(star_5idTemp);
+        com1services1User_1id.setVote(vote_6idTemp);
+        com1services1User_1id.setImagePath(imagePath_7idTemp);
+        com1services1User_1id.setEmail(email_8idTemp);
+        com1services1User_1id.setPhoneNumber(phoneNumber_9idTemp);
+        sampleUserServiceProxyid.loadPreferredLocations(com1services1User_1id);
+break;
+case 34:
+        gotMethod = true;
+        String arg0_10id=  request.getParameter("arg053");
+        int arg0_10idTemp  = Integer.parseInt(arg0_10id);
+        com.services.User getUser34mtemp = sampleUserServiceProxyid.getUser(arg0_10idTemp);
+if(getUser34mtemp == null){
 %>
-<%=getUser13mtemp %>
+<%=getUser34mtemp %>
 <%
 }else{
 %>
@@ -80,11 +126,11 @@ if(getUser13mtemp == null){
 <TD COLSPAN="2" ALIGN="LEFT">name:</TD>
 <TD>
 <%
-if(getUser13mtemp != null){
-java.lang.String typename16 = getUser13mtemp.getName();
-        String tempResultname16 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typename16));
+if(getUser34mtemp != null){
+java.lang.String typename37 = getUser34mtemp.getName();
+        String tempResultname37 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typename37));
         %>
-        <%= tempResultname16 %>
+        <%= tempResultname37 %>
         <%
 }%>
 </TD>
@@ -93,9 +139,9 @@ java.lang.String typename16 = getUser13mtemp.getName();
 <TD COLSPAN="2" ALIGN="LEFT">id:</TD>
 <TD>
 <%
-if(getUser13mtemp != null){
+if(getUser34mtemp != null){
 %>
-<%=getUser13mtemp.getId()
+<%=getUser34mtemp.getId()
 %><%}%>
 </TD>
 <TR>
@@ -103,11 +149,11 @@ if(getUser13mtemp != null){
 <TD COLSPAN="2" ALIGN="LEFT">username:</TD>
 <TD>
 <%
-if(getUser13mtemp != null){
-java.lang.String typeusername20 = getUser13mtemp.getUsername();
-        String tempResultusername20 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typeusername20));
+if(getUser34mtemp != null){
+java.lang.String typeusername41 = getUser34mtemp.getUsername();
+        String tempResultusername41 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typeusername41));
         %>
-        <%= tempResultusername20 %>
+        <%= tempResultusername41 %>
         <%
 }%>
 </TD>
@@ -116,9 +162,9 @@ java.lang.String typeusername20 = getUser13mtemp.getUsername();
 <TD COLSPAN="2" ALIGN="LEFT">star:</TD>
 <TD>
 <%
-if(getUser13mtemp != null){
+if(getUser34mtemp != null){
 %>
-<%=getUser13mtemp.getStar()
+<%=getUser34mtemp.getStar()
 %><%}%>
 </TD>
 <TR>
@@ -126,9 +172,9 @@ if(getUser13mtemp != null){
 <TD COLSPAN="2" ALIGN="LEFT">vote:</TD>
 <TD>
 <%
-if(getUser13mtemp != null){
+if(getUser34mtemp != null){
 %>
-<%=getUser13mtemp.getVote()
+<%=getUser34mtemp.getVote()
 %><%}%>
 </TD>
 <TR>
@@ -136,11 +182,11 @@ if(getUser13mtemp != null){
 <TD COLSPAN="2" ALIGN="LEFT">imagePath:</TD>
 <TD>
 <%
-if(getUser13mtemp != null){
-java.lang.String typeimagePath26 = getUser13mtemp.getImagePath();
-        String tempResultimagePath26 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typeimagePath26));
+if(getUser34mtemp != null){
+java.lang.String typeimagePath47 = getUser34mtemp.getImagePath();
+        String tempResultimagePath47 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typeimagePath47));
         %>
-        <%= tempResultimagePath26 %>
+        <%= tempResultimagePath47 %>
         <%
 }%>
 </TD>
@@ -149,11 +195,11 @@ java.lang.String typeimagePath26 = getUser13mtemp.getImagePath();
 <TD COLSPAN="2" ALIGN="LEFT">email:</TD>
 <TD>
 <%
-if(getUser13mtemp != null){
-java.lang.String typeemail28 = getUser13mtemp.getEmail();
-        String tempResultemail28 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typeemail28));
+if(getUser34mtemp != null){
+java.lang.String typeemail49 = getUser34mtemp.getEmail();
+        String tempResultemail49 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typeemail49));
         %>
-        <%= tempResultemail28 %>
+        <%= tempResultemail49 %>
         <%
 }%>
 </TD>
@@ -162,11 +208,11 @@ java.lang.String typeemail28 = getUser13mtemp.getEmail();
 <TD COLSPAN="2" ALIGN="LEFT">phoneNumber:</TD>
 <TD>
 <%
-if(getUser13mtemp != null){
-java.lang.String typephoneNumber30 = getUser13mtemp.getPhoneNumber();
-        String tempResultphoneNumber30 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typephoneNumber30));
+if(getUser34mtemp != null){
+java.lang.String typephoneNumber51 = getUser34mtemp.getPhoneNumber();
+        String tempResultphoneNumber51 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typephoneNumber51));
         %>
-        <%= tempResultphoneNumber30 %>
+        <%= tempResultphoneNumber51 %>
         <%
 }%>
 </TD>

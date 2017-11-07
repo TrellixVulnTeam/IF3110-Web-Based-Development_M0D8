@@ -10,14 +10,14 @@ import java.util.ArrayList;
 
 import javax.jws.WebService;
 
-import com.models.Location;
-import com.models.User;
+import com.models.History;
 
-@WebService(endpointInterface = "com.services.UserService")
-public class UserServiceImpl implements UserService {
+@WebService(endpointInterface = "com.services.HistoryService")
+public class HistoryServiceImpl implements HistoryService {
 
 	@Override
-	public User getUser(int id) {
+	public ArrayList<History> getHistoryAsCustomer(int id) {
+		ArrayList<History> ans = new ArrayList<History>();
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -28,21 +28,23 @@ public class UserServiceImpl implements UserService {
 			// Open connection
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gaussianlord_main", "root", "");
 
-			ps = conn.prepareStatement("SELECT * FROM user WHERE id=?");
+			ps = conn.prepareStatement("SELECT * FROM orderhistory WHERE id_customer=?");
 			ps.setString(1, String.valueOf(id));
 
 			// Execute query
 			rs = ps.executeQuery();
 			if (!rs.isBeforeFirst()) { // rs is empty
-				return new User();
+				
 			} else {
-				rs.next();
-				User user = new User(rs);
-				loadPreferredLocations(user);
-				return user;
+				while (!rs.isAfterLast()) {
+					rs.next();
+					History his = new History(rs);
+					ans.add(his);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			ans.clear();
 		} finally {
 			try {
 				if (conn != null) {
@@ -58,12 +60,12 @@ public class UserServiceImpl implements UserService {
 				e.printStackTrace();
 			}
 		}
-		return new User();
+		return ans;
 	}
-	
+
 	@Override
-	public ArrayList<Location> loadPreferredLocations(User user) {
-		int id = user.getId();
+	public ArrayList<History> getHistoryAsDriver(int id) {
+		ArrayList<History> ans = new ArrayList<History>();
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -74,20 +76,23 @@ public class UserServiceImpl implements UserService {
 			// Open connection
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gaussianlord_main", "root", "");
 
-			ps = conn.prepareStatement("SELECT * FROM preferredlocation WHERE id=?");
+			ps = conn.prepareStatement("SELECT * FROM orderhistory WHERE id_driver=?");
 			ps.setString(1, String.valueOf(id));
 
 			// Execute query
 			rs = ps.executeQuery();
 			if (!rs.isBeforeFirst()) { // rs is empty
-				return new ArrayList<Location>();
+				
 			} else {
-				rs.next();
-				user.loadPreferredLocations(rs);
-				return user.getPreferredLocations();
+				while (!rs.isAfterLast()) {
+					rs.next();
+					History his = new History(rs);
+					ans.add(his);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			ans.clear();
 		} finally {
 			try {
 				if (conn != null) {
@@ -103,15 +108,13 @@ public class UserServiceImpl implements UserService {
 				e.printStackTrace();
 			}
 		}
-		return new ArrayList<Location>();
+		return ans;
 	}
 
 	@Override
-	public boolean saveUser(User user) {
-		int id = user.getId();
+	public boolean hideHistoryAsDriver(int id) {
 		Connection conn = null;
 		PreparedStatement ps = null;
-		ResultSet rs = null;
 		try {
 			// Setting up
 			Class.forName("com.mysql.jdbc.Driver");
@@ -119,21 +122,9 @@ public class UserServiceImpl implements UserService {
 			// Open connection
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gaussianlord_main", "root", "");
 
-			ps = conn.prepareStatement("UPDATE user SET username=?, email=?, phone_num=?, img_path=?, fullname=?, is_driver=?, star=?, vote=? WHERE id=?");
-			ps.setString(1, user.getUsername());
-			ps.setString(2, user.getEmail());
-			ps.setString(3, user.getPhoneNumber());
-			ps.setString(4, user.getImagePath());
-			ps.setString(5, user.getName());
-			if (user.isDriver()) {
-				ps.setString(6, String.valueOf(1));	
-			} else {
-				ps.setString(6, String.valueOf(0));
-			}
-			ps.setString(7, String.valueOf(user.getStar()));
-			ps.setString(8, String.valueOf(user.getVote()));
-			ps.setString(9, String.valueOf(id));
-
+			ps = conn.prepareStatement("UPDATE orderhistory SET hidden_d=? WHERE id_order=?");
+			ps.setString(1, "true");
+			ps.setString(2, String.valueOf(id));
 
 			// Execute query
 			ps.executeUpdate();
@@ -149,8 +140,40 @@ public class UserServiceImpl implements UserService {
 				if (ps != null) {
 					ps.close();
 				}
-				if (rs != null) {
-					rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public boolean hideHistoryAsCustomer(int id) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			// Setting up
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			// Open connection
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gaussianlord_main", "root", "");
+
+			ps = conn.prepareStatement("UPDATE orderhistory SET hidden_c=? WHERE id_order=?");
+			ps.setString(1, "true");
+			ps.setString(2, String.valueOf(id));
+
+			// Execute query
+			ps.executeQuery();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+				if (ps != null) {
+					ps.close();
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();

@@ -7,25 +7,17 @@ import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 
 import com.models.Location;
-import com.models.User;
 
 @WebService
 @SOAPBinding(style = SOAPBinding.Style.RPC)
-public interface UserService {
+public interface LocationService {
 
 	/*
 		Mengeluarkan user yang memiliki id yang sama dengan parameter
 	*/
 	@WebMethod
-	public User getUser(int id);
-	
-	/*
-	 * Mendapatkan preferred location dari database dan mengeluarkannya.
-	 */
-	@WebMethod
-	public ArrayList<Location> loadPreferredLocations(User user);
-
+	public ArrayList<Location> getLocation(int id);
 
 	@WebMethod
-	public boolean saveUser(User user);
+	public boolean updateLocation(Location oldLoc, Location newLoc);
 }

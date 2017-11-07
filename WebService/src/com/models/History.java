@@ -1,6 +1,7 @@
 package com.models;
 
-import java.util.Date;
+import java.sql.ResultSet;
+import java.sql.Date;
 
 public class History {
 
@@ -12,8 +13,8 @@ public class History {
 	private Date date;
 	private String pickup;
 	private String dest;
-	private boolean isHiddenCust;
-	private boolean isHiddenDriver;
+	private boolean hiddenCust;
+	private boolean hiddenDriver;
 
 	public History() {
 		id = 0;
@@ -21,11 +22,38 @@ public class History {
 		idDriver = 0;
 		rating = 0;
 		feedback = "";
-		date = new Date();
+		date = new Date(0);
 		pickup = "";
 		dest = "";
-		isHiddenDriver = false;
-		isHiddenCust = false;
+		hiddenDriver = false;
+		hiddenCust = false;
+	}
+
+	public History(ResultSet rs) {
+		try {
+			id = rs.getInt("id_order");
+			idCustomer = rs.getInt("id_customer");
+			idDriver = rs.getInt("id_driver");
+			rating = rs.getInt("rating");
+			feedback = rs.getString("feedback");
+			date = rs.getDate("order_date");
+			pickup = rs.getString("pickup");
+			dest = rs.getString("dest");
+			hiddenCust = rs.getBoolean("hidden_c");
+			hiddenDriver = rs.getBoolean("hidden_d");
+		} catch (Exception e) {
+			e.printStackTrace();
+			id = 0;
+			idCustomer = 0;
+			idDriver = 0;
+			rating = 0;
+			feedback = "";
+			date = new Date(0);
+			pickup = "";
+			dest = "";
+			hiddenDriver = false;
+			hiddenCust = false;
+		}
 	}
 
 	public int getId() {
@@ -60,12 +88,20 @@ public class History {
 		return dest;
 	}
 
-	public boolean isHiddenByCustomer() {
-		return isHiddenCust;
+	public boolean isHiddenCust() {
+		return hiddenCust;
+	}
+	
+	public boolean getHiddenCust() {
+		return hiddenCust;
 	}
 
-	public boolean isHiddenByDriver() {
-		return isHiddenDriver;
+	public boolean isHiddenDriver() {
+		return hiddenDriver;
+	}
+	
+	public boolean getHiddenDriver() {
+		return hiddenDriver;
 	}
 
 	public void setId(int id) {
@@ -100,11 +136,11 @@ public class History {
 		this.dest = dest;
 	}
 
-	public void setHiddenCustomer() {
-		isHiddenCust = true;
+	public void setHiddenCust(boolean hiddenCust) {
+		this.hiddenCust = hiddenCust;
 	}
 
-	public void setHiddenDriver() {
-		isHiddenDriver = true;
+	public void setHiddenDriver(boolean hiddenDriver) {
+		this.hiddenDriver = hiddenDriver;
 	}
 }
