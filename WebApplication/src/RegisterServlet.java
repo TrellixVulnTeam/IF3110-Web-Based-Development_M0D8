@@ -1,38 +1,31 @@
 
 
 import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class RegisterServlet
  */
-@WebServlet("/LoginServlet")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/RegisterServlet")
+public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
+    public RegisterServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -43,7 +36,6 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		doPost(request, response);
 	}
 
 	/**
@@ -51,9 +43,15 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String username = request.getParameter("username");
+		String fullName = request.getParameter("fullname");
+		String userName = request.getParameter("username");
+		String email = request.getParameter("email");
 		String pass = request.getParameter("pass");
-		String body = "{\"username\": \"" + username + "\",\"pass\": \"" + pass + "\"}";
+		String cpass = request.getParameter("cpass");
+		String phone = request.getParameter("phone");
+		String isDriver = request.getParameter("is-driver");
+		
+		String bodyIdentity = "{\"username\": \"" + userName + "\",\"pass\": \"" + pass + "\",\"isdriver\":\"" + isDriver + "\"}";
 		
 		URL url = new URL ("http://localhost:7000/IdentityService/Login");
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -61,10 +59,10 @@ public class LoginServlet extends HttpServlet {
 		connection.setDoOutput(true);
 		connection.setRequestMethod("POST");
 		connection.setRequestProperty("Content-Type", "appplication/json; charset=utf-8");
-		connection.setRequestProperty("Content-Length", "" +  Integer.toString(body.getBytes().length));
+		connection.setRequestProperty("Content-Length", "" +  Integer.toString(bodyIdentity.getBytes().length));
 	    
 		DataOutputStream out = new DataOutputStream(connection.getOutputStream ());
-	    out.writeBytes(body);
+	    out.writeBytes(bodyIdentity);
 	    out.flush();
 	    out.close();
 		
@@ -88,30 +86,7 @@ public class LoginServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	    
-	    response.setContentType("text/html");
-		PrintWriter output = response.getWriter();
-	    
-	    if(status.equals("ok")) {
-	    	try {
-				String token = resultJSON.getString("token");
-				output.print("<p>" + token + "</p>");
-				String expiryTime = resultJSON.getString("expiry");
-				output.print("<p>" + expiryTime + "</p>");
-				Cookie cookieToken = new Cookie("token", token);
-				Cookie cookieExpiry = new Cookie("expiry", expiryTime);
-				response.addCookie(cookieToken);
-				response.addCookie(cookieExpiry);
-	    	} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	    }
-	    else {
-	    	output.print("fail");
-	    }
-	    
-		
+
 	}
 
 }
