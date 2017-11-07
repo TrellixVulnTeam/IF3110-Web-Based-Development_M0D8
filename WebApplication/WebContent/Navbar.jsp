@@ -14,7 +14,6 @@ com.services.User userNavbar = navbarProxy.getUser(idNavbar);
 	<link rel="icon" href="img/icon.png" />
     <title>Ojek Panas</title>
     <link rel="stylesheet" href="css/style.css">
-<title>Insert title here</title>
 </head>
 <body>
 	<div class="floating-box-left">
@@ -28,7 +27,20 @@ com.services.User userNavbar = navbarProxy.getUser(idNavbar);
 		<%= userNavbar.getUsername() %>
         </b> !</span><br>
     
-        <form id="loqout" action="Loqout.jsp" method="POST">
+        <form id="loqout" action="LoqoutServlet" method="POST">
+        	<%
+        		String token = "";
+        		Cookie[] cookies = request.getCookies();
+        		if (cookies != null) {
+        			for (int i = 0; i < cookies.length; ++i) {
+        				if (cookies[i].getName().equals("token")) {
+        					token = cookies[i].getValue();
+        					break;
+        				}
+        			}
+        		}
+        	%>
+        	<input type="hidden" name="token" value="<%= token %>">
             <a href="javascript:;" onclick="document.getElementById('loqout').submit();">Logout</a>
         </form>
     </div>
