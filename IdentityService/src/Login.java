@@ -6,12 +6,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Servlet implementation class Login
@@ -48,6 +52,19 @@ public class Login extends HttpServlet {
 	 */
 	@SuppressWarnings("resource")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String text = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+		
+		JSONObject body;
+		String username = "";
+		String password = "";
+		try {
+			body = new JSONObject(text);
+			username = body.get("username").toString();
+			password = body.getString("pass").toString();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -60,19 +77,19 @@ public class Login extends HttpServlet {
 			
 			// Execute SQL query
 			pstmt = conn.prepareStatement("SELECT * FROM account WHERE username=? AND password=?");
-			pstmt.setString(1, request.getParameter("username"));
-			pstmt.setString(2, request.getParameter("pass"));
+			pstmt.setString(1, username);
+			pstmt.setString(2, password);
+			
 			
 			rs = pstmt.executeQuery();
+			
+			response.setContentType("text/html");
+			PrintWriter out = response.getWriter();
+			String toReturn = "";
+			
 			if (!rs.isBeforeFirst()) {    
-				response.setContentType("text/html");
-				PrintWriter out = response.getWriter();
-				
-				out.print("<html><body>");
-				out.print("<h2>Username Password is not valid</h2>");
-				out.print(request.getParameter("username"));
-				out.print(request.getParameter("pass"));
-				out.print("</body></html>");
+				toReturn = "{\"status\":\"fail\"}";
+				out.print(toReturn);
 			} else {
 				rs.next();
 				int id = rs.getInt(1);
@@ -88,7 +105,8 @@ public class Login extends HttpServlet {
 				
 				// Generate current datetime for expiry time
 				java.util.Date date = new Date();
-				Object datetime = new java.sql.Timestamp(date.getTime() + 60000 * 2);
+				Long expiryTime = new Long(date.getTime() + 60000 * 2);
+				Object datetime = new java.sql.Timestamp(expiryTime);
 				
 				// Update DB
 				pstmt = conn.prepareStatement("INSERT INTO account_token(id,token,expiry_time) VALUES(?,?,?)");
@@ -97,15 +115,10 @@ public class Login extends HttpServlet {
 				pstmt.setObject(3, datetime);
 				pstmt.executeUpdate();
 				
-				response.setContentType("text/html");
-				PrintWriter out = response.getWriter();
+				String expiryTimeString = expiryTime.toString(); 
 				
-				out.print("<html><body>");
-				out.print("<h2>Valid</h2>");
-				out.print(request.getParameter("username"));
-				out.print(request.getParameter("pass"));
-				out.print("<h2>" + id + " " + token.get() + "</h2>");
-				out.print("</body></html>");
+				toReturn = "{\"status\":\"ok\",\"token\":\"" + token.get() + "\",\"expiry\":\"" + expiryTimeString + "\"}";
+				out.print(toReturn);
 			}
 	        
 	    } catch(SQLException se) {

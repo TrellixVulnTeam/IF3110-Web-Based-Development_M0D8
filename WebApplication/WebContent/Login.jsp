@@ -12,7 +12,7 @@
 	<div id="signin-rectangle">
 		<div class="title"><span>LOGIN</span></div>
 		<script src="js/validation.js"></script>
-		<form method="POST" action="http://localhost:7000/IdentityService/Login" name="myForm" onsubmit="return validateForm()">
+		<form method="POST" action="http://localhost:9000/WebApplication/LoginServlet" name="myForm" onsubmit="return validateForm()">
 			<table class="form" border="0">
 				<tr>
 					<td><label class="label" for="username">Username</label></td>
