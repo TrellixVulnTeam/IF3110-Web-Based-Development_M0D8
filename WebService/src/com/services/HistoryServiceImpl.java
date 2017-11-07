@@ -16,7 +16,7 @@ import com.models.History;
 public class HistoryServiceImpl implements HistoryService {
 
 	@Override
-	public ArrayList<History> getHistoryAsCustomer(int id) {
+	public History[] getHistoryAsCustomer(int id) {
 		ArrayList<History> ans = new ArrayList<History>();
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -36,10 +36,11 @@ public class HistoryServiceImpl implements HistoryService {
 			if (!rs.isBeforeFirst()) { // rs is empty
 				
 			} else {
+				rs.next();
 				while (!rs.isAfterLast()) {
-					rs.next();
 					History his = new History(rs);
 					ans.add(his);
+					rs.next();
 				}
 			}
 		} catch (Exception e) {
@@ -60,11 +61,11 @@ public class HistoryServiceImpl implements HistoryService {
 				e.printStackTrace();
 			}
 		}
-		return ans;
+		return ans.toArray(new History[ans.size()]);
 	}
 
 	@Override
-	public ArrayList<History> getHistoryAsDriver(int id) {
+	public History[] getHistoryAsDriver(int id) {
 		ArrayList<History> ans = new ArrayList<History>();
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -84,10 +85,11 @@ public class HistoryServiceImpl implements HistoryService {
 			if (!rs.isBeforeFirst()) { // rs is empty
 				
 			} else {
+				rs.next();
 				while (!rs.isAfterLast()) {
-					rs.next();
 					History his = new History(rs);
 					ans.add(his);
+					rs.next();
 				}
 			}
 		} catch (Exception e) {
@@ -108,7 +110,7 @@ public class HistoryServiceImpl implements HistoryService {
 				e.printStackTrace();
 			}
 		}
-		return ans;
+		return ans.toArray(new History[ans.size()]);
 	}
 
 	@Override
