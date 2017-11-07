@@ -14,13 +14,13 @@
         }
     }
     if (token == ""){
-    	response.sendRedirect("Login.jsp");
+    	// response.sendRedirect("Login.jsp");
     }
 %>
         	
 <%
 	navbarProxy.setEndpoint("http://localhost:8000/WebService/User");
-	com.services.User userNavbar = navbarProxy.getUserByToken(token);
+	com.services.User userNavbar = navbarProxy.getUserById(1);
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -43,7 +43,7 @@
         </b> !</span><br>
     
         <form id="loqout" action="LogoutServlet" method="POST">
-        	<input type="hidden" name="token" value="<%= token %>">
+        	<input type="hidden" name="token" value="<%= token %>"> <!-- TODO: Access token from identityserv -->
             <a href="javascript:;" onclick="document.getElementById('loqout').submit();">Logout</a>
         </form>
     </div>

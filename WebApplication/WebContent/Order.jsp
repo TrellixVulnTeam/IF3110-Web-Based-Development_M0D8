@@ -10,16 +10,16 @@
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	<div id="navbar">
-	    <%@include file="Navbar.jsp" %>
-	    <div class="after-box">
-	      <div class="centered">
-	        <a href="Order.jsp?id_active=<%= request.getParameter("id_active") %>" class="active-order">ORDER</a>
-	        <a href="Historyorder.jsp?id_active=<%= request.getParameter("id_active") %>" class="list-item-history">HISTORY</a>
-	        <a href="Profile.jsp?id_active=<%= request.getParameter("id_active") %>" class="list-item-profile">MY PROFILE</a>
-	      </div>
-	    </div>
-    </div>
+  	<div id="navbar">
+    	<%@include file="Navbar.jsp" %>
+    	<div class="after-box">
+      		<div class="centered">
+				<a href="Order.jsp" class="active-order">ORDER</a>
+	      		<a href="Historyorder.jsp" class="list-item-history">HISTORY</a>
+	      		<a href="Profile.jsp" class="list-item-profile">MY PROFILE</a>
+    		</div>
+    	</div>
+  	</div>
     
     <div id="order-header">
 	  <div class="floating-box-left-mo">MAKE AN ORDER</div>
