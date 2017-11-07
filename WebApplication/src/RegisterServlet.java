@@ -53,11 +53,6 @@ public class RegisterServlet extends HttpServlet {
 		String phone = request.getParameter("phone");
 		String isDriver = request.getParameter("is-driver");
 		
-		response.setContentType("text/html");
-		PrintWriter output = response.getWriter();
-		
-		output.print(isDriver);
-		
 		String bodyIdentity = "{\"username\": \"" + userName + "\",\"pass\": \"" + pass + "\",\"email\":\"" + email + "\"}";
 		
 		URL url = new URL ("http://localhost:7000/IdentityService/Register");
@@ -98,9 +93,9 @@ public class RegisterServlet extends HttpServlet {
 	    if(status.equals("ok")) {
 	    	try {
 				String token = resultJSON.getString("token");
-				output.print("<p>" + token + "</p>");
+				
 				String expiryTime = resultJSON.getString("expiry");
-				output.print("<p>" + expiryTime + "</p>");
+				
 				Cookie cookieToken = new Cookie("token", token);
 				Cookie cookieExpiry = new Cookie("expiry", expiryTime);
 				response.addCookie(cookieToken);
@@ -127,13 +122,19 @@ public class RegisterServlet extends HttpServlet {
 				           userName,
 				           0);
 				proxy.createUser(user);
-	    	} catch (Exception e) {
+				if(temp) {
+					response.sendRedirect("http://localhost:9000/WebApplication/Profile.jsp");
+				}
+				else {
+					response.sendRedirect("http://localhost:9000/WebApplication/Order.jsp");
+				}
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	    }
 	    else {
-	    	output.print("fail");
+	    	response.sendRedirect("http://localhost:9000/WebbApplication/Register.jsp");
 	    }
 	    
 	}
