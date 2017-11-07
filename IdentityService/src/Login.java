@@ -83,7 +83,7 @@ public class Login extends HttpServlet {
 			
 			rs = pstmt.executeQuery();
 			
-			response.setContentType("text/html");
+			response.setContentType("application/json");
 			PrintWriter out = response.getWriter();
 			String toReturn = "";
 			

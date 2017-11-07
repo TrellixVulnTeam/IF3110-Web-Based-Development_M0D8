@@ -12,7 +12,7 @@
 <body>
 	<div id="signup-rectangle">
 		<div class="title"><span>SIGN UP</span></div>
-		<form name="register-form" action="http://localhost:7000/IdentityService/Register" method="POST" onsubmit="return validateForm1()">
+		<form name="register-form" action="http://localhost:9000/WebApplication/RegisterServlet" method="POST" onsubmit="return validateForm1()">
 			<table class="form" border="0">
 				<tr>
 					<td><label class="label" for="fullname">Your Name</label></td>

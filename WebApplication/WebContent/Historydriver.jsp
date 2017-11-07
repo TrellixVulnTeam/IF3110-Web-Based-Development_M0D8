@@ -24,9 +24,9 @@
     	<%@include file="Navbar.jsp" %>
     	<div class="after-box">
       		<div class="centered">
-				<a href="Order.jsp?id_active=<%= request.getParameter("id_active") %>" class="active-order">ORDER</a>
-	      		<a href="Historyorder.jsp?id_active=<%= request.getParameter("id_active") %>" class="list-item-history">HISTORY</a>
-	      		<a href="Profile.jsp?id_active=<%= request.getParameter("id_active") %>" class="list-item-profile">MY PROFILE</a>
+				<a href="Order.jsp" class="active-order">ORDER</a>
+	      		<a href="Historyorder.jsp" class="list-item-history">HISTORY</a>
+	      		<a href="Profile.jsp" class="list-item-profile">MY PROFILE</a>
     		</div>
     	</div>
   	</div>
@@ -34,11 +34,11 @@
     <div id="mini-navbar">
 	   	<table>
 	   		<tr>
-				<td class="mini-navbar" onclick="location.href='Historyorder.jsp?id_active=<%= request.getParameter("id_active") %>'">
-					<a href="Historyorder.jsp?id_active=<%= request.getParameter("id_active") %>">MY PREVIOUS ORDERS</a>
+				<td class="mini-navbar" onclick="location.href='Historyorder.jsp'">
+					<a href="Historyorder.jsp">MY PREVIOUS ORDERS</a>
 				</td>
-	   			<td class="selected-navbar" onclick="location.href='Historydriver.jsp?id_active=<%= request.getParameter("id_active") %>'">
-	   				<a href="Historydriver.jsp?id_active=<%= request.getParameter("id_active") %>">DRIVER HISTORY</a>
+	   			<td class="selected-navbar" onclick="location.href='Historydriver.jsp'">
+	   				<a href="Historydriver.jsp">DRIVER HISTORY</a>
 	   			</td>
 	   		</tr>
 	   	</table>

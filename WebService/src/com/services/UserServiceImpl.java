@@ -62,6 +62,50 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
+	public User getUserByToken(String token) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			// Setting up
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			// Open connection
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gaussianlord_acc", "root", "");
+
+			ps = conn.prepareStatement("SELECT id FROM account_token WHERE token=?");
+			ps.setString(1, token);
+
+			// Execute query
+			rs = ps.executeQuery();
+			if (!rs.isBeforeFirst()) { // rs is empty
+				return new User();
+			} else {
+				rs.next();
+				int idActive = rs.getInt(1);
+				return getUser(idActive);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+				if (ps != null) {
+					ps.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return new User();
+	}
+	
+	@Override
 	public User getPreferredDriver(String username, String pickup, String dest) {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -201,5 +245,56 @@ public class UserServiceImpl implements UserService {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public boolean createUser(User user) {
+		
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			// Setting up
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			// Open connection
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gaussianlord_main", "root", "");
+
+			ps = conn.prepareStatement("insert into user(username, email, phone_num, fullname, is_driver) "
+					+ "values(?,?,?,?,?)");
+			ps.setString(1, user.getUsername());
+			ps.setString(2, user.getEmail());
+			ps.setString(3, user.getPhoneNumber());
+			ps.setString(4, user.getName());
+			
+			if (user.isDriver()) {
+				ps.setString(5, String.valueOf(1));	
+			} else {
+				ps.setString(5, String.valueOf(0));
+			}
+			
+
+
+			// Execute query
+			ps.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+				if (ps != null) {
+					ps.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
 	}
 }

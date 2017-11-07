@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+
+<%
+	// Cookie[] cookies = request.getCookies();
+	// if (cookies != null){
+	// 	response.sendRedirect("Order.jsp");
+	// }
+%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,7 +20,7 @@
 	<div id="signin-rectangle">
 		<div class="title"><span>LOGIN</span></div>
 		<script src="js/validation.js"></script>
-		<form method="POST" action="http://localhost:9000/WebApplication/LoginServlet" name="myForm" onsubmit="return validateForm()">
+		<form method="POST" action="LoginServlet" name="myForm" onsubmit="return validateForm()">
 			<table class="form" border="0">
 				<tr>
 					<td><label class="label" for="username">Username</label></td>

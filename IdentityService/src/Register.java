@@ -8,7 +8,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.*; 
+
+import org.json.JSONObject;
+
+import java.sql.*;
+import java.util.Date;
+import java.util.stream.Collectors; 
 
 /**
  * Servlet implementation class Register
@@ -38,57 +43,96 @@ public class Register extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String fullName = request.getParameter("fullname");
-		String userName = request.getParameter("username");
-		String email = request.getParameter("email");
-		String pass = request.getParameter("pass");
-		String cpass = request.getParameter("cpass");
-		String phone = request.getParameter("phone");
+		String text = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
 		
-		response.setContentType("text/html");
+		JSONObject body;
+		String username = "";
+		String password = "";
+		String email = "";
+		try {
+			body = new JSONObject(text);
+			username = body.get("username").toString();
+			password = body.getString("pass").toString();
+			email = body.getString("email").toString();
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		
+		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();
-		
-		out.print(fullName);
-		out.print(userName);
-		out.print(email);
-		out.print(pass);
-		out.print(cpass);
-		out.print(phone);
-		
+
+		String toReturn = "";
 		try {
 			Class.forName(DB.JDBC_DRIVER);  
 			Connection con=DriverManager.getConnection(  
 					DB.DB_URL, DB.USER, DB.PASS);
 			
-			PreparedStatement checkIfExist = con.prepareStatement(
+			PreparedStatement ps = con.prepareStatement(
 					"select * from account where username=? or email=?");
-			checkIfExist.setString(1, userName);
-			checkIfExist.setString(2, email);
+			ps.setString(1, username);
+			ps.setString(2, email);
 			
-			ResultSet rs = checkIfExist.executeQuery();
+			ResultSet rs = ps.executeQuery();
 			if (!rs.isBeforeFirst()) {
 				//hasil kosong
-				PreparedStatement ps=con.prepareStatement(  
+				//Masukkan data ke database
+				ps=con.prepareStatement(  
 						"insert into account(username, password, email) values(?,?,?)");
 				
-				ps.setString(1, userName);
-				ps.setString(2, pass);
+				ps.setString(1, username);
+				ps.setString(2, password);
 				ps.setString(3, email);
 				
 				int i = ps.executeUpdate();
 				
-				out.print("<html><body>");
-				out.print("<h2>Register is success</h2>");
-				out.print("</body></html>");
+				//Cari data pengguna untuk mendapatkan id
+				ps = con.prepareStatement(
+						"select * from account where username=?");
+				ps.setString(1,  username);
+				
+				rs = ps.executeQuery();
+				rs.next();
+				int id = rs.getInt(1);
+				
+				Token token = new Token();
+				do {
+					token.generate();
+					ps = con.prepareStatement("SELECT * FROM account_token WHERE token=?");
+					ps.setString(1, token.get());
+					rs = ps.executeQuery();
+				} while (rs.isBeforeFirst());
+				
+				// Generate current datetime for expiry time
+				java.util.Date date = new Date();
+				Long expiryTime = new Long(date.getTime() + 60000 * 2);
+				Object datetime = new java.sql.Timestamp(expiryTime);
+				
+				// Update DB
+				ps = con.prepareStatement("INSERT INTO account_token(id,token,expiry_time) VALUES(?,?,?)");
+				ps.setInt(1, id);
+				ps.setString(2, token.get());
+				ps.setObject(3, datetime);
+				ps.executeUpdate();
+
+				String expiryTimeString = expiryTime.toString(); 
+				
+				toReturn = "{\"status\":\"ok\",\"token\":\"" + token.get() + "\",\"expiry\":\"" + expiryTimeString + "\"}";
+				out.print(toReturn);
 			}
 			else {
-				out.print("<html><body>");
-				out.print("<h2>Register is failed</h2>");
-				out.print("</body></html>");
+				toReturn = "{\"status\":\"fail\"}";
+				out.print(toReturn);
 			} 
 		}
 		catch(Exception e) {
 			System.out.println(e);
+			toReturn = "{\"status\":\"exception\"}";
 		}
 		
 		

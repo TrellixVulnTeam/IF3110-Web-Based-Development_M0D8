@@ -20,6 +20,12 @@ public interface UserService {
 	public User getUser(int id);
 	
 	/*
+		Mengeluarkan user yang memiliki token yang sama dengan parameter
+	*/
+	@WebMethod
+	public User getUserByToken(String token);
+	
+	/*
 		Mengeluarkan user yang memiliki username yang sama dengan parameter
 	*/
 	@WebMethod
@@ -34,4 +40,7 @@ public interface UserService {
 
 	@WebMethod
 	public boolean saveUser(User user);
+	
+	@WebMethod
+	public boolean createUser(User user);
 }

@@ -18,16 +18,16 @@ com.services.User user = profileProxy.getUser(id);
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	<div id="navbar">
-	  <%@include file="Navbar.jsp" %>
-	  <div class="after-box">
-	    <div class="centered">
-	      <a href="Order.jsp?id_active=<%= request.getParameter("id_active") %>" class="list-item-order">ORDER </a>
-	      <a href="Historyorder.jsp?id_active=<%= request.getParameter("id_active") %>" class="list-item-history">HISTORY </a>
-	      <a href="Profile.jsp?id_active=<%= request.getParameter("id_active") %>" class="active-profile">MY PROFILE</a>
-	    </div>
-	  </div>
-	</div>
+  	<div id="navbar">
+    	<%@include file="Navbar.jsp" %>
+    	<div class="after-box">
+      		<div class="centered">
+				<a href="Order.jsp" class="list-item-order">ORDER</a>
+	      		<a href="Historyorder.jsp" class="list-item-history">HISTORY</a>
+	      		<a href="Profile.jsp" class="active-profile">MY PROFILE</a>
+    		</div>
+    	</div>
+  	</div>
 	
 	<div id="profile-header">
 	  <div class="floating-box-left-p">

@@ -4,11 +4,13 @@ import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -51,9 +53,14 @@ public class RegisterServlet extends HttpServlet {
 		String phone = request.getParameter("phone");
 		String isDriver = request.getParameter("is-driver");
 		
-		String bodyIdentity = "{\"username\": \"" + userName + "\",\"pass\": \"" + pass + "\",\"isdriver\":\"" + isDriver + "\"}";
+		response.setContentType("text/html");
+		PrintWriter output = response.getWriter();
 		
-		URL url = new URL ("http://localhost:7000/IdentityService/Login");
+		output.print(isDriver);
+		
+		String bodyIdentity = "{\"username\": \"" + userName + "\",\"pass\": \"" + pass + "\",\"email\":\"" + email + "\"}";
+		
+		URL url = new URL ("http://localhost:7000/IdentityService/Register");
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		
 		connection.setDoOutput(true);
@@ -86,7 +93,49 @@ public class RegisterServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+	    
+	    
+	    if(status.equals("ok")) {
+	    	try {
+				String token = resultJSON.getString("token");
+				output.print("<p>" + token + "</p>");
+				String expiryTime = resultJSON.getString("expiry");
+				output.print("<p>" + expiryTime + "</p>");
+				Cookie cookieToken = new Cookie("token", token);
+				Cookie cookieExpiry = new Cookie("expiry", expiryTime);
+				response.addCookie(cookieToken);
+				response.addCookie(cookieExpiry);
+				boolean temp;
+				if(isDriver==null) {
+					temp = false;
+				}
+				else {
+					temp = true;
+				}
+				
+				com.services.UserServiceProxy proxy = new com.services.UserServiceProxy();
+				
+				com.services.User user = new com.services.User(
+				           temp,
+				           email,
+				           0,
+				           null,
+				           fullName,
+				           phone,
+				           null,
+				           0f,
+				           userName,
+				           0);
+				proxy.createUser(user);
+	    	} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    }
+	    else {
+	    	output.print("fail");
+	    }
+	    
 	}
 
 }
