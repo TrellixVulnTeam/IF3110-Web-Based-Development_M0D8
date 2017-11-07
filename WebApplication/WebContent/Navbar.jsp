@@ -1,11 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <jsp:useBean id="navbarProxy" scope="request" class="com.services.UserServiceProxy" />
+
 <%
-navbarProxy.setEndpoint("http://localhost:8000/WebService/User");
-String idStrNavbar = request.getParameter("id_active");
-int idNavbar = Integer.parseInt(idStrNavbar);
-com.services.User userNavbar = navbarProxy.getUser(idNavbar);
+    String token = "";
+    Cookie[] cookies = request.getCookies();
+    if (cookies != null) {
+        for (int i = 0; i < cookies.length; ++i) {
+        	if (cookies[i].getName().equals("token")) {
+        		token = cookies[i].getValue();
+        			break;
+        	}
+        }
+    }
+    if (token == ""){
+    	response.sendRedirect("Login.jsp");
+    }
+%>
+        	
+<%
+	navbarProxy.setEndpoint("http://localhost:8000/WebService/User");
+	com.services.User userNavbar = navbarProxy.getUserByToken(token);
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -14,7 +29,6 @@ com.services.User userNavbar = navbarProxy.getUser(idNavbar);
 	<link rel="icon" href="img/icon.png" />
     <title>Ojek Panas</title>
     <link rel="stylesheet" href="css/style.css">
-<title>Insert title here</title>
 </head>
 <body>
 	<div class="floating-box-left">
@@ -28,7 +42,8 @@ com.services.User userNavbar = navbarProxy.getUser(idNavbar);
 		<%= userNavbar.getUsername() %>
         </b> !</span><br>
     
-        <form id="loqout" action="Loqout.jsp" method="POST">
+        <form id="loqout" action="LogoutServlet" method="POST">
+        	<input type="hidden" name="token" value="<%= token %>">
             <a href="javascript:;" onclick="document.getElementById('loqout').submit();">Logout</a>
         </form>
     </div>

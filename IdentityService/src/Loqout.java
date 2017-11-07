@@ -1,14 +1,18 @@
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.JSONObject;
 
 /**
  * Servlet implementation class Loqout
@@ -37,10 +41,15 @@ public class Loqout extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String text = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		JSONObject body = null;
+		String token = "";
 		try {
+			body = new JSONObject(text);
+			token = body.getString("token");
 			Class.forName(DB.JDBC_DRIVER);
 			
 			// Open connection
@@ -48,10 +57,13 @@ public class Loqout extends HttpServlet {
 			
 			// Execute SQL query
 			pstmt = conn.prepareStatement("DELETE FROM account_token WHERE token=?");
-			pstmt.setString(1, "avHUwsLLtyhlVFiXcGwO"/*request.getParameter("token")*/);
+			pstmt.setString(1, token);
 			pstmt.executeUpdate();
 			
-	        
+			response.setContentType("application/json; charset=utf-8");
+			PrintWriter out = response.getWriter();
+			String toReturn = "{\"status\":\"success\"}";
+			out.print(toReturn);
 	    } catch(SQLException se) {
 	        se.printStackTrace();
 	    } catch(Exception e) {

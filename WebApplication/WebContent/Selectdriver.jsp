@@ -1,15 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
+<jsp:useBean id="selectDriverProxy" scope="request" class="com.services.UserServiceProxy" />
 <% 
+selectDriverProxy.setEndpoint("http://localhost:8000/WebService/User");
 String pickup;
 String dest;
 String pref;
+com.services.User driver;
 if (request.getMethod().equals("POST")) {
 	pickup = request.getParameter("pickup");
 	dest = request.getParameter("dest");
 	pref = "";
 	if (request.getParameter("pref") != null) {
 		pref = request.getParameter("pref");
+		selectDriverProxy.getPreferredDriver(pref, pickup, dest);
 	}
 }
 %>
@@ -47,68 +52,40 @@ if (request.getMethod().equals("POST")) {
   <div class="preferred-driver">
     <p class="header-pref">PREFERRED DRIVERS:</p>
 
-    <table>
-      <% if (pref != null) { %>
+      <% if (driver == null || driver.getId() == 0 || !driver.isDriver()) { %>
       	<div class="nothing-driver">Nothing to display &#128514;</div>
       <% } else { %>
-      	<form action="Completeorder.jsp?id_active=<%= request.getParameter("id_active") %>" method="POST">
-      		<tr>
-      			<td rowspan="3"><img src='.$row['img_path'].' class="square-image"></td>
-      	</form>
+      	<form action="completeorder.php?id_active='.$_GET['id_active'].'" method="POST">
+      	<table>
+          <tr>
+            <td rowspan="3"><img src="<%= driver.getImagePath() %>" class="square-image"></td>
+            <td class="horizontal-space"></td>
+            <td class="horizontal-space"></td>
+            <td class="data-name"><%= driver.getName() %></td>
+          </tr>
+          <tr>
+            <td class="horizontal-space"></td>
+            <td class="horizontal-space"></td>
+            <td class="data-rating"><font color="orange">&#9734; <%= driver.getStar() %></font> (<%= driver.getVote() %> votes)</td>
+          </tr>
+          <tr>
+            <td class="horizontal-space"></td>
+            <td class="horizontal-space"></td>
+
+            <input type="hidden" name="id_driver" value="<%= driver.getId() %>">
+            <input type="hidden" name="pickup" value="<%= pickup %>">
+            <input type="hidden" name="dest" value="<%= dest %>">
+
+            <td>
+              <br>
+              <button class="button-choose">I CHOOSE YOU!</button>
+            </td>
+          </tr>
+          </table>
+        </form>
       <% } %>
 
-      <?php
-        if ($preferredDriver == NULL) { // empty preferred driver
-            echo '<div class="nothing-driver">Nothing to display &#128514;</div>';
-          } else {
-            $driverExist = false;
-            foreach ($preferredDriver as $name) {
-              $query = "SELECT * from (SELECT id, fullname, img_path, star, vote from user WHERE is_driver=1 AND fullname='$name' AND id!='$_GET[id_active]') as U INNER JOIN preferredlocation as P ON U.id=P.id AND (P.location='$pickup' OR P.location='$dest') GROUP BY U.id";
-              $result = $mysqli->query($query);
-
-              if ($result->num_rows > 0) {
-                $driverExist = true;
-                $loopResult = "";
-                while($row = $result->fetch_array()) {
-                  $loopResult .=
-                 '<form action="completeorder.php?id_active='.$_GET['id_active'].'" method="POST">
-                    <tr>
-                      <td rowspan="3"><img src='.$row['img_path'].' class="square-image"></td>
-                      <td class="horizontal-space"></td>
-                      <td class="horizontal-space"></td>
-                      <td class="data-name">'.$row['fullname'].'</td>
-                    </tr>
-                    <tr>
-                      <td class="horizontal-space"></td>
-                      <td class="horizontal-space"></td>
-                      <td class="data-rating"><font color="orange">&#9734; '.$row['star'].'</font> ('.$row['vote'].' votes)</td>
-                    </tr>
-                    <tr>
-                      <td class="horizontal-space"></td>
-                      <td class="horizontal-space"></td>
-
-                      <input type="hidden" name="id_driver" value='.$row['id'].'>
-                      <input type="hidden" name="pickup" value='.$pickup.'>
-                      <input type="hidden" name="dest" value='.$dest.'>
-
-                      <td>
-                        <br>
-                        <button class="button-choose">I CHOOSE YOU!</div>
-                      </td>
-                    </tr>
-                  </form>';
-                }
-                echo $loopResult;
-              }
-            }
-            if (!$driverExist){
-              echo '<div class="nothing-driver">Nothing to display &#128514;</div>';
-            }
-          }
-        ?>
-
-    </table>
-  </div>
+        </div>
   <br><br>
   <!-- OTHER DRIVERS -->
   <div class="preferred-driver">

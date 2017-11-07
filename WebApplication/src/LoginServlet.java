@@ -90,7 +90,7 @@ public class LoginServlet extends HttpServlet {
 		}
 	    
 	    response.setContentType("text/html");
-		PrintWriter output = response.getWriter();
+	    PrintWriter output = response.getWriter();
 	    
 	    if(status.equals("ok")) {
 	    	try {
@@ -106,11 +106,13 @@ public class LoginServlet extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+	    	
 	    }
 	    else {
-	    	output.print("fail");
+	    	
 	    }
 	    
+	    // response.sendRedirect("Login.jsp");
 		
 	}
 

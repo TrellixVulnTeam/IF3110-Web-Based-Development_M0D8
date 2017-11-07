@@ -17,7 +17,7 @@ import com.models.User;
 public class UserServiceImpl implements UserService {
 
 	@Override
-	public User getUser(int id) {
+	public User getUserById(int id) {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -40,6 +40,95 @@ public class UserServiceImpl implements UserService {
 				User user = new User(rs);
 				loadPreferredLocations(user);
 				return user;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+				if (ps != null) {
+					ps.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return new User();
+	}
+	
+	@Override
+	public User getUserByToken(String token) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			// Setting up
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			// Open connection
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gaussianlord_acc", "root", "");
+
+			ps = conn.prepareStatement("SELECT id FROM account_token WHERE token=?");
+			ps.setString(1, token);
+
+			// Execute query
+			rs = ps.executeQuery();
+			if (!rs.isBeforeFirst()) { // rs is empty
+				return new User();
+			} else {
+				rs.next();
+				int idActive = rs.getInt(1);
+				return getUserById(idActive);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+				if (ps != null) {
+					ps.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return new User();
+	}
+	
+	@Override
+	public User getPreferredDriver(String username, String pickup, String dest) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			// Setting up
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			// Open connection
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gaussianlord_main", "root", "");
+
+			ps = conn.prepareStatement("SELECT * FROM user NATURAL JOIN preferredlocation WHERE username=? AND (location=? OR location=?) ");
+			ps.setString(1, username);
+			ps.setString(2, pickup);
+			ps.setString(3, dest);
+
+			// Execute query
+			rs = ps.executeQuery();
+			if (!rs.isBeforeFirst()) { // rs is empty
+				return new User();
+			} else {
+				rs.next();
+				return new User(rs);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -170,21 +259,18 @@ public class UserServiceImpl implements UserService {
 			// Open connection
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gaussianlord_main", "root", "");
 
-			ps = conn.prepareStatement("insert into user(username, email, phone_num, img_path, fullname, is_driver, star, vote) "
-					+ "values(?,?,?,?,?,?,?,?)");
+			ps = conn.prepareStatement("insert into user(username, email, phone_num, fullname, is_driver) "
+					+ "values(?,?,?,?,?)");
 			ps.setString(1, user.getUsername());
 			ps.setString(2, user.getEmail());
 			ps.setString(3, user.getPhoneNumber());
-			ps.setString(4, user.getImagePath());
-			ps.setString(5, user.getName());
-			ps.setBoolean(6, user.getDriver());
+			ps.setString(4, user.getName());
+			
 			if (user.isDriver()) {
-				ps.setString(6, String.valueOf(1));	
+				ps.setString(5, String.valueOf(1));	
 			} else {
-				ps.setString(6, String.valueOf(0));
+				ps.setString(5, String.valueOf(0));
 			}
-			ps.setString(7, String.valueOf(user.getStar()));
-			ps.setString(8, String.valueOf(user.getVote()));
 			
 
 
