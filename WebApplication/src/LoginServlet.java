@@ -94,8 +94,10 @@ public class LoginServlet extends HttpServlet {
 	    if(status.equals("ok")) {
 	    	try {
 				String token = resultJSON.getString("token");
-				output.print(token);
-			} catch (Exception e) {
+				output.print("<p>" + token + "</p>");
+				String expiryTime = resultJSON.getString("expiry");
+				output.print("<p>" + expiryTime + "</p>");
+	    	} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

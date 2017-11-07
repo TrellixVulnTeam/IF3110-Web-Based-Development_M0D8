@@ -105,7 +105,8 @@ public class Login extends HttpServlet {
 				
 				// Generate current datetime for expiry time
 				java.util.Date date = new Date();
-				Object datetime = new java.sql.Timestamp(date.getTime() + 60000 * 2);
+				Long expiryTime = new Long(date.getTime() + 60000 * 2);
+				Object datetime = new java.sql.Timestamp(expiryTime);
 				
 				// Update DB
 				pstmt = conn.prepareStatement("INSERT INTO account_token(id,token,expiry_time) VALUES(?,?,?)");
@@ -114,7 +115,9 @@ public class Login extends HttpServlet {
 				pstmt.setObject(3, datetime);
 				pstmt.executeUpdate();
 				
-				toReturn = "{\"status\":\"ok\",\"token\":\"" + token.get() + "\"}";
+				String expiryTimeString = expiryTime.toString(); 
+				
+				toReturn = "{\"status\":\"ok\",\"token\":\"" + token.get() + "\",\"expiry\":\"" + expiryTimeString + "\"}";
 				out.print(toReturn);
 			}
 	        
