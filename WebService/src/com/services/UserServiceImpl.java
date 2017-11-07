@@ -17,7 +17,7 @@ import com.models.User;
 public class UserServiceImpl implements UserService {
 
 	@Override
-	public User getUser(int id) {
+	public User getUserById(int id) {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -40,6 +40,50 @@ public class UserServiceImpl implements UserService {
 				User user = new User(rs);
 				loadPreferredLocations(user);
 				return user;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+				if (ps != null) {
+					ps.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return new User();
+	}
+	
+	@Override
+	public User getUserByToken(String token) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			// Setting up
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			// Open connection
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gaussianlord_acc", "root", "");
+
+			ps = conn.prepareStatement("SELECT id FROM account_token WHERE token=?");
+			ps.setString(1, token);
+
+			// Execute query
+			rs = ps.executeQuery();
+			if (!rs.isBeforeFirst()) { // rs is empty
+				return new User();
+			} else {
+				rs.next();
+				int idActive = rs.getInt(1);
+				return getUserById(idActive);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

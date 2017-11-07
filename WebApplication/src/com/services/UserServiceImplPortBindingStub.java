@@ -16,7 +16,7 @@ public class UserServiceImplPortBindingStub extends org.apache.axis.client.Stub 
     static org.apache.axis.description.OperationDesc [] _operations;
 
     static {
-        _operations = new org.apache.axis.description.OperationDesc[3];
+        _operations = new org.apache.axis.description.OperationDesc[4];
         _initOperationDesc1();
     }
 
@@ -46,7 +46,7 @@ public class UserServiceImplPortBindingStub extends org.apache.axis.client.Stub 
         _operations[1] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
-        oper.setName("getUser");
+        oper.setName("getUserById");
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "arg0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"), int.class, false, false);
         oper.addParameter(param);
         oper.setReturnType(new javax.xml.namespace.QName("http://services.com/", "user"));
@@ -55,6 +55,17 @@ public class UserServiceImplPortBindingStub extends org.apache.axis.client.Stub 
         oper.setStyle(org.apache.axis.constants.Style.RPC);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         _operations[2] = oper;
+
+        oper = new org.apache.axis.description.OperationDesc();
+        oper.setName("getUserByToken");
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "arg0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+        oper.addParameter(param);
+        oper.setReturnType(new javax.xml.namespace.QName("http://services.com/", "user"));
+        oper.setReturnClass(com.services.User.class);
+        oper.setReturnQName(new javax.xml.namespace.QName("", "return"));
+        oper.setStyle(org.apache.axis.constants.Style.RPC);
+        oper.setUse(org.apache.axis.constants.Use.LITERAL);
+        _operations[3] = oper;
 
     }
 
@@ -256,7 +267,7 @@ public class UserServiceImplPortBindingStub extends org.apache.axis.client.Stub 
 }
     }
 
-    public com.services.User getUser(int arg0) throws java.rmi.RemoteException {
+    public com.services.User getUserById(int arg0) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -268,11 +279,45 @@ public class UserServiceImplPortBindingStub extends org.apache.axis.client.Stub 
         _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
         _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("http://services.com/", "getUser"));
+        _call.setOperationName(new javax.xml.namespace.QName("http://services.com/", "getUserById"));
 
         setRequestHeaders(_call);
         setAttachments(_call);
  try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {new java.lang.Integer(arg0)});
+
+        if (_resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)_resp;
+        }
+        else {
+            extractAttachments(_call);
+            try {
+                return (com.services.User) _resp;
+            } catch (java.lang.Exception _exception) {
+                return (com.services.User) org.apache.axis.utils.JavaUtils.convert(_resp, com.services.User.class);
+            }
+        }
+  } catch (org.apache.axis.AxisFault axisFaultException) {
+  throw axisFaultException;
+}
+    }
+
+    public com.services.User getUserByToken(java.lang.String arg0) throws java.rmi.RemoteException {
+        if (super.cachedEndpoint == null) {
+            throw new org.apache.axis.NoEndPointException();
+        }
+        org.apache.axis.client.Call _call = createCall();
+        _call.setOperation(_operations[3]);
+        _call.setUseSOAPAction(true);
+        _call.setSOAPActionURI("");
+        _call.setEncodingStyle(null);
+        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        _call.setOperationName(new javax.xml.namespace.QName("http://services.com/", "getUserByToken"));
+
+        setRequestHeaders(_call);
+        setAttachments(_call);
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {arg0});
 
         if (_resp instanceof java.rmi.RemoteException) {
             throw (java.rmi.RemoteException)_resp;
