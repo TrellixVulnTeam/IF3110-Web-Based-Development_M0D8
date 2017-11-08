@@ -52,7 +52,7 @@
 		    		<th>Location</th>
 		    		<th colspan="2">Actions</th>
 		    	</tr>
-		    	<%
+		    	<% if (user.getPreferredLocations() != null && user.getPreferredLocations().length > 0)
 		    		for (int i = 0; i < user.getPreferredLocations().length; ++i) { 
 		    			String val = user.getPreferredLocations(i).getLocation(); %>
 		    			<tr id="tabel<%= val %>">

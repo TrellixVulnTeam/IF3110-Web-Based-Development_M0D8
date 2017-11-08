@@ -69,7 +69,7 @@
     <% if (hist != null && hist.length > 0) {
     		for (int i = 0; i < hist.length; ++i) {
     			int idd = hist[i].getIdDriver();
-    			
+    		
     			com.services.User cust = null;
     			String redirect2 = "";
     			try{
