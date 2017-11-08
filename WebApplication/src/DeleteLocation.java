@@ -3,6 +3,7 @@
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,7 +32,27 @@ public class DeleteLocation extends HttpServlet {
 		com.services.Location loc = new com.services.Location(locStr);
 		com.services.LocationServiceProxy proxy = new com.services.LocationServiceProxy();
 		proxy.setEndpoint("http://localhost:8000/WebService/Location");
-		proxy.deleteLocation(Integer.parseInt(id), loc);
+		Cookie cookie = null;
+		Cookie[] cookies = null;
+		String token = null;
+		cookies = request.getCookies();
+		
+		if(cookies!=null) {
+			for (int i = 0; i < cookies.length; i++) {
+	            cookie = cookies[i];
+	            if(cookie.getName().equals("token")) {
+	            	token = cookie.getValue();
+	            }
+	         }
+		}
+		
+		try {
+			proxy.deleteLocation(token ,Integer.parseInt(id), loc);
+		}
+		catch(com.services.TokenException t) {
+			response.sendRedirect("http://localhost:9000/WebApplication/LogoutServlet");
+		}
+		
 		response.sendRedirect("http://localhost:9000/WebApplication/Editlocation.jsp?id_active=" + id);
 	}
 

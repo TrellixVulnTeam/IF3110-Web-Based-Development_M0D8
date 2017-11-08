@@ -5,6 +5,7 @@ import java.sql.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,8 +45,30 @@ public class Finishorder extends HttpServlet {
 		history.setDestination(dest);
 		
 		com.services.HistoryServiceProxy proxy = new com.services.HistoryServiceProxy();
-		proxy.createHistory(history);
-		proxy.updateCustomer(Integer.parseInt(idd), history);
+		
+		Cookie cookie = null;
+		Cookie[] cookies = null;
+		String token = null;
+		cookies = request.getCookies();
+		
+		if(cookies!=null) {
+			for (int i = 0; i < cookies.length; i++) {
+	            cookie = cookies[i];
+	            if(cookie.getName().equals("token")) {
+	            	token = cookie.getValue();
+	            }
+	         }
+		}
+		
+		try {
+			proxy.createHistory(token, history);
+			proxy.updateCustomer(token, Integer.parseInt(idd), history);
+		}
+		catch(com.services.TokenException t) {
+			response.sendRedirect("http://localhost:9000/WebApplication/LogoutServlet");
+		}
+		
+		
 		
 		response.sendRedirect("http://localhost:9000/WebApplication/Profile.jsp?id_active=" + idc);
 	}
