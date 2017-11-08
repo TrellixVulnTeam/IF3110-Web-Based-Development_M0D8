@@ -24,7 +24,7 @@
 	
 	com.services.History[] hist = null;
 	try{
-		hist = historyOrderProxy.getHistoryAsCustomer(id);	
+		hist = historyOrderProxy.getHistoryAsCustomer(mytoken, id);	
 	} catch (com.services.TokenException tex) {
 		response.sendRedirect("LogoutServlet");
 	}

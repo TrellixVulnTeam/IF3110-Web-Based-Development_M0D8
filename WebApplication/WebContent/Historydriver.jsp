@@ -24,7 +24,7 @@
 	
 	com.services.History[] hist = null;
 	try{
-		hist = historyDriverProxy.getHistoryAsDriver(id);		
+		hist = historyDriverProxy.getHistoryAsDriver(mytoken, id);		
 	} catch (com.services.TokenException tex) {
 		response.sendRedirect("LogoutServlet");
 	}
