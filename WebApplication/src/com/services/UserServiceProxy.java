@@ -44,10 +44,10 @@ public class UserServiceProxy implements com.services.UserService {
     return userService;
   }
   
-  public com.services.User getUser(java.lang.String arg0, int arg1) throws java.rmi.RemoteException, com.services.TokenException{
+  public com.services.User getUserByToken(java.lang.String arg0) throws java.rmi.RemoteException, com.services.TokenException{
     if (userService == null)
       _initUserServiceProxy();
-    return userService.getUser(arg0, arg1);
+    return userService.getUserByToken(arg0);
   }
   
   public boolean saveUser(java.lang.String arg0, com.services.User arg1) throws java.rmi.RemoteException, com.services.TokenException{
@@ -56,16 +56,16 @@ public class UserServiceProxy implements com.services.UserService {
     return userService.saveUser(arg0, arg1);
   }
   
-  public com.services.User getUserByToken(java.lang.String arg0) throws java.rmi.RemoteException, com.services.TokenException{
-    if (userService == null)
-      _initUserServiceProxy();
-    return userService.getUserByToken(arg0);
-  }
-  
   public int createUser(java.lang.String arg0, com.services.User arg1) throws java.rmi.RemoteException, com.services.TokenException{
     if (userService == null)
       _initUserServiceProxy();
     return userService.createUser(arg0, arg1);
+  }
+  
+  public com.services.User getUser(java.lang.String arg0, int arg1) throws java.rmi.RemoteException, com.services.TokenException{
+    if (userService == null)
+      _initUserServiceProxy();
+    return userService.getUser(arg0, arg1);
   }
   
   public com.services.User[] getDriver(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2) throws java.rmi.RemoteException, com.services.TokenException{
