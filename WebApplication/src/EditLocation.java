@@ -3,6 +3,7 @@
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,7 +34,29 @@ public class EditLocation extends HttpServlet {
 		com.services.Location newloc = new com.services.Location(newLoc);
 		com.services.LocationServiceProxy proxy = new com.services.LocationServiceProxy();
 		proxy.setEndpoint("http://localhost:8000/WebService/Location");
-		proxy.updateLocation(Integer.parseInt(id), oldloc, newloc);
+		
+		Cookie cookie = null;
+		Cookie[] cookies = null;
+		String token = null;
+		cookies = request.getCookies();
+		
+		if(cookies!=null) {
+			for (int i = 0; i < cookies.length; i++) {
+	            cookie = cookies[i];
+	            if(cookie.getName().equals("token")) {
+	            	token = cookie.getValue();
+	            }
+	         }
+		}
+		
+		try {
+			proxy.updateLocation(token, Integer.parseInt(id), oldloc, newloc);
+		}
+		catch(com.services.TokenException t) {
+			response.sendRedirect("http://localhost:9000/WebApplication/LogoutServlet");
+		}
+		
+		
 		response.sendRedirect("http://localhost:9000/WebApplication/Editlocation.jsp?id_active=" + id);
 	}
 

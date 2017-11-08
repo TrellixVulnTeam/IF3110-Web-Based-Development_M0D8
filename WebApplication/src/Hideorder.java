@@ -3,6 +3,7 @@
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,7 +32,28 @@ public class Hideorder extends HttpServlet {
 		int ido = Integer.parseInt(idoStr);
 		com.services.HistoryServiceProxy proxy = new com.services.HistoryServiceProxy();
 		proxy.setEndpoint("http://localhost:8000/WebService/History");
-		proxy.hideHistoryAsCustomer(ido);
+		
+		Cookie cookie = null;
+		Cookie[] cookies = null;
+		String token = null;
+		cookies = request.getCookies();
+		
+		if(cookies!=null) {
+			for (int i = 0; i < cookies.length; i++) {
+	            cookie = cookies[i];
+	            if(cookie.getName().equals("token")) {
+	            	token = cookie.getValue();
+	            }
+	         }
+		}
+		
+		try {
+			proxy.hideHistoryAsCustomer(token, ido);
+		}
+		catch(com.services.TokenException t) {
+			response.sendRedirect("http://localhost:9000/WebApplication/LogoutServlet");
+		}
+	
 		response.sendRedirect("http://localhost:9000/WebApplication/Historyorder.jsp?id_active=" + idStr);
 	}
 
