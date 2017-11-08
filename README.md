@@ -94,11 +94,11 @@ Pada tugas ini digunakan dua basis data, yaitu basis data **GaussianLord_main** 
 
 **GaussianLord_main**
 
-![Basisdata1](_screenshot/basisdata_main.png)
+![Basisdata1](_screenshot/basisdata_main.PNG)
 
 **GaussianLord_acc**
 
-![Basisdata2](_screenshot/basisdata_acc.png)
+![Basisdata2](_screenshot/basisdata_acc.PNG)
 
 #### Konsep <i>shared session</i> dengan menggunakan REST
 
