@@ -16,7 +16,11 @@ import com.models.Location;
 public class LocationServiceImpl implements LocationService {
 
 	@Override
-	public ArrayList<Location> getLocation(String token, int id) {
+	public ArrayList<Location> getLocation(String token, int id) throws TokenException {
+		if (!TokenValidator.validateToken(token)) {
+			throw new TokenException();
+		}
+		
 		ArrayList<Location> ans = new ArrayList<Location>();
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -64,7 +68,11 @@ public class LocationServiceImpl implements LocationService {
 	}
 
 	@Override
-	public boolean updateLocation(String token, int id, Location oldLoc, Location newLoc) {
+	public boolean updateLocation(String token, int id, Location oldLoc, Location newLoc) throws TokenException {
+		if (!TokenValidator.validateToken(token)) {
+			throw new TokenException();
+		}
+		
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
@@ -100,7 +108,11 @@ public class LocationServiceImpl implements LocationService {
 	}
 	
 	@Override
-	public boolean deleteLocation(String token, int id, Location loc) {
+	public boolean deleteLocation(String token, int id, Location loc) throws TokenException {
+		if (!TokenValidator.validateToken(token)) {
+			throw new TokenException();
+		}
+		
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
@@ -135,7 +147,11 @@ public class LocationServiceImpl implements LocationService {
 	}
 	
 	@Override
-	public boolean insertLocation(String token, int id, Location loc) {
+	public boolean insertLocation(String token, int id, Location loc) throws TokenException {
+		if (!TokenValidator.validateToken(token)) {
+			throw new TokenException();
+		}
+		
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {

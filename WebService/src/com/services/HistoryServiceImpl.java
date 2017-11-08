@@ -17,7 +17,11 @@ import com.models.History;
 public class HistoryServiceImpl implements HistoryService {
 
 	@Override
-	public History[] getHistoryAsCustomer(String token, int id) {
+	public History[] getHistoryAsCustomer(String token, int id) throws TokenException{
+		if (!TokenValidator.validateToken(token)) {
+			throw new TokenException();
+		}
+		
 		
 		ArrayList<History> ans = new ArrayList<History>();
 		Connection conn = null;
@@ -67,7 +71,11 @@ public class HistoryServiceImpl implements HistoryService {
 	}
 
 	@Override
-	public History[] getHistoryAsDriver(String token, int id) {
+	public History[] getHistoryAsDriver(String token, int id) throws TokenException{
+		if (!TokenValidator.validateToken(token)) {
+			throw new TokenException();
+		}
+		
 		ArrayList<History> ans = new ArrayList<History>();
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -116,7 +124,11 @@ public class HistoryServiceImpl implements HistoryService {
 	}
 
 	@Override
-	public boolean hideHistoryAsDriver(String token, int id) {
+	public boolean hideHistoryAsDriver(String token, int id)throws TokenException {
+		if (!TokenValidator.validateToken(token)) {
+			throw new TokenException();
+		}
+		
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
@@ -150,7 +162,11 @@ public class HistoryServiceImpl implements HistoryService {
 	}
 
 	@Override
-	public boolean hideHistoryAsCustomer(String token, int id) {
+	public boolean hideHistoryAsCustomer(String token, int id)throws TokenException {
+		if (!TokenValidator.validateToken(token)) {
+			throw new TokenException();
+		}
+		
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
@@ -184,7 +200,10 @@ public class HistoryServiceImpl implements HistoryService {
 	}
 	
 	@Override
-	public boolean createHistory(String token, History history) {
+	public boolean createHistory(String token, History history) throws TokenException{
+		if (!TokenValidator.validateToken(token)) {
+			throw new TokenException();
+		}
 		
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -229,8 +248,12 @@ public class HistoryServiceImpl implements HistoryService {
 	}
 	
 	@Override
-	public boolean updateCustomer(String token, int id, History history) {
-
+	public boolean updateCustomer(String token, int id, History history)throws TokenException {
+		if (!TokenValidator.validateToken(token)) {
+			throw new TokenException();
+		}
+		
+		
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;

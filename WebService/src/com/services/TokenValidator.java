@@ -7,9 +7,6 @@ import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import javax.servlet.http.Cookie;
-
 import org.json.JSONObject;
 
 public interface TokenValidator  {
