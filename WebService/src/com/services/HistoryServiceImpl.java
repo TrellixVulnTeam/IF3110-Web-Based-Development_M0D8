@@ -17,7 +17,8 @@ import com.models.History;
 public class HistoryServiceImpl implements HistoryService {
 
 	@Override
-	public History[] getHistoryAsCustomer(int id) {
+	public History[] getHistoryAsCustomer(String token, int id) {
+		
 		ArrayList<History> ans = new ArrayList<History>();
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -66,7 +67,7 @@ public class HistoryServiceImpl implements HistoryService {
 	}
 
 	@Override
-	public History[] getHistoryAsDriver(int id) {
+	public History[] getHistoryAsDriver(String token, int id) {
 		ArrayList<History> ans = new ArrayList<History>();
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -115,7 +116,7 @@ public class HistoryServiceImpl implements HistoryService {
 	}
 
 	@Override
-	public boolean hideHistoryAsDriver(int id) {
+	public boolean hideHistoryAsDriver(String token, int id) {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
@@ -149,7 +150,7 @@ public class HistoryServiceImpl implements HistoryService {
 	}
 
 	@Override
-	public boolean hideHistoryAsCustomer(int id) {
+	public boolean hideHistoryAsCustomer(String token, int id) {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
@@ -183,7 +184,7 @@ public class HistoryServiceImpl implements HistoryService {
 	}
 	
 	@Override
-	public boolean createHistory(History history) {
+	public boolean createHistory(String token, History history) {
 		
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -228,7 +229,7 @@ public class HistoryServiceImpl implements HistoryService {
 	}
 	
 	@Override
-	public boolean updateCustomer(int id, History history) {
+	public boolean updateCustomer(String token, int id, History history) {
 
 		Connection conn = null;
 		PreparedStatement ps = null;

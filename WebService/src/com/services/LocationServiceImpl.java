@@ -16,7 +16,7 @@ import com.models.Location;
 public class LocationServiceImpl implements LocationService {
 
 	@Override
-	public ArrayList<Location> getLocation(int id) {
+	public ArrayList<Location> getLocation(String token, int id) {
 		ArrayList<Location> ans = new ArrayList<Location>();
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -64,7 +64,7 @@ public class LocationServiceImpl implements LocationService {
 	}
 
 	@Override
-	public boolean updateLocation(int id, Location oldLoc, Location newLoc) {
+	public boolean updateLocation(String token, int id, Location oldLoc, Location newLoc) {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
@@ -100,7 +100,7 @@ public class LocationServiceImpl implements LocationService {
 	}
 	
 	@Override
-	public boolean deleteLocation(int id, Location loc) {
+	public boolean deleteLocation(String token, int id, Location loc) {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
@@ -135,7 +135,7 @@ public class LocationServiceImpl implements LocationService {
 	}
 	
 	@Override
-	public boolean insertLocation(int id, Location loc) {
+	public boolean insertLocation(String token, int id, Location loc) {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {

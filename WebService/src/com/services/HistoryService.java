@@ -16,35 +16,35 @@ public interface HistoryService {
 		Mengeluarkan semua history dimana user dengan id id merupakan customer;
 	*/
 	@WebMethod
-	public History[] getHistoryAsCustomer(int id);
+	public History[] getHistoryAsCustomer(String token, int id);
 
 	/*
 		Mengeluarkan semua history dimana user dengan id id merupakan driver;
 	*/
 	@WebMethod
-	public History[] getHistoryAsDriver(int id);
+	public History[] getHistoryAsDriver(String token, int id);
 
 	/*
 		Menyembunyikan history sebagai driver
 	*/
 	@WebMethod
-	public boolean hideHistoryAsDriver(int id);	
+	public boolean hideHistoryAsDriver(String token, int id);	
 
 	/*
 		Menyembunyikan history sebagai customer
 	*/
 	@WebMethod
-	public boolean hideHistoryAsCustomer(int id);
+	public boolean hideHistoryAsCustomer(String token, int id);
 	
 	/*
 		Menyimpan history baru
 	*/
 	@WebMethod
-	public boolean createHistory(History history);
+	public boolean createHistory(String token, History history);
 	
 	/*
 		Melakukan update rating dan vote pada driver setelah satu order
 	*/
 	@WebMethod
-	public boolean updateCustomer(int id, History history);
+	public boolean updateCustomer(String token, int id, History history);
 }

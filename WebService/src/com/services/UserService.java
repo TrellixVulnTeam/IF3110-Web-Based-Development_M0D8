@@ -17,7 +17,7 @@ public interface UserService {
 		Mengeluarkan user yang memiliki id yang sama dengan parameter
 	*/
 	@WebMethod
-	public User getUser(int id);
+	public User getUser(String token, int id);
 	
 	/*
 		Mengeluarkan user yang memiliki token yang sama dengan parameter
@@ -29,24 +29,24 @@ public interface UserService {
 		Mengeluarkan user yang memiliki username yang sama dengan parameter dan preferred location yang sesuai
 	*/
 	@WebMethod
-	public User getPreferredDriver(String username, String pickup, String dest);
+	public User getPreferredDriver(String token, String username, String pickup, String dest);
 	
 	/*
 		Mengeluarkan user yang memiliki username yang sama dengan parameter dan preferred location yang sesuai
 	*/
 	@WebMethod
-	public User[] getDriver(String pickup, String dest);
+	public User[] getDriver(String token, String pickup, String dest);
 	
 	/*
 	 * Mendapatkan preferred location dari database dan mengeluarkannya.
 	 */
 	@WebMethod
-	public ArrayList<Location> loadPreferredLocations(User user);
+	public ArrayList<Location> loadPreferredLocations(String token, User user);
 
 
 	@WebMethod
-	public boolean saveUser(User user);
+	public boolean saveUser(String token, User user);
 	
 	@WebMethod
-	public int createUser(User user);
+	public int createUser(String token, User user);
 }

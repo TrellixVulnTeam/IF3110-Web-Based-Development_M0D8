@@ -17,7 +17,7 @@ import com.models.User;
 public class UserServiceImpl implements UserService {
 
 	@Override
-	public User getUser(int id) {
+	public User getUser(String token, int id) {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
 			} else {
 				rs.next();
 				User user = new User(rs);
-				loadPreferredLocations(user);
+				loadPreferredLocations(token, user);
 				return user;
 			}
 		} catch (Exception e) {
@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
 			} else {
 				rs.next();
 				int idActive = rs.getInt(1);
-				return getUser(idActive);
+				return getUser(token, idActive);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -106,7 +106,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public User getPreferredDriver(String username, String pickup, String dest) {
+	public User getPreferredDriver(String token, String username, String pickup, String dest) {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -151,7 +151,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public User[] getDriver(String pickup, String dest) {
+	public User[] getDriver(String token, String pickup, String dest) {
 		ArrayList<User> drivers = new ArrayList<User>();
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -201,7 +201,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public ArrayList<Location> loadPreferredLocations(User user) {
+	public ArrayList<Location> loadPreferredLocations(String token, User user) {
 		int id = user.getId();
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -246,7 +246,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean saveUser(User user) {
+	public boolean saveUser(String token, User user) {
 		int id = user.getId();
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -297,7 +297,7 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 	
-	public int createUser(User user) {
+	public int createUser(String token, User user) {
 		
 		Connection conn = null;
 		PreparedStatement ps = null;

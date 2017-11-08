@@ -16,14 +16,14 @@ public interface LocationService {
 		Mengeluarkan user yang memiliki id yang sama dengan parameter
 	*/
 	@WebMethod
-	public ArrayList<Location> getLocation(int id);
+	public ArrayList<Location> getLocation(String token, int id);
 
 	@WebMethod
-	public boolean updateLocation(int id, Location oldLoc, Location newLoc);
+	public boolean updateLocation(String token, int id, Location oldLoc, Location newLoc);
 	
 	@WebMethod
-	public boolean deleteLocation(int id, Location loc);
+	public boolean deleteLocation(String token, int id, Location loc);
 	
 	@WebMethod
-	public boolean insertLocation(int id, Location loc);
+	public boolean insertLocation(String token, int id, Location loc);
 }
