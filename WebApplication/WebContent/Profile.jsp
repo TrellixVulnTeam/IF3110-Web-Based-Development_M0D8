@@ -21,7 +21,7 @@
 	String idStr = request.getParameter("id_active");
 	int id = Integer.parseInt(idStr);
 	
-	com.services.User user;	
+	com.services.User user = null;	
 	try{
 		user = profileProxy.getUser(mytoken, id);
 	} catch (com.services.TokenException tex) {
