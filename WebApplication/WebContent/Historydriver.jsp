@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 
+<%@ page import="java.text.SimpleDateFormat" %>
+
 <%
     String mytoken = "";
     Cookie[] mycookies = request.getCookies();
@@ -80,13 +82,22 @@
     			}
     			
     			int idd = hist[i].getIdDriver();
-    			int ido = hist[i].getId(); %>
+    			int ido = hist[i].getId();
+    			
+    			SimpleDateFormat sdfr = new SimpleDateFormat("yyyy/MM/dd");
+    			String dateString = "";
+    			try{
+    				dateString = sdfr.format( hist[i].getDate() );
+    			}catch (Exception ex ){
+    				System.out.println(ex);
+    			}
+    			%>
     			<div class="history-list-item">
     				<table width="670px">
     					<tr>
     						<td rowspan="6" width="28"><img class="square-image" src="<%= cust.getImagePath() %>" alt="User Profile Picture"></td>
     						<td rowspan="6" class="horizontal-space" width="10px"></td>
-    						<td colspan="2" class="history-date"><%= hist[i].getDate().toString() %></td>
+    						<td colspan="2" class="history-date"><%= dateString %></td>
     						<td width="100" rowspan="2"><div class="hide-button"><a href="Hidedriver?id_active=<%= id %>&id_order=<%= ido %>" id="<%= ido %>" onclick="hidebutton(this.id)">HIDE</a></div></td>
     					</tr>
     					<tr>
