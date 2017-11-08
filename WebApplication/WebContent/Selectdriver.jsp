@@ -1,24 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    
+   
+<%
+    String mytoken = "";
+    Cookie[] mycookies = request.getCookies();
+    if (mycookies != null) {
+        for (int i = 0; i < mycookies.length; ++i) {
+        	if (mycookies[i].getName().equals("token")) {
+        		mytoken = mycookies[i].getValue();
+        			break;
+        	}
+        }
+    }
+%>
+
 <jsp:useBean id="selectDriverProxy" scope="request" class="com.services.UserServiceProxy" />
 <% 
-selectDriverProxy.setEndpoint("http://localhost:8000/WebService/User");
-String pickup = "";
-String dest = "";
-String pref = "";
-com.services.User driver = null;
-com.services.User[] others = null;
-if (request.getMethod().equals("POST")) {
-	pickup = request.getParameter("pickup");
-	dest = request.getParameter("dest");
-	pref = "";
-	if (request.getParameter("pref") != null) {
-		pref = request.getParameter("pref");
-		selectDriverProxy.getPreferredDriver(pref, pickup, dest);
+	selectDriverProxy.setEndpoint("http://localhost:8000/WebService/User");
+	String pickup = "";
+	String dest = "";
+	String pref = "";
+	com.services.User driver = null;
+	com.services.User[] others = null;
+	if (request.getMethod().equals("POST")) {
+		pickup = request.getParameter("pickup");
+		dest = request.getParameter("dest");
+		pref = "";
+		if (request.getParameter("pref") != null) {
+			pref = request.getParameter("pref");
+			selectDriverProxy.getPreferredDriver(mytoken, pref, pickup, dest);
+		}
+		others = selectDriverProxy.getDriver(mytoken, pickup, dest);
 	}
-	others = selectDriverProxy.getDriver(pickup, dest);
-}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>

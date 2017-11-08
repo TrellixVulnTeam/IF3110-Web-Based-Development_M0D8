@@ -93,9 +93,9 @@ public class Validate extends HttpServlet {
 					out.print(toReturn);
 				} else { // Token is expired 
 					// Execute SQL query
-					pstmt = conn.prepareStatement("DELETE FROM account_token WHERE token=?");
-					pstmt.setString(1, token);
-					rs = pstmt.executeQuery();
+					// pstmt = conn.prepareStatement("DELETE FROM account_token WHERE token=?");
+					// pstmt.setString(1, token);
+					// rs = pstmt.executeQuery();
 					
 					toReturn = "{\"token_status\":\"expired\"}";
 					out.print(toReturn);

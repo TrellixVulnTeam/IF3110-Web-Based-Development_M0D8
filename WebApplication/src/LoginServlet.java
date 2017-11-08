@@ -103,7 +103,7 @@ public class LoginServlet extends HttpServlet {
 				int id = resultJSON.getInt("id");
 				
 				com.services.UserServiceProxy proxy = new com.services.UserServiceProxy();
-				com.services.User user = proxy.getUser(id);
+				com.services.User user = proxy.getUser(token, id);
 				
 				boolean isDriver = user.isDriver();
 				
