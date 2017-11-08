@@ -17,7 +17,7 @@
         	
 <%
 	navbarProxy.setEndpoint("http://localhost:8000/WebService/User");
-	com.services.User userNavbar;	
+	com.services.User userNavbar = null;	
 	try{
 		userNavbar = navbarProxy.getUser(token, 1);		
 	} catch (com.services.TokenException tex) {

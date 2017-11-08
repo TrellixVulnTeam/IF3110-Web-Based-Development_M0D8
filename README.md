@@ -76,18 +76,6 @@ Mekanisme *auto-renew* access token yang tepat sehingga user tidak ter-logout se
 
 
 ### Penjelasan
-#### Deskripsi Singkat
-
-Pada tugas besar ini kelompok kami diminta untuk mengembangkan website ojek online pada tugas sebelumnya dengan menggunakan arsitektur web service 
-REST dan SOAP. Website ini menggunakan tampilan tugas pertama, namun semua proses backend diubah menjadi arsitektur tersebut. Project dibagi menjadi 
-tiga, yaitu WebApplication, WebService, dan IdentityService. WebApplication mengatur tampilan website layaknya seperti tugas pertama, tetapi semua kode php 
-diganti menjadi kode jsp. Selain itu akses basis data akun (Registrasi, Login, Loqout) dan data ojek online (History, Preferred Location, User) tidak 
-dilakukan secara langsung pada bagian ini. IdentityService berperan untuk memanage basis data akun dan membangkitkan/menghapus token. WebApplication 
-akan melakukan request ke IdentityService ketika melakukan registrasi/login/loqout. IdentityService akan menerima request dan akan menghasilkan response 
-dalam format JSON yang diterima WebApplication. 
-
-** TODO: lanjut jelasin SOAP **
-
 #### Basis Data
 
 Pada tugas ini digunakan dua basis data, yaitu basis data **GaussianLord_main** yang menyimpan data ojek online secara umum dan **GaussianLord_acc** yang secara khusus menyimpan data akun dan token. Berikut adalah skema basis data:
@@ -111,9 +99,8 @@ layanan kepada banyak pengguna yang menggunakan web secara konkuren.
 
 Pada sistem yang kelompok kami buat, token dan expiry time dihasilkan saat pengguna berhasil login (melalui halaman login dan register). 
 Token terdiri dari string alfabet sepanjang 20 karakter yang digenerate secara random. Setelah login, token dari pengguna
-akan divalidasi setiap saat pengguna mengkases web dengan melakukan request dari WebService ke IdentityService. Jika saat 
-pengecekan token pengguna masih valid, expiry time dari pengguna akan diundur. Jika token pengguna sudah tidak valid atau 
-expired, pengguna akan langsung logout dan kembali ke halaman login.
+akan divalidasi setiap saat pengguna mengkases web dengan melakukan request dari WebService ke IdentityService. Jika token pengguna 
+sudah tidak valid atau expired, pengguna akan langsung logout dan kembali ke halaman login.
 
 #### Kelebihan arsitektur Web service REST dan SOAP dengan aplikasi monolitik
 

@@ -22,7 +22,7 @@
 	String dest = request.getParameter("dest");
 	int id = Integer.parseInt(idStr);
 	
-	com.services.User user;	
+	com.services.User user = null;	
 	try{
 		user = completeProxy.getUser(mytoken, id);	
 	} catch (com.services.TokenException tex) {
