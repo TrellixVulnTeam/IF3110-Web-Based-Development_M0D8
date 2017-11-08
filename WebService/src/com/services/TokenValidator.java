@@ -57,10 +57,10 @@ public interface TokenValidator  {
 		    		
 		    		return true;
 		    		
-					Cookie cookieToken = new Cookie("token", token);
-					Cookie cookieExpiry = new Cookie("expiry", expiryTime);
-					response.addCookie(cookieToken);
-					response.addCookie(cookieExpiry);
+					// Cookie cookieToken = new Cookie("token", token);
+					// Cookie cookieExpiry = new Cookie("expiry", expiryTime);
+					// response.addCookie(cookieToken);
+					// response.addCookie(cookieExpiry);
 		    	} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
