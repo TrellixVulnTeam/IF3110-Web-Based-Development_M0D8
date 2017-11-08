@@ -122,16 +122,29 @@ menulis kode jsp apabila WebService jax-ws belum selesai.
 1. Generate token : 13515021
 2. Validasi token : 13515021
 3. Login : 13515057
-4. Loqout : 13515057
+4. Logout : 13515057
 5. Register : 13515054
 
 **SOAP :**
-1. Add Produce : 1351xxxx
-2. Fungsionalitas Y : 1351xxxx
+1. Service Location : 13515021
+2. Token Validator : 13515057
+3. Service User : 13515054
+4. Service Order : 13515021
 
 **Web app (JSP) :**
-1. Halaman Login : 
-2. Halaman X :
+1. Tampilan Login (jsp) : 13515057
+2. Fungsionalitas Login (java) : 13515057
+3. Tampilan Logout (jsp) : 13515054
+4. Fungsionalitas Logout (java) : 13515054
+5. Tampilan Register : 13515054
+6. Fungsionalitas Register : 13515054
+7. Tampilan Order : 13515021
+8. Fungsionalotas Order : 13515021
+9. Tampilan History : 13515057
+10. Fungsionalitas History : 13515021
+11. Tampilan Profile : 13515021
+12. Fungsionalitas Profile : 13515021
+13. Navigation Bar : 13515057
 
 ## About
 
