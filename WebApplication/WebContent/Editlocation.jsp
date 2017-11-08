@@ -1,12 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     
+<%
+    String mytoken = "";
+    Cookie[] mycookies = request.getCookies();
+    if (mycookies != null) {
+        for (int i = 0; i < mycookies.length; ++i) {
+        	if (mycookies[i].getName().equals("token")) {
+        		mytoken = mycookies[i].getValue();
+        			break;
+        	}
+        }
+    }
+%>
+
 <jsp:useBean id="locationProxy" scope="request" class="com.services.UserServiceProxy" />
 <%
 	locationProxy.setEndpoint("http://localhost:8000/WebService/User");
 	String idStr = request.getParameter("id_active");
 	int id = Integer.parseInt(idStr);
-	com.services.User user = locationProxy.getUser(id);
+	
+	com.services.User user;	
+	try{
+		user = locationProxy.getUser(mytoken, id);	
+	} catch (com.services.TokenException tex) {
+		response.sendRedirect("LogoutServlet");
+	}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>

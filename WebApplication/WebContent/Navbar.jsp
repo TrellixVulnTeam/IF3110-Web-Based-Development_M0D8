@@ -17,7 +17,12 @@
         	
 <%
 	navbarProxy.setEndpoint("http://localhost:8000/WebService/User");
-	com.services.User userNavbar = navbarProxy.getUser(token, 1);
+	com.services.User userNavbar;	
+	try{
+		userNavbar = navbarProxy.getUser(token, 1);		
+	} catch (com.services.TokenException tex) {
+		response.sendRedirect("LogoutServlet");
+	}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>

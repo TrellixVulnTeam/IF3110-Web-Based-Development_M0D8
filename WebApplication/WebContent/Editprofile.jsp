@@ -1,11 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+
+<%
+    String mytoken = "";
+    Cookie[] mycookies = request.getCookies();
+    if (mycookies != null) {
+        for (int i = 0; i < mycookies.length; ++i) {
+        	if (mycookies[i].getName().equals("token")) {
+        		mytoken = mycookies[i].getValue();
+        			break;
+        	}
+        }
+    }
+%>
+
 <jsp:useBean id="editProfileProxy" scope="request" class="com.services.UserServiceProxy" />
 <%
 	editProfileProxy.setEndpoint("http://localhost:8000/WebService/User");
 	String idStr = request.getParameter("id_active");
 	int id = Integer.parseInt(idStr);
-	com.services.User user = editProfileProxy.getUser(id);
+	
+	com.services.User user;	
+	try{
+		user = editProfileProxy.getUser(mytoken, id);		
+	} catch (com.services.TokenException tex) {
+		response.sendRedirect("LogoutServlet");
+	}
 %>
 
 <%
@@ -21,7 +41,13 @@
 		} else {
 			user.setDriver(false);
 		}
-		editProfileProxy.saveUser(user);
+		
+		try{
+			editProfileProxy.saveUser(mytoken, user);		
+		} catch (com.services.TokenException tex) {
+			response.sendRedirect("LogoutServlet");
+		}
+		
 		response.sendRedirect("http://localhost:9000/WebApplication/Profile.jsp?id_active=" + request.getParameter("id_active"));
 		/* response.sendRedirect("http://localhost:9000/WebApplication/Profile.jsp?id_active=" + request.getParameter("id_active")); */
 	}

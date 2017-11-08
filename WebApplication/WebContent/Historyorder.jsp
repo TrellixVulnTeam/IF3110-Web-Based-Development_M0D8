@@ -62,7 +62,14 @@
     <% if (hist != null && hist.length > 0) {
     		for (int i = 0; i < hist.length; ++i) {
     			int idd = hist[i].getIdDriver();
-    			com.services.User cust = historyOrderProxyUser.getUser(mytoken, idd);
+    			
+    			com.services.User cust;	
+    			try{
+    				cust = historyOrderProxyUser.getUser(mytoken, idd);	
+    			} catch (com.services.TokenException tex) {
+    				response.sendRedirect("LogoutServlet");
+    			}
+    			
     			int idc = hist[i].getIdCustomer();
     			int ido = hist[i].getId(); %>
     			<div class="history-list-item">

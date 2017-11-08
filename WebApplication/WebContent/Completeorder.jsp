@@ -16,12 +16,18 @@
 
 <jsp:useBean id="completeProxy" scope="request" class="com.services.UserServiceProxy" />
 <%
-completeProxy.setEndpoint("http://localhost:8000/WebService/User");
-String idStr = request.getParameter("id_driver");
-String pickup = request.getParameter("pickup");
-String dest = request.getParameter("dest");
-int id = Integer.parseInt(idStr);
-com.services.User user = completeProxy.getUser(mytoken, id);
+	completeProxy.setEndpoint("http://localhost:8000/WebService/User");
+	String idStr = request.getParameter("id_driver");
+	String pickup = request.getParameter("pickup");
+	String dest = request.getParameter("dest");
+	int id = Integer.parseInt(idStr);
+	
+	com.services.User user;	
+	try{
+		user = completeProxy.getUser(mytoken, id);	
+	} catch (com.services.TokenException tex) {
+		response.sendRedirect("LogoutServlet");
+	}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>

@@ -26,11 +26,17 @@
 		pickup = request.getParameter("pickup");
 		dest = request.getParameter("dest");
 		pref = "";
-		if (request.getParameter("pref") != null) {
-			pref = request.getParameter("pref");
-			selectDriverProxy.getPreferredDriver(mytoken, pref, pickup, dest);
+
+		try{
+			if (request.getParameter("pref") != null) {
+				pref = request.getParameter("pref");
+				selectDriverProxy.getPreferredDriver(mytoken, pref, pickup, dest);
+			}
+			others = selectDriverProxy.getDriver(mytoken, pickup, dest);
+		} catch (com.services.TokenException tex) {
+			response.sendRedirect("LogoutServlet");
 		}
-		others = selectDriverProxy.getDriver(mytoken, pickup, dest);
+		
 	}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
