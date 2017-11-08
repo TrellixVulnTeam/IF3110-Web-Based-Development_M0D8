@@ -34,5 +34,17 @@ public interface HistoryService {
 		Menyembunyikan history sebagai customer
 	*/
 	@WebMethod
-	public boolean hideHistoryAsCustomer(int id);	
+	public boolean hideHistoryAsCustomer(int id);
+	
+	/*
+		Menyimpan history baru
+	*/
+	@WebMethod
+	public boolean createHistory(History history);
+	
+	/*
+		Melakukan update rating dan vote pada driver setelah satu order
+	*/
+	@WebMethod
+	public boolean updateCustomer(int id, History history);
 }

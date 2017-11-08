@@ -22,7 +22,7 @@
 			user.setDriver(false);
 		}
 		editProfileProxy.saveUser(user);
-		response.sendRedirect("http://localhost:7000/WebApplication/Profile.jsp?id_active=" + request.getParameter("id_active"));
+		response.sendRedirect("http://localhost:9000/WebApplication/Profile.jsp?id_active=" + request.getParameter("id_active"));
 		/* response.sendRedirect("http://localhost:9000/WebApplication/Profile.jsp?id_active=" + request.getParameter("id_active")); */
 	}
 %>
@@ -42,7 +42,7 @@
 
     <div id="edit-profile-content">
     <script src="js/validation.js"></script>
-    <form onsubmit="return validateEditProfileForm()" method="POST" action="Editprofile.jsp?id_active=<%= request.getParameter("id_active") %>"  name="editprofile-form">
+    <form onsubmit="return validateEditProfileForm()" method="POST" action="Uploadfile.jsp?id_active=<%= request.getParameter("id_active") %>"  name="editpicture-form" enctype="multipart/form-data">
     	<table>
 	    	<tr>
 	    		<td rowspan="2"><img class="square-image" id="output" src="<%= user.getImagePath() %>" alt="Profile Picture"></td>
@@ -52,7 +52,12 @@
 	    	<tr>
 	    		<td class="horizontal-space"></td>
 	    		<td class="upper-table"><input type="file" name="user_image" id="user_image" accept="image/*" onchange="return uploadFileHandler(event)"></td>
+	    		<td><input type="submit" value="Change picture">
 	    	</tr>
+	    </table>
+	</form>
+	<form onsubmit="return validateEditProfileForm()" method="POST" action="Editprofile.jsp?id_active=<%= request.getParameter("id_active") %>"  name="editprofile-form">
+	    <table>
 	    	<tr>
 	    		<td colspan="3" class="vertical-space"></td>
 	    	</tr>

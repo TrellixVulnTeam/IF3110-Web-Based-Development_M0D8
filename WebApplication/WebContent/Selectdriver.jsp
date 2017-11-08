@@ -4,10 +4,11 @@
 <jsp:useBean id="selectDriverProxy" scope="request" class="com.services.UserServiceProxy" />
 <% 
 selectDriverProxy.setEndpoint("http://localhost:8000/WebService/User");
-String pickup;
-String dest;
-String pref;
-com.services.User driver;
+String pickup = "";
+String dest = "";
+String pref = "";
+com.services.User driver = null;
+com.services.User[] others = null;
 if (request.getMethod().equals("POST")) {
 	pickup = request.getParameter("pickup");
 	dest = request.getParameter("dest");
@@ -16,6 +17,7 @@ if (request.getMethod().equals("POST")) {
 		pref = request.getParameter("pref");
 		selectDriverProxy.getPreferredDriver(pref, pickup, dest);
 	}
+	others = selectDriverProxy.getDriver(pickup, dest);
 }
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -55,7 +57,7 @@ if (request.getMethod().equals("POST")) {
       <% if (driver == null || driver.getId() == 0 || !driver.isDriver()) { %>
       	<div class="nothing-driver">Nothing to display &#128514;</div>
       <% } else { %>
-      	<form action="completeorder.php?id_active='.$_GET['id_active'].'" method="POST">
+      	<form action="Completeorder.jsp?id_active=<%= request.getParameter("id_active") %>" method="POST">
       	<table>
           <tr>
             <td rowspan="3"><img src="<%= driver.getImagePath() %>" class="square-image"></td>
@@ -89,58 +91,44 @@ if (request.getMethod().equals("POST")) {
   <br><br>
   <!-- OTHER DRIVERS -->
   <div class="preferred-driver">
-    <p class="header-pref">OTHER DRIVERS:</p>
-    <table>
+    <p class="header-pref">OTHER DRIVERS:</p>    
 
-      <?php
-        $query = "SELECT * from (SELECT id, fullname, img_path, star, vote from user WHERE is_driver=1 AND id!='$_GET[id_active]') as U INNER JOIN preferredlocation as P ON U.id=P.id AND (P.location='$pickup' OR P.location='$dest') GROUP BY U.id";
-          $result = $mysqli->query($query);
-          if ($result->num_rows == 0) {
-            echo '<div class="nothing-driver">Nothing to display &#128514;</div>';
-          } else {
-            $driverExist = false;
-            while($row = $result->fetch_array()) {
-              if (!in_array($row['fullname'], $preferredDriver)) {
-                $driverExist = true;
-                $loopResult = "";
-                $loopResult .=
-                '<form action="completeorder.php?id_active='.$_GET['id_active'].'" method="POST">
-                  <tr>
-                    <td rowspan="3"><img src='.$row['img_path'].' class="square-image"></td>
-                    <td class="horizontal-space"></td>
-                    <td class="horizontal-space"></td>
-                    <td class="data-name">'.$row['fullname'].'</td>
-                  </tr>
-                  <tr>
-                    <td class="horizontal-space"></td>
-                    <td class="horizontal-space"></td>
-                    <td class="data-rating"><font color="orange">&#9734; '.$row['star'].'</font> ('.$row['vote'].' votes)</td>
-                  </tr>
-                  <tr>
-                    <td class="horizontal-space"></td>
-                    <td class="horizontal-space"></td>
+	<% if (others == null || others.length == 0) { %>
+      	<div class="nothing-driver">Nothing to display &#128514;</div>
+      <% } else { %>
+      	<% for (int i = 0; i < others.length; ++i) { %>
+      	<%
+      		com.services.User drivers = others[i];
+      	%>
+      	<form action="Completeorder.jsp?id_active=<%= request.getParameter("id_active") %>" method="POST">
+      	<table>
+          <tr>
+            <td rowspan="3"><img src="<%= drivers.getImagePath() %>" class="square-image"></td>
+            <td class="horizontal-space"></td>
+            <td class="horizontal-space"></td>
+            <td class="data-name"><%= drivers.getName() %></td>
+          </tr>
+          <tr>
+            <td class="horizontal-space"></td>
+            <td class="horizontal-space"></td>
+            <td class="data-rating"><font color="orange">&#9734; <%= drivers.getStar() %></font> (<%= drivers.getVote() %> votes)</td>
+          </tr>
+          <tr>
+            <td class="horizontal-space"></td>
+            <td class="horizontal-space"></td>
 
-                  <input type="hidden" name="id_driver" value='.$row['id'].'>
-                  <input type="hidden" name="pickup" value='.$pickup.'>
-                  <input type="hidden" name="dest" value='.$dest.'>
+            <input type="hidden" name="id_driver" value="<%= drivers.getId() %>">
+            <input type="hidden" name="pickup" value="<%= pickup %>">
+            <input type="hidden" name="dest" value="<%= dest %>">
 
-                  <td>
-                    <br>
-                    <button class="button-choose">I CHOOSE YOU!</div>
-                    </td>
-                  </tr>
-                </form>';
-
-                echo $loopResult;
-              }
-            }
-            if (!$driverExist){
-              echo '<div class="nothing-driver">Nothing to display &#128514;</div>';
-            }
-          }
-        ?>
-
-    </table>
+            <td>
+              <br>
+              <button class="button-choose">I CHOOSE YOU!</button>
+            </td>
+          </tr>
+          </table>
+        </form>
+      <% }} %>
   </div>
 </div>
 

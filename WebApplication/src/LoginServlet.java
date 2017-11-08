@@ -102,8 +102,18 @@ public class LoginServlet extends HttpServlet {
 				
 				int id = resultJSON.getInt("id");
 				
-				response.sendRedirect("http://localhost:9000/WebApplication/Profile.jsp?id_active="+id);
-				//response.sendRedirect("http://localhost:9000/WebApplication/Order.jsp?id_active="+id);
+				com.services.UserServiceProxy proxy = new com.services.UserServiceProxy();
+				com.services.User user = proxy.getUser(id);
+				
+				boolean isDriver = user.isDriver();
+				
+				if(isDriver) {
+					response.sendRedirect("http://localhost:9000/WebApplication/Profile.jsp?id_active="+id);
+				}
+				else {
+					response.sendRedirect("http://localhost:9000/WebApplication/Order.jsp?id_active="+id);
+				}
+				
 	    	} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

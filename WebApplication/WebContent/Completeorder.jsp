@@ -39,7 +39,7 @@ com.services.User user = completeProxy.getUser(id);
 	    </ul>
 	</div>
 	
-	<form action="Finishorder.jsp?id_active=<%= request.getParameter("id_active") %>" method="POST" onsubmit="return starValidation()">
+	<form action="Finishorder?id_active=<%= request.getParameter("id_active") %>" method="POST" onsubmit="return starValidation()">
 	  <div id="order-content">
 	    <div class="floating-box-left-o">HOW WAS IT?</div><br><br><br><br><br>
 	    <img class="picture-o" src="<%= user.getImagePath() %>">

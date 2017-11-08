@@ -56,7 +56,7 @@ public class UserServiceProxy implements com.services.UserService {
     return userService.getUserByToken(arg0);
   }
   
-  public boolean createUser(com.services.User arg0) throws java.rmi.RemoteException{
+  public int createUser(com.services.User arg0) throws java.rmi.RemoteException{
     if (userService == null)
       _initUserServiceProxy();
     return userService.createUser(arg0);
@@ -78,6 +78,12 @@ public class UserServiceProxy implements com.services.UserService {
     if (userService == null)
       _initUserServiceProxy();
     return userService.loadPreferredLocations(arg0);
+  }
+  
+  public com.services.User[] getDriver(java.lang.String arg0, java.lang.String arg1) throws java.rmi.RemoteException{
+    if (userService == null)
+      _initUserServiceProxy();
+    return userService.getDriver(arg0, arg1);
   }
   
   

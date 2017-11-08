@@ -121,9 +121,8 @@ public class RegisterServlet extends HttpServlet {
 				           0f,
 				           userName,
 				           0);
-				proxy.createUser(user);
-			    int id = user.getId();
-				System.out.println(id);
+				int id = proxy.createUser(user);
+			    user.setId(id);
 				if(temp) {
 					response.sendRedirect("http://localhost:9000/WebApplication/Profile.jsp?id_active="+id);
 				}

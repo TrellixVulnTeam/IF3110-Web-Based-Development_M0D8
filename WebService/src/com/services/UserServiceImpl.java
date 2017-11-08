@@ -117,7 +117,7 @@ public class UserServiceImpl implements UserService {
 			// Open connection
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gaussianlord_main", "root", "");
 
-			ps = conn.prepareStatement("SELECT * FROM user NATURAL JOIN preferredlocation WHERE username=? AND (location=? OR location=?) ");
+			ps = conn.prepareStatement("SELECT * FROM user NATURAL JOIN preferredlocation WHERE username=? AND is_driver=1 AND (location=? OR location=?) ");
 			ps.setString(1, username);
 			ps.setString(2, pickup);
 			ps.setString(3, dest);
@@ -148,6 +148,56 @@ public class UserServiceImpl implements UserService {
 			}
 		}
 		return new User();
+	}
+	
+	@Override
+	public User[] getDriver(String pickup, String dest) {
+		ArrayList<User> drivers = new ArrayList<User>();
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			// Setting up
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			// Open connection
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gaussianlord_main", "root", "");
+
+			ps = conn.prepareStatement("SELECT DISTINCT id, username, email, phone_num, img_path, fullname, is_driver, star, vote FROM user NATURAL JOIN preferredlocation WHERE is_driver=1 AND (location=? OR location=?) ");
+			ps.setString(1, pickup);
+			ps.setString(2, dest);
+
+			// Execute query
+			rs = ps.executeQuery();
+			if (!rs.isBeforeFirst()) { // rs is empty
+				
+			} else {
+				rs.next();
+				while (!rs.isAfterLast()) {
+					User user = new User(rs);
+					drivers.add(user);
+					rs.next();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			drivers.clear();
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+				if (ps != null) {
+					ps.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return drivers.toArray(new User[drivers.size()]);
 	}
 	
 	@Override
@@ -247,7 +297,7 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 	
-	public boolean createUser(User user) {
+	public int createUser(User user) {
 		
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -279,12 +329,10 @@ public class UserServiceImpl implements UserService {
 			
 			rs.next();
 			int id = rs.getInt(1);
-			System.out.println(id);
-			user.setId(id);
-			return true;
+			return id;
 		} catch (Exception e) {
 			e.printStackTrace();
-			return false;
+			return 0;
 		} finally {
 			try {
 				if (conn != null) {
