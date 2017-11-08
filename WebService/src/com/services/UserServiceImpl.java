@@ -265,17 +265,22 @@ public class UserServiceImpl implements UserService {
 			ps.setString(2, user.getEmail());
 			ps.setString(3, user.getPhoneNumber());
 			ps.setString(4, user.getName());
-			
 			if (user.isDriver()) {
 				ps.setString(5, String.valueOf(1));	
 			} else {
 				ps.setString(5, String.valueOf(0));
 			}
 			
-
-
-			// Execute query
 			ps.executeUpdate();
+			
+			PreparedStatement ps2 = conn.prepareStatement("select * from user where username=?");
+			ps2.setString(1, user.getUsername());
+			rs = ps2.executeQuery();
+			
+			rs.next();
+			int id = rs.getInt(1);
+			System.out.println(id);
+			user.setId(id);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -117,7 +117,7 @@ public class Login extends HttpServlet {
 				
 				String expiryTimeString = expiryTime.toString(); 
 				
-				toReturn = "{\"status\":\"ok\",\"token\":\"" + token.get() + "\",\"expiry\":\"" + expiryTimeString + "\"}";
+				toReturn = "{\"status\":\"ok\",\"token\":\"" + token.get() + "\",\"expiry\":\"" + expiryTimeString + "\",\"id\":" + id + "}";
 				out.print(toReturn);
 			}
 	        

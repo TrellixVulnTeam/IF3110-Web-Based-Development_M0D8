@@ -113,7 +113,7 @@ public class RegisterServlet extends HttpServlet {
 				com.services.User user = new com.services.User(
 				           temp,
 				           email,
-				           0,
+				           11,
 				           null,
 				           fullName,
 				           phone,
@@ -122,11 +122,13 @@ public class RegisterServlet extends HttpServlet {
 				           userName,
 				           0);
 				proxy.createUser(user);
+			    int id = user.getId();
+				System.out.println(id);
 				if(temp) {
-					response.sendRedirect("http://localhost:9000/WebApplication/Profile.jsp?id_active=" + );
+					response.sendRedirect("http://localhost:9000/WebApplication/Profile.jsp?id_active="+id);
 				}
 				else {
-					response.sendRedirect("http://localhost:9000/WebApplication/Order.jsp?id_active=" + );
+					response.sendRedirect("http://localhost:9000/WebApplication/Order.jsp?id_active="+id);
 				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

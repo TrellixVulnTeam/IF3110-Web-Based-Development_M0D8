@@ -89,19 +89,21 @@ public class LoginServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	    
-	    response.setContentType("text/html");
-	    PrintWriter output = response.getWriter();
 	    
 	    if(status.equals("ok")) {
 	    	try {
 				String token = resultJSON.getString("token");
-				output.print("<p>" + token + "</p>");
 				String expiryTime = resultJSON.getString("expiry");
-				output.print("<p>" + expiryTime + "</p>");
+				
 				Cookie cookieToken = new Cookie("token", token);
 				Cookie cookieExpiry = new Cookie("expiry", expiryTime);
 				response.addCookie(cookieToken);
 				response.addCookie(cookieExpiry);
+				
+				int id = resultJSON.getInt("id");
+				
+				response.sendRedirect("http://localhost:9000/WebApplication/Profile.jsp?id_active="+id);
+				//response.sendRedirect("http://localhost:9000/WebApplication/Order.jsp?id_active="+id);
 	    	} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
