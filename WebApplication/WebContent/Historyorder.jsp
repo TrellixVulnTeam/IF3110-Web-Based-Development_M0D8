@@ -21,7 +21,13 @@
 	historyOrderProxyUser.setEndpoint("http://localhost:8000/WebService/User");
 	String idStr = request.getParameter("id_active");
 	int id = Integer.parseInt(idStr);
-	com.services.History[] hist = historyOrderProxy.getHistoryAsCustomer(id);
+	
+	com.services.History[] hist = null;
+	try{
+		hist = historyOrderProxy.getHistoryAsCustomer(id);	
+	} catch (com.services.TokenException tex) {
+		response.sendRedirect("LogoutServlet");
+	}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
