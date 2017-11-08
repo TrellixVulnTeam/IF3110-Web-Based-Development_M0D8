@@ -136,7 +136,7 @@ public class RegisterServlet extends HttpServlet {
 			}
 	    }
 	    else {
-	    	response.sendRedirect("http://localhost:9000/WebbApplication/Register.jsp");
+	    	response.sendRedirect("http://localhost:9000/WebApplication/Register.jsp");
 	    }
 	    
 	}

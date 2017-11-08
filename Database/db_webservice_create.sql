@@ -23,7 +23,7 @@ CREATE TABLE `user` (
   `username` varchar(255) NOT NULL UNIQUE,
   `email` varchar(255) NOT NULL UNIQUE,
   `phone_num` varchar(12) NOT NULL,
-  `img_path` varchar(255) NOT NULL DEFAULT 'profiles/default.png',
+  `img_path` BLOB,
   `fullname` varchar(20) NOT NULL,
   `is_driver` tinyint(1) NOT NULL DEFAULT '0',
   `star` decimal(2,1) NOT NULL DEFAULT '0.0',

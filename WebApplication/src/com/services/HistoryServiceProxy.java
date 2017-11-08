@@ -44,22 +44,10 @@ public class HistoryServiceProxy implements com.services.HistoryService {
     return historyService;
   }
   
-  public boolean hideHistoryAsCustomer(java.lang.String arg0, int arg1) throws java.rmi.RemoteException, com.services.TokenException{
-    if (historyService == null)
-      _initHistoryServiceProxy();
-    return historyService.hideHistoryAsCustomer(arg0, arg1);
-  }
-  
   public com.services.History[] getHistoryAsDriver(java.lang.String arg0, int arg1) throws java.rmi.RemoteException, com.services.TokenException{
     if (historyService == null)
       _initHistoryServiceProxy();
     return historyService.getHistoryAsDriver(arg0, arg1);
-  }
-  
-  public com.services.History[] getHistoryAsCustomer(java.lang.String arg0, int arg1) throws java.rmi.RemoteException, com.services.TokenException{
-    if (historyService == null)
-      _initHistoryServiceProxy();
-    return historyService.getHistoryAsCustomer(arg0, arg1);
   }
   
   public boolean hideHistoryAsDriver(java.lang.String arg0, int arg1) throws java.rmi.RemoteException, com.services.TokenException{
@@ -68,16 +56,28 @@ public class HistoryServiceProxy implements com.services.HistoryService {
     return historyService.hideHistoryAsDriver(arg0, arg1);
   }
   
-  public boolean updateCustomer(java.lang.String arg0, int arg1, com.services.History arg2) throws java.rmi.RemoteException, com.services.TokenException{
+  public boolean hideHistoryAsCustomer(java.lang.String arg0, int arg1) throws java.rmi.RemoteException, com.services.TokenException{
     if (historyService == null)
       _initHistoryServiceProxy();
-    return historyService.updateCustomer(arg0, arg1, arg2);
+    return historyService.hideHistoryAsCustomer(arg0, arg1);
+  }
+  
+  public com.services.History[] getHistoryAsCustomer(java.lang.String arg0, int arg1) throws java.rmi.RemoteException, com.services.TokenException{
+    if (historyService == null)
+      _initHistoryServiceProxy();
+    return historyService.getHistoryAsCustomer(arg0, arg1);
   }
   
   public boolean createHistory(java.lang.String arg0, com.services.History arg1) throws java.rmi.RemoteException, com.services.TokenException{
     if (historyService == null)
       _initHistoryServiceProxy();
     return historyService.createHistory(arg0, arg1);
+  }
+  
+  public boolean updateCustomer(java.lang.String arg0, int arg1, com.services.History arg2) throws java.rmi.RemoteException, com.services.TokenException{
+    if (historyService == null)
+      _initHistoryServiceProxy();
+    return historyService.updateCustomer(arg0, arg1, arg2);
   }
   
   
