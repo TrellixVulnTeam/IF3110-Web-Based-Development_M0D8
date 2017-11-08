@@ -68,7 +68,7 @@
     		for (int i = 0; i < hist.length; ++i) {
     			int idc = hist[i].getIdCustomer();
     			
-    			com.services.User cust;	
+    			com.services.User cust = null;	
     			try{
     				cust = historyDriverProxyUser.getUser(mytoken, idc);	
     			} catch (com.services.TokenException tex) {
