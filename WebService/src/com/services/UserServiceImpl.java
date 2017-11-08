@@ -17,7 +17,10 @@ import com.models.User;
 public class UserServiceImpl implements UserService {
 
 	@Override
-	public User getUser(String token, int id) {
+	public User getUser(String token, int id) throws TokenException {
+		if (!TokenValidator.validateToken(token)) {
+			throw new TokenException();
+		}
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -62,7 +65,10 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public User getUserByToken(String token) {
+	public User getUserByToken(String token) throws TokenException {
+		if (!TokenValidator.validateToken(token)) {
+			throw new TokenException();
+		}
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -106,7 +112,10 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public User getPreferredDriver(String token, String username, String pickup, String dest) {
+	public User getPreferredDriver(String token, String username, String pickup, String dest) throws TokenException {
+		if (!TokenValidator.validateToken(token)) {
+			throw new TokenException();
+		}
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -151,7 +160,10 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public User[] getDriver(String token, String pickup, String dest) {
+	public User[] getDriver(String token, String pickup, String dest) throws TokenException {
+		if (!TokenValidator.validateToken(token)) {
+			throw new TokenException();
+		}
 		ArrayList<User> drivers = new ArrayList<User>();
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -201,7 +213,10 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public ArrayList<Location> loadPreferredLocations(String token, User user) {
+	public ArrayList<Location> loadPreferredLocations(String token, User user) throws TokenException {
+		if (!TokenValidator.validateToken(token)) {
+			throw new TokenException();
+		}
 		int id = user.getId();
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -246,7 +261,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean saveUser(String token, User user) {
+	public boolean saveUser(String token, User user) throws TokenException {
+		if (!TokenValidator.validateToken(token)) {
+			throw new TokenException();
+		}
 		int id = user.getId();
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -297,8 +315,10 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 	
-	public int createUser(String token, User user) {
-		
+	public int createUser(String token, User user) throws TokenException {
+		if (!TokenValidator.validateToken(token)) {
+			throw new TokenException();
+		}
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
