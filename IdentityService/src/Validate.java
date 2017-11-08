@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,6 +21,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.soap.MessageFactory;
 import javax.xml.soap.MimeHeaders;
 import javax.xml.soap.SOAPMessage;
+
+import org.json.JSONObject;
 
 /**
  * Servlet implementation class Validate
@@ -46,6 +49,17 @@ public class Validate extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String text = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+		
+		JSONObject body;
+		String token = "";
+		try {
+			body = new JSONObject(text);
+			token = body.get("token").toString();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -58,35 +72,28 @@ public class Validate extends HttpServlet {
 			
 			// Execute SQL query
 			pstmt = conn.prepareStatement("SELECT * FROM account_token WHERE token=?");
-			pstmt.setString(1, "tokentokentokentokes"/*request.getParameter("username")*/);
+			pstmt.setString(1, token);
 			
 			rs = pstmt.executeQuery();
+			
+			response.setContentType("application/json");
+			PrintWriter out = response.getWriter();
+			String toReturn = "";
+			
 			if (!rs.isBeforeFirst()) { // Token is not valid    
-				response.setContentType("text/html");
-				PrintWriter out = response.getWriter();
-				
-				out.print("<html><body>");
-				out.print("<h2>Token is not valid</h2>");
-				out.print("</body></html>");
+				toReturn = "{\"token_status\":\"invalid\"}";
+				out.print(toReturn);
 			} else { // Check expiry time
 				rs.next();
 				
 				Date expiry = rs.getTimestamp("expiry_time");
 				Date now = new Date();
 				if (now.compareTo(expiry) < 0) { // Token is valid
-					response.setContentType("text/html");
-					PrintWriter out = response.getWriter();
-					
-					out.print("<html><body>");
-					out.print("<h2>Token is valid</h2>");
-					out.print("</body></html>");
+					toReturn = "{\"token_status\":\"valid\"}";
+					out.print(toReturn);
 				} else { // Token is expired 
-					response.setContentType("text/html");
-					PrintWriter out = response.getWriter();
-					
-					out.print("<html><body>");
-					out.print("<h2>Token is expired</h2>");
-					out.print("</body></html>");
+					toReturn = "{\"token_status\":\"expired\"}";
+					out.print(toReturn);
 				}
 			}
 	        
