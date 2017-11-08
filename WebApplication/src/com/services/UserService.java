@@ -9,10 +9,10 @@ package com.services;
 
 public interface UserService extends java.rmi.Remote {
     public com.services.User getUser(int arg0) throws java.rmi.RemoteException;
-    public com.services.User getUserByToken(java.lang.String arg0) throws java.rmi.RemoteException;
-    public com.services.User[] getDriver(java.lang.String arg0, java.lang.String arg1) throws java.rmi.RemoteException;
-    public boolean saveUser(com.services.User arg0) throws java.rmi.RemoteException;
     public int createUser(com.services.User arg0) throws java.rmi.RemoteException;
+    public boolean saveUser(com.services.User arg0) throws java.rmi.RemoteException;
+    public com.services.User[] getDriver(java.lang.String arg0, java.lang.String arg1) throws java.rmi.RemoteException;
+    public com.services.User getUserByToken(java.lang.String arg0) throws java.rmi.RemoteException;
     public com.services.ArrayList loadPreferredLocations(com.services.User arg0) throws java.rmi.RemoteException;
     public com.services.User getPreferredDriver(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2) throws java.rmi.RemoteException;
 }
