@@ -20,13 +20,13 @@
 	String pickup = "";
 	String dest = "";
 	String pref = "";
+	String redirect = "";
 	com.services.User driver = null;
 	com.services.User[] others = null;
 	if (request.getMethod().equals("POST")) {
 		pickup = request.getParameter("pickup");
 		dest = request.getParameter("dest");
 		pref = "";
-		String redirect = "";
 		try{
 			if (request.getParameter("pref") != null) {
 				pref = request.getParameter("pref");
@@ -153,3 +153,9 @@
 
 </body>
 </html>
+
+<%
+	if (redirect != "") {
+		response.sendRedirect(redirect);
+	}
+%>

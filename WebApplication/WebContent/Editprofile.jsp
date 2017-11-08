@@ -26,6 +26,7 @@
 		user = editProfileProxy.getUser(mytoken, id);		
 	} catch (com.services.TokenException tex) {
 		redirect = "LogoutServlet";
+		user = new com.services.User();
 	}
 %>
 
@@ -125,3 +126,9 @@
     </div>
 </body>
 </html>
+
+<%
+	if (redirect != "") {
+		response.sendRedirect(redirect);
+	}
+%>

@@ -28,6 +28,7 @@
 		user = completeProxy.getUser(mytoken, id);	
 	} catch (com.services.TokenException tex) {
 		redirect = "LogoutServlet";
+		user = new com.services.User();
 	}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -90,3 +91,9 @@
 	</form>
 </body>
 </html>
+
+<%
+	if (redirect != "") {
+		response.sendRedirect(redirect);
+	}
+%>
