@@ -8,7 +8,7 @@
 package com.services;
 
 public class History  implements java.io.Serializable {
-    private com.services.Date date;
+    private java.lang.String date;
 
     private java.lang.String destination;
 
@@ -32,7 +32,7 @@ public class History  implements java.io.Serializable {
     }
 
     public History(
-           com.services.Date date,
+           java.lang.String date,
            java.lang.String destination,
            java.lang.String feedback,
            boolean hiddenCust,
@@ -60,7 +60,7 @@ public class History  implements java.io.Serializable {
      * 
      * @return date
      */
-    public com.services.Date getDate() {
+    public java.lang.String getDate() {
         return date;
     }
 
@@ -70,7 +70,7 @@ public class History  implements java.io.Serializable {
      * 
      * @param date
      */
-    public void setDate(com.services.Date date) {
+    public void setDate(java.lang.String date) {
         this.date = date;
     }
 
@@ -326,7 +326,7 @@ public class History  implements java.io.Serializable {
         org.apache.axis.description.ElementDesc elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("date");
         elemField.setXmlName(new javax.xml.namespace.QName("", "date"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://services.com/", "date"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
         elemField.setMinOccurs(0);
         elemField.setNillable(false);
         typeDesc.addFieldDesc(elemField);

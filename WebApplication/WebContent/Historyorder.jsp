@@ -84,20 +84,13 @@
     			
     			int idc = hist[i].getIdCustomer();
     			int ido = hist[i].getId(); 
-    			SimpleDateFormat sdfr = new SimpleDateFormat("yyyy/MM/dd");
-    			String dateString = "";
-    			try{
-    				dateString = sdfr.format( hist[i].getDate() );
-    			}catch (Exception ex ){
-    				System.out.println(ex);
-    			}
     			%>
     			<div class="history-list-item">
     				<table width="670px" id="tabel<%= ido %>">
     					<tr>
     						<td rowspan="6" width="28"><img class="square-image" src="<%= cust.getImagePath() %>" alt="Driver Profile Picture"></td>
     						<td rowspan="6" class="horizontal-space" width="10px"></td>
-    						<td colspan="2" class="history-date"><%= dateString %></td>
+    						<td colspan="2" class="history-date"><%= hist[i].getDate() %></td>
     						<td width="100" rowspan="2"><div class="hide-button"><a href="Hideorder?id_active=<%= id %>&id_order=<%= ido %>" id="<%= ido %>" onclick="hidebutton(this.id)">HIDE</a></div></td>
     					</tr>
     					<tr>

@@ -10,7 +10,7 @@ public class History {
 	private int idDriver;
 	private int rating;
 	private String feedback;
-	private Date date;
+	private String date;
 	private String pickup;
 	private String dest;
 	private boolean hiddenCust;
@@ -22,7 +22,7 @@ public class History {
 		idDriver = 0;
 		rating = 0;
 		feedback = "";
-		date = new Date(0);
+		date = "0000-00-00";
 		pickup = "";
 		dest = "";
 		hiddenDriver = false;
@@ -36,7 +36,7 @@ public class History {
 			idDriver = rs.getInt("id_driver");
 			rating = rs.getInt("rating");
 			feedback = rs.getString("feedback");
-			date = rs.getDate("order_date");
+			date = rs.getString("order_date");
 			pickup = rs.getString("pickup");
 			dest = rs.getString("dest");
 			hiddenCust = rs.getBoolean("hidden_c");
@@ -48,7 +48,7 @@ public class History {
 			idDriver = 0;
 			rating = 0;
 			feedback = "";
-			date = new Date(0);
+			date = "0000-00-00";
 			pickup = "";
 			dest = "";
 			hiddenDriver = false;
@@ -76,7 +76,7 @@ public class History {
 		return feedback;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
@@ -124,7 +124,7 @@ public class History {
 		this.feedback = feedback;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 

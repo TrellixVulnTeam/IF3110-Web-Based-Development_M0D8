@@ -30,7 +30,7 @@
 		try{
 			if (request.getParameter("pref") != null) {
 				pref = request.getParameter("pref");
-				selectDriverProxy.getPreferredDriver(mytoken, pref, pickup, dest);
+				driver = selectDriverProxy.getPreferredDriver(mytoken, pref, pickup, dest);
 			}
 			others = selectDriverProxy.getDriver(mytoken, pickup, dest);
 		} catch (com.services.TokenException tex) {
