@@ -26,7 +26,7 @@
 		pickup = request.getParameter("pickup");
 		dest = request.getParameter("dest");
 		pref = "";
-
+		String redirect = "";
 		try{
 			if (request.getParameter("pref") != null) {
 				pref = request.getParameter("pref");
@@ -34,7 +34,7 @@
 			}
 			others = selectDriverProxy.getDriver(mytoken, pickup, dest);
 		} catch (com.services.TokenException tex) {
-			response.sendRedirect("LogoutServlet");
+			redirect = "LogoutServlet";
 		}
 		
 	}

@@ -23,10 +23,11 @@
 	int id = Integer.parseInt(idStr);
 	
 	com.services.History[] hist = null;
+	String redirect = "";
 	try{
 		hist = historyDriverProxy.getHistoryAsDriver(mytoken, id);		
 	} catch (com.services.TokenException tex) {
-		response.sendRedirect("LogoutServlet");
+		redirect = "LogoutServlet";
 	}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -68,11 +69,12 @@
     		for (int i = 0; i < hist.length; ++i) {
     			int idc = hist[i].getIdCustomer();
     			
-    			com.services.User cust = null;	
+    			com.services.User cust = null;
+    			String redirect2 = "";
     			try{
     				cust = historyDriverProxyUser.getUser(mytoken, idc);	
     			} catch (com.services.TokenException tex) {
-    				response.sendRedirect("LogoutServlet");
+    				redirect2 = "LogoutServlet";
     			}
     			
     			int idd = hist[i].getIdDriver();

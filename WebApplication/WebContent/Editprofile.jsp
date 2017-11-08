@@ -20,11 +20,12 @@
 	String idStr = request.getParameter("id_active");
 	int id = Integer.parseInt(idStr);
 	
-	com.services.User user = null;	
+	com.services.User user = null;
+	String redirect = "";
 	try{
 		user = editProfileProxy.getUser(mytoken, id);		
 	} catch (com.services.TokenException tex) {
-		response.sendRedirect("LogoutServlet");
+		redirect = "LogoutServlet";
 	}
 %>
 
@@ -41,11 +42,11 @@
 		} else {
 			user.setDriver(false);
 		}
-		
+		String redirect2 = "";
 		try{
 			editProfileProxy.saveUser(mytoken, user);		
 		} catch (com.services.TokenException tex) {
-			response.sendRedirect("LogoutServlet");
+			redirect2 = "LogoutServlet";
 		}
 		
 		response.sendRedirect("http://localhost:9000/WebApplication/Profile.jsp?id_active=" + request.getParameter("id_active"));

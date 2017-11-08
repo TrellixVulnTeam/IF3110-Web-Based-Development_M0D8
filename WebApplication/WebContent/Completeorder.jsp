@@ -22,11 +22,12 @@
 	String dest = request.getParameter("dest");
 	int id = Integer.parseInt(idStr);
 	
-	com.services.User user = null;	
+	com.services.User user = null;
+	String redirect = "";
 	try{
 		user = completeProxy.getUser(mytoken, id);	
 	} catch (com.services.TokenException tex) {
-		response.sendRedirect("LogoutServlet");
+		redirect = "LogoutServlet";
 	}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">

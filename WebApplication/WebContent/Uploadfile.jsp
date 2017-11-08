@@ -23,12 +23,12 @@
 	uploadProxy.setEndpoint("http://localhost:8000/WebService/User");
 	String idStr = request.getParameter("id_active");
 	int id = Integer.parseInt(idStr);
-	
+	String redirect = "";
 	com.services.User user = null;	
 	try{
 		user = uploadProxy.getUser(mytoken, id);
 	} catch (com.services.TokenException tex) {
-		response.sendRedirect("LogoutServlet");
+		redirect = "LogoutServlet";
 	}
 %>
 
