@@ -94,38 +94,40 @@ Pada tugas ini digunakan dua basis data, yaitu basis data **GaussianLord_main** 
 
 **GaussianLord_main**
 
-![Basisdata1](_screenshot/basdat_main.png)
+![Basisdata1](_screenshot/basisdata_main.png)
 
 **GaussianLord_acc**
 
-![Basisdata2](_screenshot/basdat_acc.png)
+![Basisdata2](_screenshot/basisdata_acc.png)
 
 #### Konsep <i>shared session</i> dengan menggunakan REST
 
-Pada sistem REST, server tidak menyimpan state dari session masing - masing client. Server hanya menyimpan data session
+Pada arsitektur REST, server tidak menyimpan state dari session masing - masing client. Server hanya menyimpan data session
 dari client yang mengakses, namun tidak menyimpan state dari client tersebut. Untuk mengetahui state client, state harus 
 ditransfer oleh client menuju lokasi yang membutuhkan. Kondisi server yang stateless ini membuat server mampu memberikan
-layanan kepada client manapun pada setiap waktu.
+layanan kepada banyak pengguna yang menggunakan web secara konkuren. 
 
 #### Token dan Expiry Time
 
-Pada sistem yang kami buat, token dan expire time dihasilkan saat pengguna berhasil login. Token dihasilkan secara random
-dan dipastikan bahwa setiap pengguna yang mengakses memiliki token yang berbeda. Setelah login, token dari pengguna
-akan  dicek setiap kali pengguna mengakses web. Jika saat pengecekan token pengguna masih valid, expire time
-dari pengguna akan diundur. Jika token pengguna sudah tidak valid (expired), pengguna akan langsung logout dan
-kembali ke halaman login.
+Pada sistem yang kelompok kami buat, token dan expiry time dihasilkan saat pengguna berhasil login (melalui halaman login dan register). 
+Token terdiri dari string alfabet sepanjang 20 karakter yang digenerate secara random. Setelah login, token dari pengguna
+akan divalidasi setiap saat pengguna mengkases web dengan melakukan request dari WebService ke IdentityService. Jika saat 
+pengecekan token pengguna masih valid, expiry time dari pengguna akan diundur. Jika token pengguna sudah tidak valid atau 
+expired, pengguna akan langsung logout dan kembali ke halaman login.
 
 #### Kelebihan arsitektur Web service REST dan SOAP dengan aplikasi monolitik
 
-Implementasi dari setiap bagian program dapat dikerjakan secara terpisah. Implementasi yang terpisah ini juga 
-memudahkan proses debug program. Implementasi terpisah juga memperjelas pembagian kerja dari masing - masing anggota sehingga 
-dapat mengurangi jumlah konflik dalam pengerjaan sistem
+Salah satu kelebihan menggunakan arsitektur REST dan SOAP ketimbang aplikasi monolitik adalah implementasi dari setiap bagian program 
+dapat dikerjakan secara terpisah oleh kontributor. Implementasi yang terpisah juga mempercepat proses debugging program karena error umumnya 
+hanya menyebabkan failure pada modul itu saja. Selain itu, implementasi terpisah juga memperjelas pembagian kerja anggota dan mengurangi 
+jumlah konflik yang mungkin terjadi. Selain itu kelebihan arsitektur ini juga adalah platform independent dan languange independent. 
 
 #### Kekurangan arsitektur Web service REST dan SOAP dengan aplikasi monolitik
 
-Setiap bagian dari program yang dibuat dapat saling bergantung satu - sama lain. Contohnya, web application akan bergantung pada jax-ws
-untuk menghubungi basis data. Hal ini dapat membuat proses pengerjaan program terhalang karena saling menunggu satu - sama lain.
-Implementasi terpisah ini juga menambah pekerjaan yaitu mengintegrasikan komponen - komponen sistem yang dibuat secara terpisah.
+Karena dengan arsitektur ini implementasi program dilakukan secara terpisah, hal ini menyebabkan dibutuhkan waktu tambahan untuk melakukan 
+integrasi dari setiap komponen-komponen. Selain itu ada bagian program yang membutuhkan program lain sehingga program tersebut harus didelay 
+pengerjaannya hingga program yang dibutuhkan sudah dibuat. Contohnya WebApplication bergantung pada jax-ws sehingga tidak efektif untuk 
+menulis kode jsp apabila WebService jax-ws belum selesai. 
 
 ### Pembagian Tugas
 
