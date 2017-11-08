@@ -13,9 +13,6 @@
         	}
         }
     }
-    if (token == ""){
-    	// response.sendRedirect("Login.jsp");
-    }
 %>
         	
 <%
@@ -43,7 +40,7 @@
         </b> !</span><br>
     
         <form id="loqout" action="LogoutServlet" method="POST">
-        	<input type="hidden" name="token" value="<%= token %>"> <!-- TODO: Access token from identityserv -->
+        	<input type="hidden" name="token" value="<%= token %>">
             <a href="javascript:;" onclick="document.getElementById('loqout').submit();">Logout</a>
         </form>
     </div>
