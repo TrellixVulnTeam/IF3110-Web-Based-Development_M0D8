@@ -24,10 +24,12 @@
 	
 	com.services.History[] hist = null;
 	String redirect = "";
+	String redirect2 = "";
 	try{
 		hist = historyOrderProxy.getHistoryAsCustomer(mytoken, id);	
 	} catch (com.services.TokenException tex) {
 		redirect = "LogoutServlet";
+		hist = new com.services.History[0];
 	}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -71,11 +73,11 @@
     			int idd = hist[i].getIdDriver();
     		
     			com.services.User cust = null;
-    			String redirect2 = "";
     			try{
     				cust = historyOrderProxyUser.getUser(mytoken, idd);	
     			} catch (com.services.TokenException tex) {
     				redirect2 = "LogoutServlet";
+    				cust = new com.services.User();
     			}
     			
     			int idc = hist[i].getIdCustomer();
@@ -118,3 +120,11 @@
     
 </body>
 </html>
+
+<%
+	if (redirect != "") {
+		response.sendRedirect(redirect);
+	} else if (redirect2 != "") {
+		response.sendRedirect(redirect);
+	}
+%>

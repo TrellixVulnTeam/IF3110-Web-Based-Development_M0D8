@@ -24,11 +24,13 @@
 	String idStr = request.getParameter("id_active");
 	int id = Integer.parseInt(idStr);
 	String redirect = "";
+	String redirect2 = "";
 	com.services.User user = null;	
 	try{
 		user = uploadProxy.getUser(mytoken, id);
 	} catch (com.services.TokenException tex) {
 		redirect = "LogoutServlet";
+		user = new com.services.User();
 	}
 %>
 
@@ -85,7 +87,11 @@
                
                com.services.UserServiceProxy proxy = new com.services.UserServiceProxy();
                user.setImagePath(filep);
-               uploadProxy.saveUser(mytoken, user);
+               try {
+               		uploadProxy.saveUser(mytoken, user);
+               } catch (com.services.TokenException tex) {
+            		redirect2 = "LogoutServlet";
+               }
             }
          }
       } catch(Exception ex) {
@@ -93,4 +99,12 @@
       }
    } else {
    }
+%>
+
+<%
+	if (redirect != "") {
+		response.sendRedirect(redirect);
+	} else if (redirect2 != "") {
+		response.sendRedirect(redirect2);
+	}
 %>
