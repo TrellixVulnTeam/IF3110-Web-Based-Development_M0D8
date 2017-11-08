@@ -1,6 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     
+<%
+    String mytoken = "";
+    Cookie[] mycookies = request.getCookies();
+    if (mycookies != null) {
+        for (int i = 0; i < mycookies.length; ++i) {
+        	if (mycookies[i].getName().equals("token")) {
+        		mytoken = mycookies[i].getValue();
+        			break;
+        	}
+        }
+    }
+%>
+
 <jsp:useBean id="historyOrderProxy" scope="request" class="com.services.HistoryServiceProxy" />
 <jsp:useBean id="historyOrderProxyUser" scope="request" class="com.services.UserServiceProxy" />
 <%
@@ -49,7 +62,7 @@
     <% if (hist != null && hist.length > 0) {
     		for (int i = 0; i < hist.length; ++i) {
     			int idd = hist[i].getIdDriver();
-    			com.services.User cust = historyOrderProxyUser.getUser(idd);
+    			com.services.User cust = historyOrderProxyUser.getUser(mytoken, idd);
     			int idc = hist[i].getIdCustomer();
     			int ido = hist[i].getId(); %>
     			<div class="history-list-item">
