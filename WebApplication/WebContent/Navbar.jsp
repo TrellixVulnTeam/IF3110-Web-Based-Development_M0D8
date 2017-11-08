@@ -19,7 +19,7 @@
 	navbarProxy.setEndpoint("http://localhost:8000/WebService/User");
 	com.services.User userNavbar = null;	
 	try{
-		userNavbar = navbarProxy.getUser(token, 1);		
+		userNavbar = navbarProxy.getUser(token, Integer.parseInt(request.getParameter("id_active")));		
 	} catch (com.services.TokenException tex) {
 		response.sendRedirect("LogoutServlet");
 	}

@@ -6,6 +6,33 @@
 <%@ page import = "org.apache.commons.io.output.*" %>
 
 <%
+    String mytoken = "";
+    Cookie[] mycookies = request.getCookies();
+    if (mycookies != null) {
+        for (int i = 0; i < mycookies.length; ++i) {
+        	if (mycookies[i].getName().equals("token")) {
+        		mytoken = mycookies[i].getValue();
+        			break;
+        	}
+        }
+    }
+%>
+
+<jsp:useBean id="uploadProxy" scope="request" class="com.services.UserServiceProxy" />
+<%
+	uploadProxy.setEndpoint("http://localhost:8000/WebService/User");
+	String idStr = request.getParameter("id_active");
+	int id = Integer.parseInt(idStr);
+	
+	com.services.User user = null;	
+	try{
+		user = uploadProxy.getUser(mytoken, id);
+	} catch (com.services.TokenException tex) {
+		response.sendRedirect("LogoutServlet");
+	}
+%>
+
+<%
    File file ;
    int maxFileSize = 5000 * 1024;
    int maxMemSize = 5000 * 1024;
@@ -15,7 +42,6 @@
    String contentType = request.getContentType();
    
    if ((contentType.indexOf("multipart/form-data") >= 0)) {
-	   out.println("YEY");
       DiskFileItemFactory factory = new DiskFileItemFactory();
       // maximum size that will be stored in memory
       factory.setSizeThreshold(maxMemSize);
@@ -56,6 +82,10 @@
                }
                fi.write( file ) ;
                String filep = "profiles/" + fileName;
+               
+               com.services.UserServiceProxy proxy = new com.services.UserServiceProxy();
+               user.setImagePath(filep);
+               uploadProxy.saveUser(mytoken, user);
             }
          }
       } catch(Exception ex) {
