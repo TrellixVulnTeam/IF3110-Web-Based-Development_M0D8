@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
 			Class.forName("com.mysql.jdbc.Driver");
 			
 			// Open connection
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gaussianlord_main", "root", "");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/gaussianlord_main", "root", "");
 
 			ps = conn.prepareStatement("SELECT * FROM user WHERE id=?");
 			ps.setString(1, String.valueOf(id));
@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
 			Class.forName("com.mysql.jdbc.Driver");
 			
 			// Open connection
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gaussianlord_acc", "root", "");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/gaussianlord_acc", "root", "");
 
 			ps = conn.prepareStatement("SELECT id FROM account_token WHERE token=?");
 			ps.setString(1, token);
@@ -124,7 +124,7 @@ public class UserServiceImpl implements UserService {
 			Class.forName("com.mysql.jdbc.Driver");
 			
 			// Open connection
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gaussianlord_main", "root", "");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/gaussianlord_main", "root", "");
 
 			ps = conn.prepareStatement("SELECT * FROM user NATURAL JOIN preferredlocation WHERE username=? AND is_driver=1 AND (location=? OR location=?) ");
 			ps.setString(1, username);
@@ -173,7 +173,7 @@ public class UserServiceImpl implements UserService {
 			Class.forName("com.mysql.jdbc.Driver");
 			
 			// Open connection
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gaussianlord_main", "root", "");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/gaussianlord_main", "root", "");
 
 			ps = conn.prepareStatement("SELECT DISTINCT id, username, email, phone_num, img_path, fullname, is_driver, star, vote FROM user NATURAL JOIN preferredlocation WHERE is_driver=1 AND (location=? OR location=?) ");
 			ps.setString(1, pickup);
@@ -226,7 +226,7 @@ public class UserServiceImpl implements UserService {
 			Class.forName("com.mysql.jdbc.Driver");
 			
 			// Open connection
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gaussianlord_main", "root", "");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/gaussianlord_main", "root", "");
 
 			ps = conn.prepareStatement("SELECT * FROM preferredlocation WHERE id=?");
 			ps.setString(1, String.valueOf(id));
@@ -274,7 +274,7 @@ public class UserServiceImpl implements UserService {
 			Class.forName("com.mysql.jdbc.Driver");
 			
 			// Open connection
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gaussianlord_main", "root", "");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/gaussianlord_main", "root", "");
 
 			ps = conn.prepareStatement("UPDATE user SET username=?, email=?, phone_num=?, img_path=?, fullname=?, is_driver=?, star=?, vote=? WHERE id=?");
 			ps.setString(1, user.getUsername());
@@ -327,7 +327,7 @@ public class UserServiceImpl implements UserService {
 			Class.forName("com.mysql.jdbc.Driver");
 			
 			// Open connection
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gaussianlord_main", "root", "");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/gaussianlord_main", "root", "");
 
 			ps = conn.prepareStatement("insert into user(username, email, phone_num, fullname, is_driver) "
 					+ "values(?,?,?,?,?)");
