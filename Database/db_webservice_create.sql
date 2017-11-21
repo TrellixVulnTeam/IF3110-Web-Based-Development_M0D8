@@ -23,11 +23,12 @@ CREATE TABLE `user` (
   `username` varchar(255) NOT NULL UNIQUE,
   `email` varchar(255) NOT NULL UNIQUE,
   `phone_num` varchar(12) NOT NULL,
-  `img_path` BLOB,
+  `img_path` varchar(255) DEFAULT 'profiles/default.png',
   `fullname` varchar(20) NOT NULL,
   `is_driver` tinyint(1) NOT NULL DEFAULT '0',
   `star` decimal(2,1) NOT NULL DEFAULT '0.0',
   `vote` int(11) NOT NULL DEFAULT '0', 
+  `is_available` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 );
 
