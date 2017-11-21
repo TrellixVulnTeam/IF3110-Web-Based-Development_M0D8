@@ -96,10 +96,12 @@ public class Login extends HttpServlet {
 				
 				// Generate Token
 				Token token = new Token();
+				String secToken;
 				do {
 					token.generate();
+					secToken = token.get() + "#" + request.getHeader("User-Agent") + "#" + request.getRemoteAddr();
 					pstmt = conn.prepareStatement("SELECT * FROM account_token WHERE token=?");
-					pstmt.setString(1, token.get());
+					pstmt.setString(1, secToken);
 					rs = pstmt.executeQuery();
 				} while (rs.isBeforeFirst());
 				
@@ -111,13 +113,13 @@ public class Login extends HttpServlet {
 				// Update DB
 				pstmt = conn.prepareStatement("INSERT INTO account_token(id,token,expiry_time) VALUES(?,?,?)");
 				pstmt.setInt(1, id);
-				pstmt.setString(2, token.get());
+				pstmt.setString(2, secToken);
 				pstmt.setObject(3, datetime);
 				pstmt.executeUpdate();
 				
 				String expiryTimeString = expiryTime.toString(); 
 				
-				toReturn = "{\"status\":\"ok\",\"token\":\"" + token.get() + "\",\"expiry\":\"" + expiryTimeString + "\",\"id\":" + id + "}";
+				toReturn = "{\"status\":\"ok\",\"token\":\"" + secToken + "\",\"expiry\":\"" + expiryTimeString + "\",\"id\":" + id + "}";
 				out.print(toReturn);
 			}
 	        

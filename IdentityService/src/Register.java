@@ -101,10 +101,12 @@ public class Register extends HttpServlet {
 				int id = rs.getInt(1);
 				
 				Token token = new Token();
+				String secToken;
 				do {
 					token.generate();
+					secToken = token.get() + "#" + request.getHeader("User-Agent") + "#" + request.getRemoteAddr();
 					ps = con.prepareStatement("SELECT * FROM account_token WHERE token=?");
-					ps.setString(1, token.get());
+					ps.setString(1, secToken);
 					rs = ps.executeQuery();
 				} while (rs.isBeforeFirst());
 				
@@ -116,13 +118,13 @@ public class Register extends HttpServlet {
 				// Update DB
 				ps = con.prepareStatement("INSERT INTO account_token(id,token,expiry_time) VALUES(?,?,?)");
 				ps.setInt(1, id);
-				ps.setString(2, token.get());
+				ps.setString(2, secToken);
 				ps.setObject(3, datetime);
 				ps.executeUpdate();
 
 				String expiryTimeString = expiryTime.toString(); 
 				
-				toReturn = "{\"status\":\"ok\",\"token\":\"" + token.get() + "\",\"expiry\":\"" + expiryTimeString + "\"}";
+				toReturn = "{\"status\":\"ok\",\"token\":\"" + secToken + "\",\"expiry\":\"" + expiryTimeString + "\"}";
 				out.print(toReturn);
 			}
 			else {
