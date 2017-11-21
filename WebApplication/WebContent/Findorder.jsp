@@ -24,15 +24,23 @@
 	  </div>
 	</div>
 	
-	<p id="textorder" class="text-center text-font-order"></p>
-	
-	<form method="POST" onsubmit="" action="Findingorder.jsp?id_active=<%= request.getParameter("id_active") %>">
-		<button id="findorder" type="submit" class="button button-order" onclick="onClickButtonOrder();">FIND ORDER</button>
-	</form>
+	<% if (/*userNavbar.isAvailable()*/true) { %>
+		<form method="POST" onsubmit="" action="Findingorder.jsp?id_active=<%= request.getParameter("id_active") %>">
+			<input type="hidden" name="available" value="0" />
+			<button id="findorder" type="submit" class="button button-order">FIND ORDER</button>
+		</form>
+	<% } else { %>
+		<p id="textorder" class="text-center text-font-order">Finding order...</p>
+		
+		<form method="POST" onsubmit="" action="Findingorder.jsp?id_active=<%= request.getParameter("id_active") %>">
+			<input type="hidden" name="available" value="1" />
+			<button id="findorder" type="submit" class="button button-order" style="background-color: red;">CANCEL</button>
+		</form>
+	<% } %>
 
 </body>
 
-<script>
+<!--script>
 	function onClickButtonOrder() {
 		var btn = document.getElementById("findorder");
 		var txt = document.getElementById("textorder");
@@ -47,6 +55,6 @@
 			btn.innerText = "FIND ORDER";	
 		}
 	}
-</script>
+</script-->
 
 </html>

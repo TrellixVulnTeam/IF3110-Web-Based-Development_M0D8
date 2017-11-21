@@ -105,7 +105,7 @@ public class Login extends HttpServlet {
 				
 				// Generate current datetime for expiry time
 				java.util.Date date = new Date();
-				Long expiryTime = new Long(date.getTime() + 60000 * 2);
+				Long expiryTime = new Long(date.getTime() + 60000 * 30);
 				Object datetime = new java.sql.Timestamp(expiryTime);
 				
 				// Update DB

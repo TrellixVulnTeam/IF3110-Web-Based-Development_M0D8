@@ -105,13 +105,13 @@ case 13:
         com1services1User_1id.setImagePath(imagePath_7idTemp);
         com1services1User_1id.setEmail(email_8idTemp);
         com1services1User_1id.setPhoneNumber(phoneNumber_9idTemp);
-        sampleUserServiceProxyid.loadPreferredLocations(com1services1User_1id);
+        sampleUserServiceProxyid.loadPreferredLocations("", com1services1User_1id);
 break;
 case 34:
         gotMethod = true;
         String arg0_10id=  request.getParameter("arg053");
         int arg0_10idTemp  = Integer.parseInt(arg0_10id);
-        com.services.User getUser34mtemp = sampleUserServiceProxyid.getUser(arg0_10idTemp);
+        com.services.User getUser34mtemp = sampleUserServiceProxyid.getUser("", arg0_10idTemp);
 if(getUser34mtemp == null){
 %>
 <%=getUser34mtemp %>
