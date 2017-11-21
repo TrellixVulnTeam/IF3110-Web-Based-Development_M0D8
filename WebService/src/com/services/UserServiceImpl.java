@@ -175,7 +175,7 @@ public class UserServiceImpl implements UserService {
 			// Open connection
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/gaussianlord_main", "root", "");
 
-			ps = conn.prepareStatement("SELECT DISTINCT id, username, email, phone_num, img_path, fullname, is_driver, star, vote FROM user NATURAL JOIN preferredlocation WHERE is_driver=1 AND (location=? OR location=?) ");
+			ps = conn.prepareStatement("SELECT DISTINCT id, username, email, phone_num, img_path, fullname, is_driver, star, vote, is_finding FROM user NATURAL JOIN preferredlocation WHERE is_driver=1 AND (location=? OR location=?) ");
 			ps.setString(1, pickup);
 			ps.setString(2, dest);
 
@@ -276,7 +276,7 @@ public class UserServiceImpl implements UserService {
 			// Open connection
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/gaussianlord_main", "root", "");
 
-			ps = conn.prepareStatement("UPDATE user SET username=?, email=?, phone_num=?, img_path=?, fullname=?, is_driver=?, star=?, vote=? WHERE id=?");
+			ps = conn.prepareStatement("UPDATE user SET username=?, email=?, phone_num=?, img_path=?, fullname=?, is_driver=?, star=?, vote=?, is_finding=? WHERE id=?");
 			ps.setString(1, user.getUsername());
 			ps.setString(2, user.getEmail());
 			ps.setString(3, user.getPhoneNumber());
@@ -289,7 +289,12 @@ public class UserServiceImpl implements UserService {
 			}
 			ps.setString(7, String.valueOf(user.getStar()));
 			ps.setString(8, String.valueOf(user.getVote()));
-			ps.setString(9, String.valueOf(id));
+			if (user.isFinding()) {
+				ps.setString(9, String.valueOf(1));	
+			} else {
+				ps.setString(9, String.valueOf(0));
+			}
+			ps.setString(10, String.valueOf(id));
 
 
 			// Execute query

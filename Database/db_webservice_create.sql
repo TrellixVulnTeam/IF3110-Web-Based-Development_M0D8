@@ -28,7 +28,7 @@ CREATE TABLE `user` (
   `is_driver` tinyint(1) NOT NULL DEFAULT '0',
   `star` decimal(2,1) NOT NULL DEFAULT '0.0',
   `vote` int(11) NOT NULL DEFAULT '0', 
-  `is_available` tinyint(1) NOT NULL DEFAULT '1',
+  `is_finding` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 );
 

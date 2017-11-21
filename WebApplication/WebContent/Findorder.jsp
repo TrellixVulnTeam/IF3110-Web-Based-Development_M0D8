@@ -24,16 +24,16 @@
 	  </div>
 	</div>
 	
-	<% if (/*userNavbar.isAvailable()*/true) { %>
+	<% if (!userNavbar.isFinding()) { %>
 		<form method="POST" onsubmit="" action="Findingorder.jsp?id_active=<%= request.getParameter("id_active") %>">
-			<input type="hidden" name="available" value="0" />
+			<input type="hidden" name="finding" value="1" />
 			<button id="findorder" type="submit" class="button button-order">FIND ORDER</button>
 		</form>
 	<% } else { %>
 		<p id="textorder" class="text-center text-font-order">Finding order...</p>
 		
 		<form method="POST" onsubmit="" action="Findingorder.jsp?id_active=<%= request.getParameter("id_active") %>">
-			<input type="hidden" name="available" value="1" />
+			<input type="hidden" name="finding" value="0" />
 			<button id="findorder" type="submit" class="button button-order" style="background-color: red;">CANCEL</button>
 		</form>
 	<% } %>

@@ -33,7 +33,8 @@
 
 <%
 	// Update driver available attr
-	boolean available = "1".equals(request.getParameter("id_active"));
+	boolean finding = "1".equals(request.getParameter("finding"));
+	user.setFinding(finding);
 %>
 
 <%

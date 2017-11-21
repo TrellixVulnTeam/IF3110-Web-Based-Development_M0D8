@@ -12,6 +12,8 @@ public class User  implements java.io.Serializable {
 
     private java.lang.String email;
 
+    private boolean finding;
+
     private int id;
 
     private java.lang.String imagePath;
@@ -34,6 +36,7 @@ public class User  implements java.io.Serializable {
     public User(
            boolean driver,
            java.lang.String email,
+           boolean finding,
            int id,
            java.lang.String imagePath,
            java.lang.String name,
@@ -44,6 +47,7 @@ public class User  implements java.io.Serializable {
            int vote) {
            this.driver = driver;
            this.email = email;
+           this.finding = finding;
            this.id = id;
            this.imagePath = imagePath;
            this.name = name;
@@ -92,6 +96,26 @@ public class User  implements java.io.Serializable {
      */
     public void setEmail(java.lang.String email) {
         this.email = email;
+    }
+
+
+    /**
+     * Gets the finding value for this User.
+     * 
+     * @return finding
+     */
+    public boolean isFinding() {
+        return finding;
+    }
+
+
+    /**
+     * Sets the finding value for this User.
+     * 
+     * @param finding
+     */
+    public void setFinding(boolean finding) {
+        this.finding = finding;
     }
 
 
@@ -278,6 +302,7 @@ public class User  implements java.io.Serializable {
             ((this.email==null && other.getEmail()==null) || 
              (this.email!=null &&
               this.email.equals(other.getEmail()))) &&
+            this.finding == other.isFinding() &&
             this.id == other.getId() &&
             ((this.imagePath==null && other.getImagePath()==null) || 
              (this.imagePath!=null &&
@@ -311,6 +336,7 @@ public class User  implements java.io.Serializable {
         if (getEmail() != null) {
             _hashCode += getEmail().hashCode();
         }
+        _hashCode += (isFinding() ? Boolean.TRUE : Boolean.FALSE).hashCode();
         _hashCode += getId();
         if (getImagePath() != null) {
             _hashCode += getImagePath().hashCode();
@@ -358,6 +384,12 @@ public class User  implements java.io.Serializable {
         elemField.setXmlName(new javax.xml.namespace.QName("", "email"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
         elemField.setMinOccurs(0);
+        elemField.setNillable(false);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("finding");
+        elemField.setXmlName(new javax.xml.namespace.QName("", "finding"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "boolean"));
         elemField.setNillable(false);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();

@@ -109,10 +109,11 @@ public class RegisterServlet extends HttpServlet {
 				}
 				
 				com.services.UserServiceProxy proxy = new com.services.UserServiceProxy();
-				
-				com.services.User user = new com.services.User(
+								
+				com.services.User user = new com.services.User( 
 				           temp,
 				           email,
+				           true,
 				           11,
 				           null,
 				           fullName,

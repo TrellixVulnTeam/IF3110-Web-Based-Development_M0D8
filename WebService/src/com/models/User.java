@@ -17,7 +17,7 @@ public class User {
 	private float star;
 	private int vote;
 	private ArrayList<Location> preferredLocations;
-	private boolean available;
+	private boolean finding;
 
 	public User() {
 		id = 0;
@@ -30,7 +30,7 @@ public class User {
 		star = 0;
 		vote = 0;
 		preferredLocations = new ArrayList<Location>();
-		available = true;
+		finding = false;
 	}
 	
 	public User(ResultSet rs) {
@@ -45,7 +45,7 @@ public class User {
 			star = rs.getFloat("star");
 			vote = rs.getInt("vote");
 			preferredLocations = new ArrayList<Location>();
-			available = rs.getBoolean("is_available");
+			finding = rs.getBoolean("is_finding");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			id = 0;
@@ -58,7 +58,7 @@ public class User {
 			star = 0;
 			vote = 0;
 			preferredLocations = new ArrayList<Location>();
-			available = true;
+			finding = false;
 		}
 	}
 	
@@ -73,7 +73,7 @@ public class User {
 		star = 0;
 		vote = 0;
 		preferredLocations = new ArrayList<Location>();
-		available = true;
+		finding = false;
 	}
 	
 	public void loadPreferredLocations(ResultSet rs) {
@@ -133,8 +133,8 @@ public class User {
 		return driver;
 	}
 	
-	public boolean isAvailable() {
-		return available;
+	public boolean isFinding() {
+		return finding;
 	}
 
 	public void setId(int id) {
@@ -193,7 +193,7 @@ public class User {
 		preferredLocations = loc;
 	}
 	
-	public void setAvailable(boolean available) {
-		this.available = available;
+	public void setFinding(boolean finding) {
+		this.finding = finding;
 	}
 }
