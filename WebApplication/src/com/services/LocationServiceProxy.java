@@ -50,16 +50,16 @@ public class LocationServiceProxy implements com.services.LocationService {
     return locationService.getLocation(arg0, arg1);
   }
   
-  public boolean insertLocation(java.lang.String arg0, int arg1, com.services.Location arg2) throws java.rmi.RemoteException, com.services.TokenException{
-    if (locationService == null)
-      _initLocationServiceProxy();
-    return locationService.insertLocation(arg0, arg1, arg2);
-  }
-  
   public boolean deleteLocation(java.lang.String arg0, int arg1, com.services.Location arg2) throws java.rmi.RemoteException, com.services.TokenException{
     if (locationService == null)
       _initLocationServiceProxy();
     return locationService.deleteLocation(arg0, arg1, arg2);
+  }
+  
+  public boolean insertLocation(java.lang.String arg0, int arg1, com.services.Location arg2) throws java.rmi.RemoteException, com.services.TokenException{
+    if (locationService == null)
+      _initLocationServiceProxy();
+    return locationService.insertLocation(arg0, arg1, arg2);
   }
   
   public boolean updateLocation(java.lang.String arg0, int arg1, com.services.Location arg2, com.services.Location arg3) throws java.rmi.RemoteException, com.services.TokenException{

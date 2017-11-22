@@ -126,7 +126,7 @@ public class UserServiceImpl implements UserService {
 			// Open connection
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/gaussianlord_main", "root", "");
 
-			ps = conn.prepareStatement("SELECT * FROM user NATURAL JOIN preferredlocation WHERE username=? AND is_driver=1 AND (location=? OR location=?) ");
+			ps = conn.prepareStatement("SELECT * FROM user NATURAL JOIN preferredlocation WHERE username=? AND is_driver=1 AND (location=? OR location=?) AND is_finding=1");
 			ps.setString(1, username);
 			ps.setString(2, pickup);
 			ps.setString(3, dest);
@@ -175,7 +175,7 @@ public class UserServiceImpl implements UserService {
 			// Open connection
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/gaussianlord_main", "root", "");
 
-			ps = conn.prepareStatement("SELECT DISTINCT id, username, email, phone_num, img_path, fullname, is_driver, star, vote, is_finding FROM user NATURAL JOIN preferredlocation WHERE is_driver=1 AND (location=? OR location=?) ");
+			ps = conn.prepareStatement("SELECT DISTINCT id, username, email, phone_num, img_path, fullname, is_driver, star, vote, is_finding FROM user NATURAL JOIN preferredlocation WHERE is_driver=1 AND (location=? OR location=?) AND is_finding=1 ");
 			ps.setString(1, pickup);
 			ps.setString(2, dest);
 
