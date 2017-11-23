@@ -1,0 +1,37 @@
+<!doctype html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="swtMessage">
+<head>
+	<!-- META -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+
+	<title>Chat Application</title>
+
+	<!-- SCROLLS -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+
+	<!-- SPELLS -->
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script><!-- load angular -->
+
+	<script src="js/controllers/main.js"></script> <!-- load up our controller -->
+	<script src="js/services/messages.js"></script> <!-- load our message service -->
+	<script src="js/core.js"></script> <!-- load our main application -->
+
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+</head>
+<!-- SET THE CONTROLLER -->
+<body ng-controller="mainController">
+	<div class="chatbox">
+		<div class="messagechat" ng-repeat="message in messages">
+			<label> {{ message.text }} </label>
+		</div>
+	</div>
+	<form class="inputform">
+		<input type="text" class="inputbox" ng-model="formData.text ">
+		<button type="submit" class="send" ng-click="createMessage()">Kirim</button>
+	</form>
+</body>
+</html>
