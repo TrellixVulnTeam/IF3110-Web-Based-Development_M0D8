@@ -2,14 +2,21 @@
     pageEncoding="ISO-8859-1"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html ng-app="swtMessage">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Order</title>
 	<link rel="icon" href="img/icon.png" />
 	<link rel="stylesheet" href="css/style.css">
+	
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script><!-- load angular -->
+
+	<script src="js/controllers/main.js"></script> <!-- load up our controller -->
+	<script src="js/services/messages.js"></script> <!-- load our message service -->
+	<script src="js/core.js"></script> <!-- load our main application -->
+	
 </head>
-<body>
+<body ng-controller="mainController">
   	<div id="navbar">
 	  <%@ include file="Navbar.jsp" %>
 	  <div class="after-box">
