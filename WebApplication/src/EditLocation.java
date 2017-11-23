@@ -53,7 +53,7 @@ public class EditLocation extends HttpServlet {
 			proxy.updateLocation(token, Integer.parseInt(id), oldloc, newloc);
 		}
 		catch(com.services.TokenException t) {
-			response.sendRedirect("http://localhost:9000/WebApplication/LogoutServlet");
+			response.sendRedirect("http://localhost:9000/WebApplication/LogoutServlet?e="+t);
 		}
 		
 		

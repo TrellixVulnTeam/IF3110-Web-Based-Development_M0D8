@@ -10,12 +10,11 @@ import java.net.URL;
 import org.json.JSONObject;
 
 public interface TokenValidator  {
-	public static Boolean validateToken(String token) {
+	public static Boolean validateToken(String token, int id) {
 		try {
 			URL url = new URL ("http://localhost:7000/IdentityService/Validate");
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-			String body = "{\"token\": \"" + token + "\"}";
-			
+			String body = "{\"token\":\"" + token + "\",\"id\":" + id + "}";
 			connection.setDoOutput(true);
 			connection.setRequestMethod("POST");
 			connection.setRequestProperty("Content-Type", "application/json; charset=utf-8");

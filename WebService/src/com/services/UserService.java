@@ -23,19 +23,19 @@ public interface UserService {
 		Mengeluarkan user yang memiliki token yang sama dengan parameter
 	*/
 	@WebMethod
-	public User getUserByToken(String token) throws TokenException;
+	public User getUserByToken(String token, int id) throws TokenException;
 	
 	/*
 		Mengeluarkan user yang memiliki username yang sama dengan parameter dan preferred location yang sesuai
 	*/
 	@WebMethod
-	public User getPreferredDriver(String token, String username, String pickup, String dest) throws TokenException;
+	public User getPreferredDriver(String token, String username, String pickup, String dest, int id) throws TokenException;
 	
 	/*
 		Mengeluarkan user yang memiliki username yang sama dengan parameter dan preferred location yang sesuai
 	*/
 	@WebMethod
-	public User[] getDriver(String token, String pickup, String dest) throws TokenException;
+	public User[] getDriver(String token, String pickup, String dest, int id) throws TokenException;
 	
 	/*
 	 * Mendapatkan preferred location dari database dan mengeluarkannya.

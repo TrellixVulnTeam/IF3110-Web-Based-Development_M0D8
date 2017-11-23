@@ -51,7 +51,7 @@ public class Hideorder extends HttpServlet {
 			proxy.hideHistoryAsCustomer(token, ido);
 		}
 		catch(com.services.TokenException t) {
-			response.sendRedirect("http://localhost:9000/WebApplication/LogoutServlet");
+			response.sendRedirect("http://localhost:9000/WebApplication/LogoutServlet?e="+t);
 		}
 	
 		response.sendRedirect("http://localhost:9000/WebApplication/Historyorder.jsp?id_active=" + idStr);

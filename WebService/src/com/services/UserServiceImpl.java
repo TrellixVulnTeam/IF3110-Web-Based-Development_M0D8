@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User getUser(String token, int id) throws TokenException {
-		if (!TokenValidator.validateToken(token)) {
+		if (!TokenValidator.validateToken(token, id)) {
 			throw new TokenException();
 		}
 		Connection conn = null;
@@ -65,8 +65,8 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public User getUserByToken(String token) throws TokenException {
-		if (!TokenValidator.validateToken(token)) {
+	public User getUserByToken(String token, int id) throws TokenException {
+		if (!TokenValidator.validateToken(token, id)) {
 			throw new TokenException();
 		}
 		Connection conn = null;
@@ -112,8 +112,8 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public User getPreferredDriver(String token, String username, String pickup, String dest) throws TokenException {
-		if (!TokenValidator.validateToken(token)) {
+	public User getPreferredDriver(String token, String username, String pickup, String dest, int id) throws TokenException {
+		if (!TokenValidator.validateToken(token, id)) {
 			throw new TokenException();
 		}
 		Connection conn = null;
@@ -160,8 +160,8 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public User[] getDriver(String token, String pickup, String dest) throws TokenException {
-		if (!TokenValidator.validateToken(token)) {
+	public User[] getDriver(String token, String pickup, String dest, int id) throws TokenException {
+		if (!TokenValidator.validateToken(token, id)) {
 			throw new TokenException();
 		}
 		ArrayList<User> drivers = new ArrayList<User>();
@@ -214,7 +214,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public ArrayList<Location> loadPreferredLocations(String token, User user) throws TokenException {
-		if (!TokenValidator.validateToken(token)) {
+		if (!TokenValidator.validateToken(token, user.getId())) {
 			throw new TokenException();
 		}
 		int id = user.getId();
@@ -262,7 +262,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean saveUser(String token, User user) throws TokenException {
-		if (!TokenValidator.validateToken(token)) {
+		if (!TokenValidator.validateToken(token, user.getId())) {
 			throw new TokenException();
 		}
 		int id = user.getId();
@@ -321,7 +321,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	public int createUser(String token, User user) throws TokenException {
-		if (!TokenValidator.validateToken(token)) {
+		if (!TokenValidator.validateToken(token, user.getId())) {
 			throw new TokenException();
 		}
 		Connection conn = null;

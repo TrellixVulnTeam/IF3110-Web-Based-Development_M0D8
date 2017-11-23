@@ -61,11 +61,11 @@ public class Finishorder extends HttpServlet {
 		}
 		
 		try {
-			proxy.createHistory(token, history);
+			proxy.createHistory(token, history, Integer.parseInt(idc));
 			proxy.updateCustomer(token, Integer.parseInt(idd), history);
 		}
 		catch(com.services.TokenException t) {
-			response.sendRedirect("http://localhost:9000/WebApplication/LogoutServlet");
+			response.sendRedirect("http://localhost:9000/WebApplication/LogoutServlet?e="+t);
 		}
 		
 		

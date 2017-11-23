@@ -17,7 +17,7 @@ public class LocationServiceImpl implements LocationService {
 
 	@Override
 	public ArrayList<Location> getLocation(String token, int id) throws TokenException {
-		if (!TokenValidator.validateToken(token)) {
+		if (!TokenValidator.validateToken(token, id)) {
 			throw new TokenException();
 		}
 		
@@ -69,7 +69,7 @@ public class LocationServiceImpl implements LocationService {
 
 	@Override
 	public boolean updateLocation(String token, int id, Location oldLoc, Location newLoc) throws TokenException {
-		if (!TokenValidator.validateToken(token)) {
+		if (!TokenValidator.validateToken(token, id)) {
 			throw new TokenException();
 		}
 		
@@ -109,7 +109,7 @@ public class LocationServiceImpl implements LocationService {
 	
 	@Override
 	public boolean deleteLocation(String token, int id, Location loc) throws TokenException {
-		if (!TokenValidator.validateToken(token)) {
+		if (!TokenValidator.validateToken(token, id)) {
 			throw new TokenException();
 		}
 		
@@ -148,7 +148,7 @@ public class LocationServiceImpl implements LocationService {
 	
 	@Override
 	public boolean insertLocation(String token, int id, Location loc) throws TokenException {
-		if (!TokenValidator.validateToken(token)) {
+		if (!TokenValidator.validateToken(token, id)) {
 			throw new TokenException();
 		}
 		
