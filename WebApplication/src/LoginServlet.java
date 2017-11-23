@@ -11,6 +11,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -53,7 +54,7 @@ public class LoginServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String username = request.getParameter("username");
 		String pass = request.getParameter("pass");
-		String body = "{\"username\": \"" + username + "\",\"pass\": \"" + pass + "\"}";
+		String body = "{\"username\": \"" + username + "\",\"pass\": \"" + pass + "\",\"uagent\": \"" + URLEncoder.encode(request.getHeader("User-Agent"), "UTF-8") + "\"}";
 		
 		URL url = new URL ("http://localhost:7000/IdentityService/Login");
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();

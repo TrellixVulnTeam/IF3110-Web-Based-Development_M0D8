@@ -57,10 +57,12 @@ public class Login extends HttpServlet {
 		JSONObject body;
 		String username = "";
 		String password = "";
+		String uagent = "";
 		try {
 			body = new JSONObject(text);
 			username = body.get("username").toString();
 			password = body.getString("pass").toString();
+			uagent = body.getString("uagent").toString();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -99,7 +101,7 @@ public class Login extends HttpServlet {
 				String secToken;
 				do {
 					token.generate();
-					secToken = token.get() + "#" + request.getHeader("User-Agent") + "#" + request.getRemoteAddr();
+					secToken = token.get() + "#" + uagent + "#" + request.getRemoteAddr();
 					pstmt = conn.prepareStatement("SELECT * FROM account_token WHERE token=?");
 					pstmt.setString(1, secToken);
 					rs = pstmt.executeQuery();

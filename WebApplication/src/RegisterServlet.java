@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -53,7 +54,7 @@ public class RegisterServlet extends HttpServlet {
 		String phone = request.getParameter("phone");
 		String isDriver = request.getParameter("is-driver");
 		
-		String bodyIdentity = "{\"username\": \"" + userName + "\",\"pass\": \"" + pass + "\",\"email\":\"" + email + "\"}";
+		String bodyIdentity = "{\"username\": \"" + userName + "\",\"pass\": \"" + pass + "\",\"email\":\"" + email + "\",\"uagent\": \"" + URLEncoder.encode(request.getHeader("User-Agent"), "UTF-8") + "\"}";
 		
 		URL url = new URL ("http://localhost:7000/IdentityService/Register");
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
