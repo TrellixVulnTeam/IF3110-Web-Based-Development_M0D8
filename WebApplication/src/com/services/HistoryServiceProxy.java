@@ -44,6 +44,12 @@ public class HistoryServiceProxy implements com.services.HistoryService {
     return historyService;
   }
   
+  public com.services.History[] getHistoryAsDriver(java.lang.String arg0, int arg1) throws java.rmi.RemoteException, com.services.TokenException{
+    if (historyService == null)
+      _initHistoryServiceProxy();
+    return historyService.getHistoryAsDriver(arg0, arg1);
+  }
+  
   public boolean hideHistoryAsDriver(java.lang.String arg0, int arg1) throws java.rmi.RemoteException, com.services.TokenException{
     if (historyService == null)
       _initHistoryServiceProxy();
@@ -54,12 +60,6 @@ public class HistoryServiceProxy implements com.services.HistoryService {
     if (historyService == null)
       _initHistoryServiceProxy();
     return historyService.hideHistoryAsCustomer(arg0, arg1);
-  }
-  
-  public com.services.History[] getHistoryAsDriver(java.lang.String arg0, int arg1) throws java.rmi.RemoteException, com.services.TokenException{
-    if (historyService == null)
-      _initHistoryServiceProxy();
-    return historyService.getHistoryAsDriver(arg0, arg1);
   }
   
   public com.services.History[] getHistoryAsCustomer(java.lang.String arg0, int arg1) throws java.rmi.RemoteException, com.services.TokenException{

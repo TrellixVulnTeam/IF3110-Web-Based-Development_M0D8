@@ -56,7 +56,8 @@
 	    <ul class="list-centered">
 	      <li class="list-order"><div class="circle">1</div>Select Destination</li>
 	      <li class="list-order"><div class="circle">2</div>Select a Driver</li>
-	      <li class="order-active"><div class="circle">3</div>Complete Your Order</li>
+		  <li class="list-order"><div class="circle">3</div>Chat Driver</li>
+	      <li class="order-active"><div class="circle">4</div>Complete Your Order</li>
 	    </ul>
 	</div>
 	
