@@ -120,7 +120,7 @@
       	<%
       		com.services.User drivers = others[i];
       	%>
-      	<form action="Completeorder.jsp?id_active=<%= request.getParameter("id_active") %>" method="POST">
+      	<form action="user_chat.jsp?id_active=<%= request.getParameter("id_active") %>" method="POST">
       	<table>
           <tr>
             <td rowspan="3"><img src="<%= drivers.getImagePath() %>" class="square-image"></td>

@@ -24,6 +24,10 @@
 	  </div>
 	</div>
 	
+	<div id="order-header">
+	  <div class="floating-box-left-chat">LOOKING FOR AN ORDER</div>
+	</div>
+	
 	<% if (!userNavbar.isFinding()) { %>
 		<form method="POST" onsubmit="" action="Findingorder.jsp?id_active=<%= request.getParameter("id_active") %>">
 			<input type="hidden" name="finding" value="1" />
