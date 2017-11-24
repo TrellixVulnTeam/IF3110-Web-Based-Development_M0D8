@@ -50,7 +50,7 @@ public class DeleteLocation extends HttpServlet {
 			proxy.deleteLocation(token ,Integer.parseInt(id), loc);
 		}
 		catch(com.services.TokenException t) {
-			response.sendRedirect("http://localhost:9000/WebApplication/LogoutServlet?e="+t);
+			response.sendRedirect("http://localhost:9000/WebApplication/LogoutServlet?id="+id+"&e="+t);
 		}
 		
 		response.sendRedirect("http://localhost:9000/WebApplication/Editlocation.jsp?id_active=" + id);

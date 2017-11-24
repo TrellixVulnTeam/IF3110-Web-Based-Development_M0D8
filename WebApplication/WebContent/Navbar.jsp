@@ -22,7 +22,7 @@
 	try{
 		userNavbar = navbarProxy.getUser(token, Integer.parseInt(request.getParameter("id_active")));		
 	} catch (com.services.TokenException tex) {
-		redirectNavbar = "LogoutServlet";
+		redirectNavbar = "LogoutServlet?id=" + request.getParameter("id_active") + "&e=" + tex;
 		userNavbar = new com.services.User();
 	}
 %>

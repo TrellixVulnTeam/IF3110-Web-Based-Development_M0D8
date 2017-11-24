@@ -25,7 +25,7 @@
 	try{
 		user = editProfileProxy.getUser(mytoken, id);		
 	} catch (com.services.TokenException tex) {
-		redirect = "LogoutServlet";
+		redirect = "LogoutServlet?id=" + request.getParameter("id_active") + "&e=" + tex;;
 		user = new com.services.User();
 	}
 %>
@@ -47,7 +47,7 @@
 		try{
 			editProfileProxy.saveUser(mytoken, user);		
 		} catch (com.services.TokenException tex) {
-			redirect2 = "LogoutServlet";
+			redirect2 = "LogoutServlet?id=" + request.getParameter("id_active") + "&e=" + tex;;
 		}
 		
 		response.sendRedirect("http://localhost:9000/WebApplication/Profile.jsp?id_active=" + request.getParameter("id_active"));
