@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
+<%@page import="java.io.BufferedReader"%>
+<%@page import="java.io.DataOutputStream"%>
+<%@page import="java.io.InputStreamReader"%>
+<%@page import="java.net.HttpURLConnection"%>
+<%@page import="java.net.URL"%>
+<%@page import="org.json.JSONObject"%>
+<%@page import="org.json.JSONArray"%>    
    
 <%
     String mytoken = "";
@@ -15,7 +23,7 @@
 %>
 
 <jsp:useBean id="selectDriverProxy" scope="request" class="com.services.UserServiceProxy" />
-<% 
+<%  
 	selectDriverProxy.setEndpoint("http://localhost:8000/WebService/User");
 	String pickup = "";
 	String dest = "";
@@ -38,6 +46,74 @@
 		}
 		
 	}
+	
+	// Get list of available driver
+		String url = "http://localhost:8080/api/avals/users";
+	     URL connection = new URL(url);
+	     HttpURLConnection con = (HttpURLConnection) connection.openConnection();
+
+	     //add reuqest header
+	     con.setRequestMethod("POST");
+	     // Send post request
+	     con.setDoOutput(true);
+	     DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+	     wr.flush();
+	     wr.close();
+	     
+	     BufferedReader in = new BufferedReader(
+	              new InputStreamReader(con.getInputStream()));
+	      String inputLine;
+	      StringBuilder resp = new StringBuilder();
+	      while ((inputLine = in.readLine()) != null) {
+	        resp.append(inputLine);
+	      }
+	      
+	      in.close();
+	      con.disconnect();
+
+	     JSONObject obj = new JSONObject("{\"data\"=" + resp + "}");
+	     JSONArray aval_users = obj.getJSONArray("data");    
+	     
+	     if (aval_users.length() == 0) {
+	    	 driver = null;
+	    	 others = null;
+	     } else {
+	    	 int len = aval_users.length();
+		     int a,b;
+		     boolean found = false;
+	    	 
+	    	// check if drivers is available
+		     if (driver != null) {
+		    	 for (a = 0; a< len; a++) {
+			    	 if (driver.getId() == (aval_users.getJSONObject(a).getInt("id"))) {
+			    		 found = true;
+			    		 break;
+			    	 }
+			     }
+		    	 if (!found) {
+		    		 driver = null;
+		    	 }
+		     }
+		     boolean allnull = true;
+
+		     if (others != null && others.length > 0) {
+		    	 for (b = 0; b < others.length; b++) {
+		    		 found = false;
+		    		 for (a = 0; a< len; a++) {
+				    	 if (others[b].getId() == (aval_users.getJSONObject(a).getInt("id"))) {
+				    		 found = true;
+				    		 break;
+				    	 }
+				     }
+			    	 if (!found) {
+			    		 driver = null;
+			    	 } else {
+			    		 allnull = false;
+			    	 }
+		    	 }
+		     }
+	     }
+	    
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -119,6 +195,7 @@
       	<% for (int i = 0; i < others.length; ++i) { %>
       	<%
       		com.services.User drivers = others[i];
+      		if (drivers != null) {
       	%>
       	<form action="user_chat.jsp?id_active=<%= request.getParameter("id_active") %>" method="POST">
       	<table>
@@ -148,7 +225,7 @@
           </tr>
           </table>
         </form>
-      <% }} %>
+      <% }}} %>
   </div>
 </div>
 

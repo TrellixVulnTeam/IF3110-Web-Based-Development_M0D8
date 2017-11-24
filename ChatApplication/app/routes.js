@@ -1,4 +1,5 @@
 var Message = require('./models/message');
+var Aval = require('./models/availability');
 
 function getMessages(res) {
     Message.find(function (err, messages) {
@@ -12,6 +13,30 @@ function getMessages(res) {
     });
 };
 
+function getAval(res) {
+    Aval.find(function (err, avals) {
+
+        // if there is an error retrieving, send the error. nothing after res.send(err) will execute
+        if (err) {
+            res.send(err);
+        }
+
+        res.json(avals); // return all messages in JSON format
+    });
+};
+
+function getAvalUser(res) {
+    Aval.find({status:true},{id:1},function (err, avals) {
+
+        // if there is an error retrieving, send the error. nothing after res.send(err) will execute
+        if (err) {
+            res.send(err);
+        }
+
+        res.json(avals); // return all messages in JSON format
+    });
+};
+
 module.exports = function (app) {
 
     // api ---------------------------------------------------------------------
@@ -19,6 +44,16 @@ module.exports = function (app) {
     app.get('/api/messages', function (req, res) {
         // use mongoose to get all messages in the database
         getMessages(res);
+    });
+    
+    app.get('/api/avals', function (req, res) {
+        // use mongoose to get all messages in the database
+        getAval(res);
+    });
+    
+    app.get('/api/avals/users', function (req, res) {
+        // use mongoose to get all messages in the database
+        getAvalUser(res);
     });
 
     // create message and send back all messages after creation
@@ -38,6 +73,44 @@ module.exports = function (app) {
 
     });
 
+    app.post('/api/avals', function (req, res) {
+
+        // create a message, information comes from AJAX request from Angular
+        Aval.create({
+            id: req.body.id,
+            status: req.body.status,
+            done: false
+        }, function (err, aval) {
+            if (err)
+                res.send(err);
+
+            // get and return all the messages after you create another
+            getAval(res);
+        });
+
+    });
+    
+    app.post('/api/avals/users', function (req, res) {
+        // use mongoose to get all messages in the database
+        getAvalUser(res);
+    });
+    
+    app.post('/api/avals/changestat', function (req, res) {
+        // use mongoose to get all messages in the database
+    	console.log(req.body.id);
+    	console.log(req.body.status);
+        Aval.updateOne(
+        		{id:req.body.id},
+        		{$set: {status:req.body.status}},
+        		function (err, aval) {
+                    if (err)
+                        res.send(err);
+
+                    // get and return all the messages after you create another
+                    getAval(res);
+                });
+    });
+    
     // delete a message
     app.delete('/api/messages/:message_id', function (req, res) {
         Message.remove({
