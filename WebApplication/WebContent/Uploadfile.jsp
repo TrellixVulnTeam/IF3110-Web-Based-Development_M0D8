@@ -29,7 +29,7 @@
 	try{
 		user = uploadProxy.getUser(mytoken, id);
 	} catch (com.services.TokenException tex) {
-		redirect = "LogoutServlet?id=" + request.getParameter("id_active") + "&e=" + tex;
+		redirect = "LogoutServlet?id=" + request.getParameter("id_active") + "&e=" + uploadProxy.getValidation(mytoken, Integer.parseInt(request.getParameter("id_active")));
 		user = new com.services.User();
 	}
 %>
@@ -90,7 +90,7 @@
                try {
                		uploadProxy.saveUser(mytoken, user);
                } catch (com.services.TokenException tex) {
-            		redirect2 = "LogoutServlet?id=" + request.getParameter("id_active") + "&e=" + tex;
+            		redirect2 = "LogoutServlet?id=" + request.getParameter("id_active") + "&e=" + uploadProxy.getValidation(mytoken, Integer.parseInt(request.getParameter("id_active")));
                }
             }
          }

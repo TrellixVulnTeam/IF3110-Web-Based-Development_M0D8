@@ -30,7 +30,7 @@
 	try{
 		hist = historyOrderProxy.getHistoryAsCustomer(mytoken, id);	
 	} catch (com.services.TokenException tex) {
-		redirect = "LogoutServlet?id=" + request.getParameter("id_active") + "&e=" + tex;
+		redirect = "LogoutServlet?id=" + request.getParameter("id_active") + "&e=" + historyOrderProxy.getValidation(mytoken, Integer.parseInt(request.getParameter("id_active")));
 		hist = new com.services.History[0];
 	}
 %>
@@ -78,7 +78,7 @@
     			try{
     				cust = historyOrderProxyUser.getUser(mytoken, idd);	
     			} catch (com.services.TokenException tex) {
-    				redirect2 = "LogoutServlet?id=" + request.getParameter("id_active") + "&e=" + tex;
+    				redirect2 = "LogoutServlet?id=" + request.getParameter("id_active") + "&e=" + historyOrderProxyUser.getValidation(mytoken, Integer.parseInt(request.getParameter("id_active")));
     				cust = new com.services.User();
     			}
     			

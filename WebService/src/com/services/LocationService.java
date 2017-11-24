@@ -26,4 +26,7 @@ public interface LocationService {
 	
 	@WebMethod
 	public boolean insertLocation(String token, int id, Location loc) throws TokenException;
+	
+	@WebMethod
+	public String getValidation(String token, int id);
 }

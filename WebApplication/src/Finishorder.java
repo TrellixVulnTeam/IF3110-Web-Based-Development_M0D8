@@ -65,7 +65,7 @@ public class Finishorder extends HttpServlet {
 			proxy.updateCustomer(token, Integer.parseInt(idd), history);
 		}
 		catch(com.services.TokenException t) {
-			response.sendRedirect("http://localhost:9000/WebApplication/LogoutServlet?id="+idc+"&e="+t);
+			response.sendRedirect("http://localhost:9000/WebApplication/LogoutServlet?id="+idc+"&e="+proxy.getValidation(token, Integer.parseInt(idc)));
 		}
 		
 		

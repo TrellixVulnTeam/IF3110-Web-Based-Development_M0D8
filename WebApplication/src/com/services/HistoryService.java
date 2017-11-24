@@ -8,10 +8,11 @@
 package com.services;
 
 public interface HistoryService extends java.rmi.Remote {
-    public boolean updateCustomer(java.lang.String arg0, int arg1, com.services.History arg2) throws java.rmi.RemoteException, com.services.TokenException;
-    public boolean createHistory(java.lang.String arg0, com.services.History arg1, int arg2) throws java.rmi.RemoteException, com.services.TokenException;
-    public com.services.History[] getHistoryAsDriver(java.lang.String arg0, int arg1) throws java.rmi.RemoteException, com.services.TokenException;
-    public boolean hideHistoryAsCustomer(java.lang.String arg0, int arg1) throws java.rmi.RemoteException, com.services.TokenException;
+    public java.lang.String getValidation(java.lang.String arg0, int arg1) throws java.rmi.RemoteException;
     public com.services.History[] getHistoryAsCustomer(java.lang.String arg0, int arg1) throws java.rmi.RemoteException, com.services.TokenException;
+    public boolean hideHistoryAsCustomer(java.lang.String arg0, int arg1) throws java.rmi.RemoteException, com.services.TokenException;
     public boolean hideHistoryAsDriver(java.lang.String arg0, int arg1) throws java.rmi.RemoteException, com.services.TokenException;
+    public com.services.History[] getHistoryAsDriver(java.lang.String arg0, int arg1) throws java.rmi.RemoteException, com.services.TokenException;
+    public boolean createHistory(java.lang.String arg0, com.services.History arg1, int arg2) throws java.rmi.RemoteException, com.services.TokenException;
+    public boolean updateCustomer(java.lang.String arg0, int arg1, com.services.History arg2) throws java.rmi.RemoteException, com.services.TokenException;
 }

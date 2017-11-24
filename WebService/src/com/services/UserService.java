@@ -49,4 +49,7 @@ public interface UserService {
 	
 	@WebMethod
 	public int createUser(String token, User user) throws TokenException;
+	
+	@WebMethod
+	public String getValidation(String token, int id);
 }

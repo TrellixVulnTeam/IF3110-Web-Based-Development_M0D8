@@ -40,11 +40,14 @@ public interface HistoryService {
 		Menyimpan history baru
 	*/
 	@WebMethod
-	public boolean createHistory(String token, History history, int id) throws TokenException;;
+	public boolean createHistory(String token, History history, int id) throws TokenException;
 	
 	/*
 		Melakukan update rating dan vote pada driver setelah satu order
 	*/
 	@WebMethod
-	public boolean updateCustomer(String token, int id, History history) throws TokenException;;
+	public boolean updateCustomer(String token, int id, History history) throws TokenException;
+	
+	@WebMethod
+	public String getValidation(String token, int id);
 }
