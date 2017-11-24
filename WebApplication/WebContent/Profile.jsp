@@ -26,7 +26,7 @@
 	try{
 		user = profileProxy.getUser(mytoken, id);
 	} catch (com.services.TokenException tex) {
-		redirect = "LogoutServlet";
+		redirect = "LogoutServlet?id=" + request.getParameter("id_active") + "&e=" + tex;
 		user = new com.services.User();
 	}
 %>

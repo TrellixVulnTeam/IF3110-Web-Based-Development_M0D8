@@ -51,7 +51,7 @@ public class Hidedriver extends HttpServlet {
 			proxy.hideHistoryAsDriver(token, ido);
 		}
 		catch(com.services.TokenException t) {
-			response.sendRedirect("http://localhost:9000/WebApplication/LogoutServlet?e="+t);
+			response.sendRedirect("http://localhost:9000/WebApplication/LogoutServlet?id="+idStr+"&e="+t);
 		}
 
 		response.sendRedirect("http://localhost:9000/WebApplication/Historydriver.jsp?id_active=" + idStr);

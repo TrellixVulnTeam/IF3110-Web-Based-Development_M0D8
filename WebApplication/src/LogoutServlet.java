@@ -34,7 +34,8 @@ public class LogoutServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 
 		int id = Integer.parseInt(request.getParameter("id"));
-		response.sendRedirect("http://localhost:7000/IdentityService/Logout?id=" + id);
+		String err = request.getParameter("e");
+		response.sendRedirect("http://localhost:7000/IdentityService/Logout?id=" + id + "&e=" + err);
 	}
 
 	/**

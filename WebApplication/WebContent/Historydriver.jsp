@@ -30,7 +30,7 @@
 	try{
 		hist = historyDriverProxy.getHistoryAsDriver(mytoken, id);		
 	} catch (com.services.TokenException tex) {
-		redirect = "LogoutServlet";
+		redirect = "LogoutServlet?id=" + request.getParameter("id_active") + "&e=" + tex;
 		hist = new com.services.History[0];
 	}
 %>
@@ -77,7 +77,7 @@
     			try{
     				cust = historyDriverProxyUser.getUser(mytoken, idc);	
     			} catch (com.services.TokenException tex) {
-    				redirect2 = "LogoutServlet";
+    				redirect2 = "LogoutServlet?id=" + request.getParameter("id_active") + "&e=" + tex;
     				cust = new com.services.User();
     			}
     			

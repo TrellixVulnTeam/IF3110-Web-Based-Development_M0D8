@@ -44,9 +44,9 @@ public class Logout extends HttpServlet {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int id = 0;
+		String err = request.getParameter("e");
+		id = Integer.parseInt(request.getParameter("id"));
 		try {
-			id = Integer.parseInt(request.getParameter("id"));
-			
 			// Open connection
 			conn = DriverManager.getConnection(DB.DB_URL, DB.USER, DB.PASS);
 			
@@ -75,7 +75,7 @@ public class Logout extends HttpServlet {
 	        }
 	    }
 		
-		response.sendRedirect("http://localhost:9000/WebApplication/Login.jsp?");
+		response.sendRedirect("http://localhost:9000/WebApplication/Login.jsp?e="+err);
 	}
 
 }

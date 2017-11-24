@@ -82,14 +82,16 @@ public class Validate extends HttpServlet {
 			PrintWriter out = response.getWriter();
 			String toReturn = "";
 			
-			if (!rs.isBeforeFirst()) { // Token is not valid    
-				toReturn = "{\"token_status\":\"invalid1\"}";
+			if (!rs.isBeforeFirst()) { // ID is not valid    
+				toReturn = "{\"token_status\":\"invalidId\"}";
 				out.print(toReturn);
-			} else { // Check browser and IP
+			} else { // Check token, browser, and IP
+				StringBuffer stoken = new StringBuffer("");
 				StringBuffer browser = new StringBuffer("");
 				StringBuffer ip = new StringBuffer("");
 				int i = 0;
 				while (token.charAt(i) != '#') {
+					stoken.append(token.charAt(i));
 					i++;
 				}
 				i++;
@@ -105,10 +107,12 @@ public class Validate extends HttpServlet {
 				
 				rs.next();
 				String tokendb = rs.getString("token");
+				StringBuffer stokendb = new StringBuffer("");
 				StringBuffer browserdb = new StringBuffer("");
 				StringBuffer ipdb = new StringBuffer("");
 				i = 0;
 				while (tokendb.charAt(i) != '#') {
+					stokendb.append(tokendb.charAt(i));
 					i++;
 				}
 				i++;
@@ -127,12 +131,16 @@ public class Validate extends HttpServlet {
 				Date now = new Date();
 				
 				// Return validation
-				if (!browser.toString().equals(browserdb.toString())) {
-					toReturn = "{\"token_status\":\"invalid2\"}";
+				if (!stoken.toString().equals(stokendb.toString())) {
+					toReturn = "{\"token_status\":\"invalidToken\"}";
+					out.print(toReturn);
+				}
+				else if (!browser.toString().equals(browserdb.toString())) {
+					toReturn = "{\"token_status\":\"invalidUseragent\"}";
 					out.print(toReturn);
 				}
 				else if (!ip.toString().equals(ipdb.toString())) {
-					toReturn = "{\"token_status\":\"invalid3\"}";
+					toReturn = "{\"token_status\":\"invalidIpaddress\"}";
 					out.print(toReturn);
 				}
 				else if (now.compareTo(expiry) >= 0) {
