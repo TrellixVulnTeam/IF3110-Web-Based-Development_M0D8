@@ -50,12 +50,14 @@ public class Register extends HttpServlet {
 		String password = "";
 		String email = "";
 		String uagent = "";
+		String ip = "";
 		try {
 			body = new JSONObject(text);
 			username = body.get("username").toString();
 			password = body.getString("pass").toString();
 			email = body.getString("email").toString();
 			uagent = body.getString("uagent").toString();
+			ip = body.getString("ip").toString();
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -106,7 +108,7 @@ public class Register extends HttpServlet {
 				String secToken;
 				do {
 					token.generate();
-					secToken = token.get() + "#" + uagent + "#" + request.getRemoteAddr();
+					secToken = token.get() + "#" + uagent + "#" + ip;
 					ps = con.prepareStatement("SELECT * FROM account_token WHERE token=?");
 					ps.setString(1, secToken);
 					rs = ps.executeQuery();

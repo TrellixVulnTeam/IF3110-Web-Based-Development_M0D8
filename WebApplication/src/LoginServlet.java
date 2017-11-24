@@ -54,7 +54,7 @@ public class LoginServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String username = request.getParameter("username");
 		String pass = request.getParameter("pass");
-		String body = "{\"username\": \"" + username + "\",\"pass\": \"" + pass + "\",\"uagent\": \"" + URLEncoder.encode(request.getHeader("User-Agent"), "UTF-8") + "\"}";
+		String body = "{\"username\": \"" + username + "\",\"pass\": \"" + pass + "\",\"uagent\": \"" + URLEncoder.encode(request.getHeader("User-Agent"), "UTF-8") + "\",\"ip\": \"" + request.getRemoteAddr() + "\"}";
 		
 		URL url = new URL ("http://localhost:7000/IdentityService/Login");
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();

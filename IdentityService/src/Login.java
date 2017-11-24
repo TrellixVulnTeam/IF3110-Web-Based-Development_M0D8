@@ -58,11 +58,13 @@ public class Login extends HttpServlet {
 		String username = "";
 		String password = "";
 		String uagent = "";
+		String ip = "";
 		try {
 			body = new JSONObject(text);
 			username = body.get("username").toString();
 			password = body.getString("pass").toString();
 			uagent = body.getString("uagent").toString();
+			ip = body.getString("ip").toString();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -101,7 +103,7 @@ public class Login extends HttpServlet {
 				String secToken;
 				do {
 					token.generate();
-					secToken = token.get() + "#" + uagent + "#" + request.getRemoteAddr();
+					secToken = token.get() + "#" + uagent + "#" + ip;
 					pstmt = conn.prepareStatement("SELECT * FROM account_token WHERE token=?");
 					pstmt.setString(1, secToken);
 					rs = pstmt.executeQuery();

@@ -54,7 +54,7 @@ public class RegisterServlet extends HttpServlet {
 		String phone = request.getParameter("phone");
 		String isDriver = request.getParameter("is-driver");
 		
-		String bodyIdentity = "{\"username\": \"" + userName + "\",\"pass\": \"" + pass + "\",\"email\":\"" + email + "\",\"uagent\": \"" + URLEncoder.encode(request.getHeader("User-Agent"), "UTF-8") + "\"}";
+		String bodyIdentity = "{\"username\": \"" + userName + "\",\"pass\": \"" + pass + "\",\"email\":\"" + email + "\",\"uagent\": \"" + URLEncoder.encode(request.getHeader("User-Agent"), "UTF-8") + "\",\"ip\": \"" + request.getRemoteAddr() + "\"}";
 		
 		URL url = new URL ("http://localhost:7000/IdentityService/Register");
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
