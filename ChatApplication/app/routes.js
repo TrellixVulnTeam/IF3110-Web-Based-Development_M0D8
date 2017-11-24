@@ -97,18 +97,32 @@ module.exports = function (app) {
     
     app.post('/api/avals/changestat', function (req, res) {
         // use mongoose to get all messages in the database
-    	console.log(req.body.id);
-    	console.log(req.body.status);
+    	count = -1;
+    	Aval.find({id:req.body.id},function (err, results) {
+    		count = results.length;
+    		});
         Aval.updateOne(
         		{id:req.body.id},
         		{$set: {status:req.body.status}},
         		function (err, aval) {
                     if (err)
                         res.send(err);
-
-                    // get and return all the messages after you create another
-                    getAval(res);
+                    if (count == 0) {
+                		Aval.create({
+                            id: req.body.id,
+                            status: req.body.status,
+                            done: false
+                        }, function (err, aval) {
+                            if (err)
+                                res.send(err);
+                            
+                            getAval(res);
+                        });
+                	} else {
+                		getAval(res);
+                	}
                 });
+
     });
     
     // delete a message
