@@ -46,9 +46,11 @@ public class Loqout extends HttpServlet {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		JSONObject body = null;
+		String id = "";
 		String token = "";
 		try {
 			body = new JSONObject(text);
+			id = body.getString("id");
 			token = body.getString("token");
 			Class.forName(DB.JDBC_DRIVER);
 			
@@ -56,8 +58,8 @@ public class Loqout extends HttpServlet {
 			conn = DriverManager.getConnection(DB.DB_URL, DB.USER, DB.PASS);
 			
 			// Execute SQL query
-			pstmt = conn.prepareStatement("DELETE FROM account_token WHERE token=?");
-			pstmt.setString(1, token);
+			pstmt = conn.prepareStatement("DELETE FROM account_token WHERE id=?");
+			pstmt.setString(1, id);
 			pstmt.executeUpdate();
 			
 			response.setContentType("application/json; charset=utf-8");

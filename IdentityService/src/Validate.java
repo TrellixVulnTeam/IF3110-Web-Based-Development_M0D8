@@ -50,11 +50,13 @@ public class Validate extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String text = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-		
+
 		JSONObject body;
+		int idUser = 0;
 		String token = "";
 		try {
 			body = new JSONObject(text);
+			idUser = body.getInt("id");
 			token = body.get("token").toString();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -71,8 +73,8 @@ public class Validate extends HttpServlet {
 			conn = DriverManager.getConnection(DB.DB_URL, DB.USER, DB.PASS);
 			
 			// Execute SQL query
-			pstmt = conn.prepareStatement("SELECT * FROM account_token WHERE token=?");
-			pstmt.setString(1, token);
+			pstmt = conn.prepareStatement("SELECT * FROM account_token WHERE id=?");
+			pstmt.setInt(1, idUser);
 			
 			rs = pstmt.executeQuery();
 			
@@ -81,23 +83,64 @@ public class Validate extends HttpServlet {
 			String toReturn = "";
 			
 			if (!rs.isBeforeFirst()) { // Token is not valid    
-				toReturn = "{\"token_status\":\"invalid\"}";
+				toReturn = "{\"token_status\":\"invalid1\"}";
 				out.print(toReturn);
-			} else { // Check expiry time
-				rs.next();
+			} else { // Check browser and IP
+				StringBuffer browser = new StringBuffer("");
+				StringBuffer ip = new StringBuffer("");
+				int i = 0;
+				while (token.charAt(i) != '#') {
+					i++;
+				}
+				i++;
+				while (token.charAt(i) != '#') {
+					browser.append(token.charAt(i));
+					i++;
+				}
+				i++;
+				while (i<token.length()) {
+					ip.append(token.charAt(i));
+					i++;
+				}
 				
+				rs.next();
+				String tokendb = rs.getString("token");
+				StringBuffer browserdb = new StringBuffer("");
+				StringBuffer ipdb = new StringBuffer("");
+				i = 0;
+				while (tokendb.charAt(i) != '#') {
+					i++;
+				}
+				i++;
+				while (tokendb.charAt(i) != '#') {
+					browserdb.append(tokendb.charAt(i));
+					i++;
+				}
+				i++;
+				while (i<tokendb.length()) {
+					ipdb.append(tokendb.charAt(i));
+					i++;
+				}
+				
+				// Check expiry time
 				Date expiry = rs.getTimestamp("expiry_time");
 				Date now = new Date();
-				if (now.compareTo(expiry) < 0) { // Token is valid
-					toReturn = "{\"token_status\":\"valid\"}";
+				
+				// Return validation
+				if (!browser.toString().equals(browserdb.toString())) {
+					toReturn = "{\"token_status\":\"invalid2\"}";
 					out.print(toReturn);
-				} else { // Token is expired 
-					// Execute SQL query
-					// pstmt = conn.prepareStatement("DELETE FROM account_token WHERE token=?");
-					// pstmt.setString(1, token);
-					// rs = pstmt.executeQuery();
-					
+				}
+				else if (!ip.toString().equals(ipdb.toString())) {
+					toReturn = "{\"token_status\":\"invalid3\"}";
+					out.print(toReturn);
+				}
+				else if (now.compareTo(expiry) >= 0) {
 					toReturn = "{\"token_status\":\"expired\"}";
+					out.print(toReturn);
+				}
+				else {
+					toReturn = "{\"token_status\":\"valid\"}";
 					out.print(toReturn);
 				}
 			}
