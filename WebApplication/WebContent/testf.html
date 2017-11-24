@@ -1,0 +1,43 @@
+<html>
+<head>
+</head>
+
+<body>
+	<input id="msg" type="text" name="msg" />
+	<button onclick="sendmsg()">Send</button>
+</body>
+
+
+<script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-messaging.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyB5rXXTdwUqnTTdaONDxfj845PgYD54384",
+    authDomain: "tubes-wbd-3-95397.firebaseapp.com",
+    databaseURL: "https://tubes-wbd-3-95397.firebaseio.com",
+    projectId: "tubes-wbd-3-95397",
+    storageBucket: "tubes-wbd-3-95397.appspot.com",
+    messagingSenderId: "691072226468"
+  };
+  firebase.initializeApp(config);
+  
+  const messaging = firebase.messaging();
+  messaging.requestPermission()
+  .then(function(){
+    console.log('I am in here');
+    return messaging.getToken()
+  .then(function(currentToken) {
+    console.log(currentToken);
+  })
+  .catch(function(err) {
+    console.log('An error occurred while retrieving token. ', err);
+  });
+
+  }).catch(function(err){
+    console.log('Error');
+  });
+</script>
+
+</html>
