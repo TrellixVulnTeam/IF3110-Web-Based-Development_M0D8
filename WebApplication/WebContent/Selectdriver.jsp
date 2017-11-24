@@ -30,9 +30,9 @@
 		try{
 			if (request.getParameter("pref") != null) {
 				pref = request.getParameter("pref");
-				driver = selectDriverProxy.getPreferredDriver(mytoken, pref, pickup, dest);
+				driver = selectDriverProxy.getPreferredDriver(mytoken, pref, pickup, dest, Integer.parseInt(request.getParameter("id_active")));
 			}
-			others = selectDriverProxy.getDriver(mytoken, pickup, dest);
+			others = selectDriverProxy.getDriver(mytoken, pickup, dest, Integer.parseInt(request.getParameter("id_active")));
 		} catch (com.services.TokenException tex) {
 			redirect = "LogoutServlet";
 		}

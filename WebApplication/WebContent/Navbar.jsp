@@ -46,10 +46,8 @@
 		<%= userNavbar.getUsername() %>
         </b> !</span><br>
     
-        <form id="loqout" action="LogoutServlet" method="POST">
-        	<input type="hidden" name="token" value="<%= token %>">
-            <a href="javascript:;" onclick="document.getElementById('loqout').submit();">Logout</a>
-        </form>
+        <a href="LogoutServlet?id=<%= userNavbar.getId() %>">Logout</a>
+
     </div>
 </body>
 </html>

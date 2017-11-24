@@ -15,16 +15,16 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
 /**
- * Servlet implementation class Loqout
+ * Servlet implementation class Logout
  */
-@WebServlet("/Loqout")
-public class Loqout extends HttpServlet {
+@WebServlet("/Logout")
+public class Logout extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Loqout() {
+    public Logout() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,31 +41,20 @@ public class Loqout extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String text = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		JSONObject body = null;
-		String id = "";
-		String token = "";
+		int id = 0;
 		try {
-			body = new JSONObject(text);
-			id = body.getString("id");
-			token = body.getString("token");
-			Class.forName(DB.JDBC_DRIVER);
+			id = Integer.parseInt(request.getParameter("id"));
 			
 			// Open connection
 			conn = DriverManager.getConnection(DB.DB_URL, DB.USER, DB.PASS);
 			
 			// Execute SQL query
 			pstmt = conn.prepareStatement("DELETE FROM account_token WHERE id=?");
-			pstmt.setString(1, id);
+			pstmt.setInt(1, id);
 			pstmt.executeUpdate();
 			
-			response.setContentType("application/json; charset=utf-8");
-			PrintWriter out = response.getWriter();
-			String toReturn = "{\"status\":\"success\"}";
-			out.print(toReturn);
 	    } catch(SQLException se) {
 	        se.printStackTrace();
 	    } catch(Exception e) {
@@ -85,6 +74,8 @@ public class Loqout extends HttpServlet {
 	            se.printStackTrace();
 	        }
 	    }
+		
+		response.sendRedirect("http://localhost:9000/WebApplication/Login.jsp?");
 	}
 
 }
