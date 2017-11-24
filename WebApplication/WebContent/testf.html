@@ -4,15 +4,15 @@
 
 <body>
 	<input id="msg" type="text" name="msg" />
-	<button onclick="sendmsg()">Send</button>
+	<button onclick="set_token()">Send</button>
 </body>
-
 
 <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
 <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-messaging.js"></script>
 <script>
   // Initialize Firebase
+  var mytoken; 
   var config = {
     apiKey: "AIzaSyB5rXXTdwUqnTTdaONDxfj845PgYD54384",
     authDomain: "tubes-wbd-3-95397.firebaseapp.com",
@@ -24,20 +24,44 @@
   firebase.initializeApp(config);
   
   const messaging = firebase.messaging();
+  if ('serviceWorker' in navigator) {
+	  navigator.serviceWorker.register('firebase-messaging-sw.js')
+	  .then(function(reg) {
+	    // registration worked
+	    console.log('Registration succeeded. Scope is ' + reg.scope);
+	    messaging.useServiceWorker(reg);
+	  }).catch(function(error) {
+	    // registration failed
+	    console.log('Registration failed with ' + error);
+	  });
+  }
+  
   messaging.requestPermission()
-  .then(function(){
-    console.log('I am in here');
-    return messaging.getToken()
-  .then(function(currentToken) {
-    console.log(currentToken);
+  .then(function() {
+    console.log('Notification permission granted.');
   })
   .catch(function(err) {
-    console.log('An error occurred while retrieving token. ', err);
+    console.log('Unable to get permission to notify.', err);
   });
+  
+  function set_token(){
+	  messaging.requestPermission()
+	  .then(function(){
+	    console.log('Getting Token');
+	    return messaging.getToken()
+	  .then(function(currentToken) {
+		mytoken = currentToken;
+	    console.log(mytoken);
+	  })
+	  .catch(function(err) {
+	    console.log('An error occurred while retrieving token. ', err);
+	  });
 
-  }).catch(function(err){
-    console.log('Error');
-  });
+	  }).catch(function(err){
+	    console.log('Error');
+	  });
+  }
+  
 </script>
 
 </html>
