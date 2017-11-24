@@ -1100,3 +1100,7 @@ td.cancel-image{
   font-size: 35px;
   font-weight: bold;
 }
+.errormessage {
+	text-align: center;
+	color: red;
+}

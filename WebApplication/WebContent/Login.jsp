@@ -17,6 +17,17 @@
 	<link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
 <body>
+	<%
+		String err = "";
+		if (request.getParameter("e") != null) {
+			if (request.getParameter("e").length() > 4) {
+				err = request.getParameter("e");
+			}
+		}
+	%>
+	<div class="errormessage">
+		<%= err %>
+	</div>
 	<div id="signin-rectangle">
 		<div class="title"><span>LOGIN</span></div>
 		<script src="js/validation.js"></script>
