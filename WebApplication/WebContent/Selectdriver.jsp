@@ -46,7 +46,7 @@
 		}
 		
 	}
-	
+	boolean allnull = true;
 	// Get list of available driver
 		String url = "http://localhost:8080/api/avals/users";
 	     URL connection = new URL(url);
@@ -92,9 +92,24 @@
 			     }
 		    	 if (!found) {
 		    		 driver = null;
+		    	 } else {
+		    		 boolean founda = false;
+		    		 for (b = 0; b < others.length; b++) {
+			    		 if (others[b].getId() == driver.getId()) {
+			    			 founda = true;
+			    			 break;
+			    		 }
+			    	 }
+		    		 if (founda) {
+		    			 if (others.length == 1) {
+		    				 others = null;
+		    			 } else {
+		    				 others[b] = null;
+		    			 }
+		    		 }
 		    	 }
 		     }
-		     boolean allnull = true;
+		     allnull = true;
 
 		     if (others != null && others.length > 0) {
 		    	 for (b = 0; b < others.length; b++) {
@@ -189,7 +204,7 @@
   <div class="preferred-driver">
     <p class="header-pref">OTHER DRIVERS:</p>    
 
-	<% if (others == null || others.length == 0) { %>
+	<% if (others == null || others.length == 0 || allnull) { %>
       	<div class="nothing-driver">Nothing to display &#128514;</div>
       <% } else { %>
       	<% for (int i = 0; i < others.length; ++i) { %>
