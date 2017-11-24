@@ -98,6 +98,11 @@ public class Login extends HttpServlet {
 				rs.next();
 				int id = rs.getInt(1);
 				
+				// Delete token
+				PreparedStatement pstmt2 = conn.prepareStatement("DELETE FROM account_token WHERE id=?");
+				pstmt2.setInt(1, id);
+				pstmt2.executeUpdate();
+				
 				// Generate Token
 				Token token = new Token();
 				String secToken;
