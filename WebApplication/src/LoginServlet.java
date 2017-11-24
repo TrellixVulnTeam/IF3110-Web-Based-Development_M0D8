@@ -64,7 +64,7 @@ public class LoginServlet extends HttpServlet {
 		connection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
 		connection.setRequestProperty("Content-Length", "" +  Integer.toString(body.getBytes().length));
 	    
-		DataOutputStream out = new DataOutputStream(connection.getOutputStream ());
+		DataOutputStream out = new DataOutputStream(connection.getOutputStream());
 	    out.writeBytes(body);
 	    out.flush();
 	    out.close();

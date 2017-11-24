@@ -30,9 +30,9 @@
 	
 	<%
 		// TODO: check if still finding order, having order, etc
-		if (userNavbar.isDriver()){  
-			response.sendRedirect("Findorder.jsp?id_active=" + request.getParameter("id_active"));
-		}
+		//if (userNavbar.isDriver()){  
+		//	response.sendRedirect("Findorder.jsp?id_active=" + request.getParameter("id_active"));
+		//}
 	%>
     
     <div id="order-header">

@@ -47,10 +47,12 @@
   
   messaging.onMessage(function(payload) {
 	  console.log("Message received. ", payload);
-	  var idSender = payload.data.id_sender;
-	  var tokenSender = payload.data.token_sender;
-	  var recvMessage = payload.data.content;
-	  console.log(idSender + " " + tokenSender + " " + recvMessage);
+	  if (payload.data.type == "message") {
+		  var recvId = payload.data.id_sender;
+		  var recvToken = payload.data.token_sender;
+		  var recvMessage = payload.data.content;
+		  console.log(recvId + " " + recvToken + " " + recvMessage);  
+	  }
   });
   
   function setToken(){
@@ -71,7 +73,7 @@
 	  });
   }
   
-  function sendMessage(dest){
+  function sendMessage(msg){
 	  setToken();
 	  
 	  /*var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
@@ -88,7 +90,34 @@
 	            },
 	            contentType : 'application/json',
 	            dataType: 'json',
-	            data: JSON.stringify({to: "d9HYbDZyA4U:APA91bEvYWkI2CQYpOC5vcsqEUP9Fjt-auYt24kdqVmCQHOk_usSBTwdVQxjvEsKs86_VXu9l_kiN8GNxOdaAh3uKNdi52-IwO-HJAjZnIMAtdF6baKGLQsSQmREu1mvENEkFuOUqtuH", data: {id_sender:"id", token_sender:"token", content:"content"}}),
+	            data: JSON.stringify({to: "d9HYbDZyA4U:APA91bEvYWkI2CQYpOC5vcsqEUP9Fjt-auYt24kdqVmCQHOk_usSBTwdVQxjvEsKs86_VXu9l_kiN8GNxOdaAh3uKNdi52-IwO-HJAjZnIMAtdF6baKGLQsSQmREu1mvENEkFuOUqtuH", data: {type:"message", id_sender:"id", content:"content"}}),
+	            success : function(response) {
+	                console.log("success: " + response);
+	            },
+	            error : function(xhr, status, error) {
+	                console.log("error: " + xhr.error);                   
+	            }
+	  });
+  }
+  
+  function sendToken(){
+	  setToken();
+	  
+	  /*var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
+	  xmlhttp.open("POST", "https://fcm.googleapis.com/fcm/send");
+	  xmlhttp.setRequestHeader("Content-Type", "application/json");
+	  xmlhttp.setRequestHeader("Authorization", "key=AAAAoOcdVKQ:APA91bHKeEkg_Uhu2VIkmuVJVats98jm3mQ5F3Wa7BJWpAg8svx4yDFAPFvE-czb_fOtej4Kq-oTnm5_Y6vK0_gRRiEgrv4EVcDrFCiqnUtlNDmSkc0W2fze6cpBAqse0p_cxt46LCdM");
+	  xmlhttp.send(JSON.stringify({to: "d9HYbDZyA4U:APA91bEvYWkI2CQYpOC5vcsqEUP9Fjt-auYt24kdqVmCQHOk_usSBTwdVQxjvEsKs86_VXu9l_kiN8GNxOdaAh3uKNdi52-IwO-HJAjZnIMAtdF6baKGLQsSQmREu1mvENEkFuOUqtuH", data: {title:"Test",body:"Test"}}));
+	  */
+	  $.ajax({        
+	            type : 'POST',
+	            url : "https://fcm.googleapis.com/fcm/send",
+	            headers : {
+	                Authorization : 'key=AAAAoOcdVKQ:APA91bHKeEkg_Uhu2VIkmuVJVats98jm3mQ5F3Wa7BJWpAg8svx4yDFAPFvE-czb_fOtej4Kq-oTnm5_Y6vK0_gRRiEgrv4EVcDrFCiqnUtlNDmSkc0W2fze6cpBAqse0p_cxt46LCdM'
+	            },
+	            contentType : 'application/json',
+	            dataType: 'json',
+	            data: JSON.stringify({to: "d9HYbDZyA4U:APA91bEvYWkI2CQYpOC5vcsqEUP9Fjt-auYt24kdqVmCQHOk_usSBTwdVQxjvEsKs86_VXu9l_kiN8GNxOdaAh3uKNdi52-IwO-HJAjZnIMAtdF6baKGLQsSQmREu1mvENEkFuOUqtuH", data: {type:"token", token_sender:"token value"}}),
 	            success : function(response) {
 	                console.log("success: " + response);
 	            },

@@ -30,17 +30,17 @@
 	
 	<%
 		// TODO: check if still finding order, having order, etc
-		if (userNavbar.isDriver()){  
-			response.sendRedirect("Findorder.jsp?id_active=" + request.getParameter("id_active"));
-		}
+		//if (userNavbar.isDriver()){  
+		//	response.sendRedirect("Findorder.jsp?id_active=" + request.getParameter("id_active"));
+		//}
 	%>
     
     <div id="order-header">
 	  <div class="floating-box-left-mo">MAKE AN ORDER</div>
 	    <ul class="list-centered">
-	      <li class="order-active"><div class="circle">1</div>Select a Destination</li>
+	      <li class="list-order"><div class="circle">1</div>Select a Destination</li>
 	      <li class="list-order"><div class="circle">2</div>Select a Driver</li>
-	      <li class="list-order"><div class="circle">3</div>Chat Driver</li>
+	      <li class="order-active"><div class="circle">3</div>Chat Driver</li>
 	      <li class="list-order"><div class="circle">4</div>Complete Your Order</li>
 	    </ul>
 	</div>
@@ -53,9 +53,136 @@
 		</div>
 		<form class="inputform">
 		<input type="text" class="inputbox" ng-model="formData.text ">
-		<button type="submit" class="send" ng-click="createMessage()">Kirim</button>
+		<button type="submit" class="send" onclick="sendMessage('')" ng-click="createMessage()">Kirim</button>
 		</form>	
 		<input type="close-chat-button" class="close-chat-button" value="CLOSE" onclick="window.location.href='Completeorder.jsp?id_active=<%= request.getParameter("id_active") %>'">
 	</div>
 </body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-messaging.js"></script>
+<script>
+  // Initialize Firebase
+  var mytoken; 
+  var config = {
+    apiKey: "AIzaSyB5rXXTdwUqnTTdaONDxfj845PgYD54384",
+    authDomain: "tubes-wbd-3-95397.firebaseapp.com",
+    databaseURL: "https://tubes-wbd-3-95397.firebaseio.com",
+    projectId: "tubes-wbd-3-95397",
+    storageBucket: "tubes-wbd-3-95397.appspot.com",
+    messagingSenderId: "691072226468"
+  };
+  firebase.initializeApp(config);
+  
+  const messaging = firebase.messaging();
+  if ('serviceWorker' in navigator) {
+	  navigator.serviceWorker.register('firebase-messaging-sw.js')
+	  .then(function(reg) {
+	    // registration worked
+	    console.log('Registration succeeded. Scope is ' + reg.scope);
+	    messaging.useServiceWorker(reg);
+	  }).catch(function(error) {
+	    // registration failed
+	    console.log('Registration failed with ' + error);
+	  });
+  }
+  
+  messaging.requestPermission()
+  .then(function() {
+    console.log('Notification permission granted.');
+  })
+  .catch(function(err) {
+    console.log('Unable to get permission to notify.', err);
+  });
+  
+  messaging.onMessage(function(payload) {
+	  console.log("Message received. ", payload);
+	  if (payload.data.type == "message") {
+		  var recvId = payload.data.id_sender;
+		  var recvToken = payload.data.token_sender;
+		  var recvMessage = payload.data.content;
+		  console.log(recvId + " " + recvToken + " " + recvMessage);  
+	  }
+  });
+  
+  function setToken(){
+	  messaging.requestPermission()
+	  .then(function(){
+	    console.log('Getting Token');
+	    return messaging.getToken()
+	  .then(function(currentToken) {
+		mytoken = currentToken;
+	    console.log(mytoken);
+	  })
+	  .catch(function(err) {
+	    console.log('An error occurred while retrieving token. ', err);
+	  });
+
+	  }).catch(function(err){
+	    console.log('Error');
+	  });
+  }
+  
+  function sendMessage(msg){
+	  setToken();
+	  
+	  /*var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
+	  xmlhttp.open("POST", "https://fcm.googleapis.com/fcm/send");
+	  xmlhttp.setRequestHeader("Content-Type", "application/json");
+	  xmlhttp.setRequestHeader("Authorization", "key=AAAAoOcdVKQ:APA91bHKeEkg_Uhu2VIkmuVJVats98jm3mQ5F3Wa7BJWpAg8svx4yDFAPFvE-czb_fOtej4Kq-oTnm5_Y6vK0_gRRiEgrv4EVcDrFCiqnUtlNDmSkc0W2fze6cpBAqse0p_cxt46LCdM");
+	  xmlhttp.send(JSON.stringify({to: "d9HYbDZyA4U:APA91bEvYWkI2CQYpOC5vcsqEUP9Fjt-auYt24kdqVmCQHOk_usSBTwdVQxjvEsKs86_VXu9l_kiN8GNxOdaAh3uKNdi52-IwO-HJAjZnIMAtdF6baKGLQsSQmREu1mvENEkFuOUqtuH", data: {title:"Test",body:"Test"}}));
+	  */
+	  $.ajax({        
+	            type : 'POST',
+	            crossDomain: true,
+	            url : "https://fcm.googleapis.com/fcm/send",
+	            headers : {
+	                Authorization : 'key=AAAAoOcdVKQ:APA91bHKeEkg_Uhu2VIkmuVJVats98jm3mQ5F3Wa7BJWpAg8svx4yDFAPFvE-czb_fOtej4Kq-oTnm5_Y6vK0_gRRiEgrv4EVcDrFCiqnUtlNDmSkc0W2fze6cpBAqse0p_cxt46LCdM'
+	            },
+	            beforeSend: function (xhrObj) {
+	                xhrObj.setRequestHeader("Content-Type", "application/json");
+	            },
+	            //contentType : 'application/json',
+	            dataType: 'json',
+	            data: JSON.stringify({to: "d9HYbDZyA4U:APA91bEvYWkI2CQYpOC5vcsqEUP9Fjt-auYt24kdqVmCQHOk_usSBTwdVQxjvEsKs86_VXu9l_kiN8GNxOdaAh3uKNdi52-IwO-HJAjZnIMAtdF6baKGLQsSQmREu1mvENEkFuOUqtuH", data: {type:"message", id_sender:"id", content:"content"}}),
+	            success : function(response) {
+	                console.log("success: " + response);
+	            },
+	            error : function(xhr, status, error) {
+	                console.log("error: " + xhr.error);                   
+	            }
+	  });
+  }
+  
+  function sendToken(){
+	  setToken();
+	  
+	  /*var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
+	  xmlhttp.open("POST", "https://fcm.googleapis.com/fcm/send");
+	  xmlhttp.setRequestHeader("Content-Type", "application/json");
+	  xmlhttp.setRequestHeader("Authorization", "key=AAAAoOcdVKQ:APA91bHKeEkg_Uhu2VIkmuVJVats98jm3mQ5F3Wa7BJWpAg8svx4yDFAPFvE-czb_fOtej4Kq-oTnm5_Y6vK0_gRRiEgrv4EVcDrFCiqnUtlNDmSkc0W2fze6cpBAqse0p_cxt46LCdM");
+	  xmlhttp.send(JSON.stringify({to: "d9HYbDZyA4U:APA91bEvYWkI2CQYpOC5vcsqEUP9Fjt-auYt24kdqVmCQHOk_usSBTwdVQxjvEsKs86_VXu9l_kiN8GNxOdaAh3uKNdi52-IwO-HJAjZnIMAtdF6baKGLQsSQmREu1mvENEkFuOUqtuH", data: {title:"Test",body:"Test"}}));
+	  */
+	  $.ajax({        
+	            type : 'POST',
+	            url : "https://fcm.googleapis.com/fcm/send",
+	            headers : {
+	                Authorization : 'key=AAAAoOcdVKQ:APA91bHKeEkg_Uhu2VIkmuVJVats98jm3mQ5F3Wa7BJWpAg8svx4yDFAPFvE-czb_fOtej4Kq-oTnm5_Y6vK0_gRRiEgrv4EVcDrFCiqnUtlNDmSkc0W2fze6cpBAqse0p_cxt46LCdM'
+	            },
+	            contentType : 'application/json',
+	            dataType: 'json',
+	            data: JSON.stringify({to: "d9HYbDZyA4U:APA91bEvYWkI2CQYpOC5vcsqEUP9Fjt-auYt24kdqVmCQHOk_usSBTwdVQxjvEsKs86_VXu9l_kiN8GNxOdaAh3uKNdi52-IwO-HJAjZnIMAtdF6baKGLQsSQmREu1mvENEkFuOUqtuH", data: {type:"token", token_sender:"token value"}}),
+	            success : function(response) {
+	                console.log("success: " + response);
+	            },
+	            error : function(xhr, status, error) {
+	                console.log("error: " + xhr.error);                   
+	            }
+	  });
+  }
+  
+</script>
+
 </html>

@@ -18,9 +18,23 @@ app.use(bodyParser.json()); // parse application/json
 app.use(bodyParser.json({type: 'application/vnd.api+json'})); // parse application/vnd.api+json as json
 app.use(methodOverride('X-HTTP-Method-Override')); // override with the X-HTTP-Method-Override header in the request
 
+// Set CORS header and intercept "OPTIONS" preflight call from AngularJS
+/*var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Accept');
+    res.header("Access-Control-Max-Age", "1728000");
+    if (req.method === "OPTIONS") 
+        res.sendStatus(200);
+    else 
+        next();
+}*/
 
 // routes ======================================================================
 require('./app/routes.js')(app);
+
+// use allowCrossDomain
+//app.use(allowCrossDomain);
 
 // listen (start app with node server.js) ======================================
 app.listen(port);
