@@ -51,9 +51,3 @@
     </div>
 </body>
 </html>
-
-<%
-	if (redirectNavbar != "") {
-		response.sendRedirect(redirectNavbar);
-	}
-%>
