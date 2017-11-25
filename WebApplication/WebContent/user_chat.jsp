@@ -59,24 +59,8 @@
 		</div>
 		<form class="inputform" name="inputform" id="inputform">
 			<input type="text" id="msg" name="msg" class="inputbox" ng-model="formData.text ">
-			<button type="submit" class="send" ng-click="createMessage()">Kirim</button>
+			<button type="submit" id="send" name="send" class="send" ng-click="createMessage()" onClick="sendMessageToServer()">Kirim</button>
 		</form>	
-		
-		<script>
-		$("#inputform").ajaxForm({
-	          url: 'http://localhost:8080/sendMessageFromCustomer',
-	          type: 'POST',
-	          data: {message: , id: id},
-	          success : function(response) {
-	              console.log("success: " + response);
-	      	    alert('request done. success response received.');
-	          },
-	          error : function(xhr, status, error) {
-	              console.log("error: " + xhr.error);                   
-	      	    alert('request failed. error response received.');
-	          }
-	      })
-		</script>
 		
 		<input type="close-chat-button" class="close-chat-button" value="CLOSE" onclick="window.location.href='Completeorder.jsp?id_active=<%= request.getParameter("id_active") %>'">
 	</div>
@@ -85,6 +69,7 @@
 <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
 <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-messaging.js"></script>
+
 <script>
   // Initialize Firebase
   var mytoken; 
@@ -179,11 +164,28 @@
   }
   
   function sendMessageToServer(){
+	  msg = document.getElementById("msg").value;
+	  alert(msg);
 	    
 	  // TODO: create ajax post request to server here to send id_customer and message
 	  // action="http://localhost:8080/sendMessageFromCustomer" method="POST" 
 	  // should be called after sendTokenToServer called
 	  
+	  $.ajax({        
+          type : 'POST',
+          url : "http://localhost:8080/sendMessageFromCustomer",
+          //contentType : 'application/json',
+          //dataType: 'json',
+          data: {message: msg, id: id},
+          /*success : function(response) {
+              console.log("success: " + response);
+      	    alert('request done. success response received.');
+          },
+          error : function(xhr, status, error) {
+              console.log("error: " + xhr.error);                   
+      	    alert('request failed. error response received.');
+          }*/
+		});
 
   }
   
