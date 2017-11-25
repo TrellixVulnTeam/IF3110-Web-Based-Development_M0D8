@@ -328,9 +328,6 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	public int createUser(String token, User user) throws TokenException {
-		if (!TokenValidator.validateToken(token, user.getId())) {
-			throw new TokenException();
-		}
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;

@@ -61,7 +61,7 @@ public class RegisterServlet extends HttpServlet {
 		
 		connection.setDoOutput(true);
 		connection.setRequestMethod("POST");
-		connection.setRequestProperty("Content-Type", "appplication/json; charset=utf-8");
+		connection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
 		connection.setRequestProperty("Content-Length", "" +  Integer.toString(bodyIdentity.getBytes().length));
 	    
 		DataOutputStream out = new DataOutputStream(connection.getOutputStream ());
