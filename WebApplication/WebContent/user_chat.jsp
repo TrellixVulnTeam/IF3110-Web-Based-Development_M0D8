@@ -52,8 +52,8 @@
 		</div>
 		</div>
 		<form class="inputform">
-		<input type="text" class="inputbox" ng-model="formData.text ">
-		<button type="submit" class="send" onclick="sendMessage('')" ng-click="createMessage()">Kirim</button>
+			<input type="text" class="inputbox" ng-model="formData.text ">
+			<button type="submit" class="send" onclick="sendToServer()" ng-click="createMessage()">Kirim</button>
 		</form>	
 		<input type="close-chat-button" class="close-chat-button" value="CLOSE" onclick="window.location.href='Completeorder.jsp?id_active=<%= request.getParameter("id_active") %>'">
 	</div>
@@ -97,6 +97,7 @@
     console.log('Unable to get permission to notify.', err);
   });
   
+  // handle when client get message from firebase
   messaging.onMessage(function(payload) {
 	  console.log("Message received. ", payload);
 	  if (payload.data.type == "message") {
@@ -107,7 +108,9 @@
 	  }
   });
   
-  function setToken(){
+  /////////////////////// functions
+  
+  function sendTokenToServer(){
 	  messaging.requestPermission()
 	  .then(function(){
 	    console.log('Getting Token');
@@ -115,6 +118,13 @@
 	  .then(function(currentToken) {
 		mytoken = currentToken;
 	    console.log(mytoken);
+	    
+	    // TODO: create ajax post request to server here
+	    // action="http://localhost:8080/sendTokenFromCustomer" method="POST" 
+	    // to send id_customer and token
+	    
+	    // should be called first when page has loaded
+	    
 	  })
 	  .catch(function(err) {
 	    console.log('An error occurred while retrieving token. ', err);
@@ -125,15 +135,17 @@
 	  });
   }
   
+  function sendMessageToServer(){
+	    
+	  // TODO: create ajax post request to server here to send id_customer and message
+	  // action="http://localhost:8080/sendMessageFromCustomer" method="POST" 
+	  // should be called after sendTokenToServer called
+
+  }
+  
+  /* Kode dibawah harusnya ada di server.js
   function sendMessage(msg){
-	  setToken();
-	  
-	  /*var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
-	  xmlhttp.open("POST", "https://fcm.googleapis.com/fcm/send");
-	  xmlhttp.setRequestHeader("Content-Type", "application/json");
-	  xmlhttp.setRequestHeader("Authorization", "key=AAAAoOcdVKQ:APA91bHKeEkg_Uhu2VIkmuVJVats98jm3mQ5F3Wa7BJWpAg8svx4yDFAPFvE-czb_fOtej4Kq-oTnm5_Y6vK0_gRRiEgrv4EVcDrFCiqnUtlNDmSkc0W2fze6cpBAqse0p_cxt46LCdM");
-	  xmlhttp.send(JSON.stringify({to: "d9HYbDZyA4U:APA91bEvYWkI2CQYpOC5vcsqEUP9Fjt-auYt24kdqVmCQHOk_usSBTwdVQxjvEsKs86_VXu9l_kiN8GNxOdaAh3uKNdi52-IwO-HJAjZnIMAtdF6baKGLQsSQmREu1mvENEkFuOUqtuH", data: {title:"Test",body:"Test"}}));
-	  */
+	 
 	  $.ajax({        
 	            type : 'POST',
 	            crossDomain: true,
@@ -156,32 +168,7 @@
 	  });
   }
   
-  function sendToken(){
-	  setToken();
-	  
-	  /*var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
-	  xmlhttp.open("POST", "https://fcm.googleapis.com/fcm/send");
-	  xmlhttp.setRequestHeader("Content-Type", "application/json");
-	  xmlhttp.setRequestHeader("Authorization", "key=AAAAoOcdVKQ:APA91bHKeEkg_Uhu2VIkmuVJVats98jm3mQ5F3Wa7BJWpAg8svx4yDFAPFvE-czb_fOtej4Kq-oTnm5_Y6vK0_gRRiEgrv4EVcDrFCiqnUtlNDmSkc0W2fze6cpBAqse0p_cxt46LCdM");
-	  xmlhttp.send(JSON.stringify({to: "d9HYbDZyA4U:APA91bEvYWkI2CQYpOC5vcsqEUP9Fjt-auYt24kdqVmCQHOk_usSBTwdVQxjvEsKs86_VXu9l_kiN8GNxOdaAh3uKNdi52-IwO-HJAjZnIMAtdF6baKGLQsSQmREu1mvENEkFuOUqtuH", data: {title:"Test",body:"Test"}}));
-	  */
-	  $.ajax({        
-	            type : 'POST',
-	            url : "https://fcm.googleapis.com/fcm/send",
-	            headers : {
-	                Authorization : 'key=AAAAoOcdVKQ:APA91bHKeEkg_Uhu2VIkmuVJVats98jm3mQ5F3Wa7BJWpAg8svx4yDFAPFvE-czb_fOtej4Kq-oTnm5_Y6vK0_gRRiEgrv4EVcDrFCiqnUtlNDmSkc0W2fze6cpBAqse0p_cxt46LCdM'
-	            },
-	            contentType : 'application/json',
-	            dataType: 'json',
-	            data: JSON.stringify({to: "d9HYbDZyA4U:APA91bEvYWkI2CQYpOC5vcsqEUP9Fjt-auYt24kdqVmCQHOk_usSBTwdVQxjvEsKs86_VXu9l_kiN8GNxOdaAh3uKNdi52-IwO-HJAjZnIMAtdF6baKGLQsSQmREu1mvENEkFuOUqtuH", data: {type:"token", token_sender:"token value"}}),
-	            success : function(response) {
-	                console.log("success: " + response);
-	            },
-	            error : function(xhr, status, error) {
-	                console.log("error: " + xhr.error);                   
-	            }
-	  });
-  }
+  }*/
   
 </script>
 
