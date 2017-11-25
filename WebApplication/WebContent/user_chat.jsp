@@ -14,8 +14,14 @@
 	<script src="js/controllers/main.js"></script> <!-- load up our controller -->
 	<script src="js/services/messages.js"></script> <!-- load our message service -->
 	<script src="js/core.js"></script> <!-- load our main application -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="http://malsup.github.com/jquery.form.js"></script>
 	
 </head>
+<%
+	out.println("<script>id = " + request.getParameter("id_active") + "</script>");
+%>
+
 <body ng-controller="mainController">
   	<div id="navbar">
 	  <%@ include file="Navbar.jsp" %>
@@ -51,15 +57,31 @@
 			<label> {{ message.text }} </label>
 		</div>
 		</div>
-		<form class="inputform">
-			<input type="text" class="inputbox" ng-model="formData.text ">
-			<button type="submit" class="send" onclick="sendToServer()" ng-click="createMessage()">Kirim</button>
+		<form class="inputform" name="inputform" id="inputform">
+			<input type="text" id="msg" name="msg" class="inputbox" ng-model="formData.text ">
+			<button type="submit" class="send" ng-click="createMessage()">Kirim</button>
 		</form>	
+		
+		<script>
+		$("#inputform").ajaxForm({
+	          url: 'http://localhost:8080/sendMessageFromCustomer',
+	          type: 'POST',
+	          data: {message: , id: id},
+	          success : function(response) {
+	              console.log("success: " + response);
+	      	    alert('request done. success response received.');
+	          },
+	          error : function(xhr, status, error) {
+	              console.log("error: " + xhr.error);                   
+	      	    alert('request failed. error response received.');
+	          }
+	      })
+		</script>
+		
 		<input type="close-chat-button" class="close-chat-button" value="CLOSE" onclick="window.location.href='Completeorder.jsp?id_active=<%= request.getParameter("id_active") %>'">
 	</div>
 </body>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
 <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-messaging.js"></script>
@@ -83,6 +105,8 @@
 	    // registration worked
 	    console.log('Registration succeeded. Scope is ' + reg.scope);
 	    messaging.useServiceWorker(reg);
+	    //mytoken = messaging.getToken();
+	    sendTokenToServer();
 	  }).catch(function(error) {
 	    // registration failed
 	    console.log('Registration failed with ' + error);
@@ -108,6 +132,8 @@
 	  }
   });
   
+  // Call sendTokenToServer
+  
   /////////////////////// functions
   
   function sendTokenToServer(){
@@ -125,6 +151,23 @@
 	    
 	    // should be called first when page has loaded
 	    
+	    $.ajax({        
+            type : 'POST',
+            url : "http://localhost:8080/sendTokenFromCustomer",
+            //contentType : 'application/json',
+            //dataType: 'json',
+            data: {token: mytoken, id: id},
+            /*success : function(response) {
+                console.log("success: " + response);
+        	    alert('request done. success response received.');
+            },
+            error : function(xhr, status, error) {
+                console.log("error: " + xhr.error);                   
+        	    alert('request failed. error response received.');
+            }*/
+  		});
+	   
+	    
 	  })
 	  .catch(function(err) {
 	    console.log('An error occurred while retrieving token. ', err);
@@ -140,6 +183,7 @@
 	  // TODO: create ajax post request to server here to send id_customer and message
 	  // action="http://localhost:8080/sendMessageFromCustomer" method="POST" 
 	  // should be called after sendTokenToServer called
+	  
 
   }
   
