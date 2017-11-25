@@ -20,6 +20,7 @@
 </head>
 <%
 	out.println("<script>id = " + request.getParameter("id_active") + "</script>");
+	out.println("<script>id2 = " + request.getParameter("id_driver") + "</script>");
 %>
 
 <body ng-controller="mainController">
@@ -62,7 +63,12 @@
 			<button type="submit" id="send" name="send" class="send" ng-click="createMessage()" onClick="sendMessageToServer()">Kirim</button>
 		</form>	
 		
-		<input type="close-chat-button" class="close-chat-button" value="CLOSE" onclick="window.location.href='Completeorder.jsp?id_active=<%= request.getParameter("id_active") %>'">
+		<form action="Completeorder.jsp?id_active=<%= request.getParameter("id_active") %>" method="POST">
+			<input type="hidden" name="id_driver" value="<%= request.getParameter("id_driver") %>">
+			<input type="hidden" name="pickup" value="<%= request.getParameter("pickup") %>">
+	        <input type="hidden" name="dest" value="<%= request.getParameter("dest") %>">
+			<input type="submit" class="close-chat-button" value="CLOSE">
+		</form>
 	</div>
 </body>
 
@@ -165,7 +171,6 @@
   
   function sendMessageToServer(){
 	  msg = document.getElementById("msg").value;
-	  alert(msg);
 	    
 	  // TODO: create ajax post request to server here to send id_customer and message
 	  // action="http://localhost:8080/sendMessageFromCustomer" method="POST" 
@@ -176,7 +181,7 @@
           url : "http://localhost:8080/sendMessageFromCustomer",
           //contentType : 'application/json',
           //dataType: 'json',
-          data: {message: msg, id: id},
+          data: {message: msg, from: id, to: id2},
           /*success : function(response) {
               console.log("success: " + response);
       	    alert('request done. success response received.');

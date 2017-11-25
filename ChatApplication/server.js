@@ -47,7 +47,7 @@ var token_customer, token_driver;
 
 app.post('/sendTokenFromCustomer', function(req, res) {
 	// initialize id_customer and token_customer
-	console.log(req.body.id + " with id: ");
+	console.log(req.body.id + " as user with id: ");
 	console.log(req.body.token);
 	console.log();
 	
@@ -55,14 +55,18 @@ app.post('/sendTokenFromCustomer', function(req, res) {
 
 app.post('/sendTokenFromDriver', function(req, res) {
 	// initialize id_driver and token_driver
+	console.log(req.body.id + " as driver with id: ");
+	console.log(req.body.token);
+	console.log();
 });
 
 app.post('/sendMessageFromCustomer', function(req, res) {
 	// var message = req. 
 	// put message in mongodb, with attribute from_customer = true
 	// send message to firebase with sendMessage(id_customer, token_driver, message)
-	console.log(req.body.id + " writes: ");
+	console.log(req.body.id + " as user writes: ");
 	console.log(req.body.message);
+	console.log("to: " + req.body.id2);
 	console.log();
 });
 
@@ -71,6 +75,9 @@ app.post('/sendMessageFromDriver', function(req, res) {
 	// var message = req. 
 	// put message in mongodb, with attribute from_customer = false
 	// send message to firebase with sendMessage(id_driver, token_customer, message)
+	console.log(req.body.id + " as driver writes: ");
+	console.log(req.body.message);
+	console.log();
 });
 
 /* 

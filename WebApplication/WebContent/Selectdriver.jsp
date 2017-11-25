@@ -93,42 +93,48 @@
 		    	 if (!found) {
 		    		 driver = null;
 		    	 } else {
-		    		 boolean founda = false;
-		    		 for (b = 0; b < others.length; b++) {
-			    		 if (others[b].getId() == driver.getId()) {
-			    			 founda = true;
-			    			 break;
+		    		 if (others != null) {
+			    		 boolean founda = false;
+			    		 for (b = 0; b < others.length; b++) {
+				    		 if (others[b].getId() == driver.getId()) {
+				    			 founda = true;
+				    			 break;
+				    		 }
+				    	 }
+			    		 if (founda) {
+			    			 if (others.length == 1) {
+			    				 others = null;
+			    			 } else {
+			    				 others[b] = null;
+			    			 }
 			    		 }
-			    	 }
-		    		 if (founda) {
-		    			 if (others.length == 1) {
-		    				 others = null;
-		    			 } else {
-		    				 others[b] = null;
-		    			 }
 		    		 }
 		    	 }
 		     }
 		     allnull = true;
-
+		     
 		     if (others != null && others.length > 0) {
 		    	 for (b = 0; b < others.length; b++) {
 		    		 found = false;
 		    		 for (a = 0; a< len; a++) {
-				    	 if (others[b].getId() == (aval_users.getJSONObject(a).getInt("id"))) {
-				    		 found = true;
-				    		 break;
-				    	 }
+		    			 if (others[b] != null) {
+					    	 if (others[b].getId() == (aval_users.getJSONObject(a).getInt("id"))) {
+					    		 found = true;
+					    		 break;
+					    	 }
+		    			 }
 				     }
 			    	 if (!found) {
-			    		 driver = null;
+			    		 others[b] = null;
 			    	 } else {
 			    		 allnull = false;
 			    	 }
 		    	 }
 		     }
 	     }
-	    
+	     if (driver == null) {
+	    	 System.out.println("driver null");
+	     }
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>

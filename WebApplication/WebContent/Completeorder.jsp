@@ -25,7 +25,8 @@
 	com.services.User user = null;
 	String redirect = "";
 	try{
-		user = completeProxy.getUser(mytoken, id);	
+		user = completeProxy.getUser(mytoken, Integer.parseInt(request.getParameter("id_active")));	
+		user = completeProxy.getUserWithoutValidation(id);
 	} catch (com.services.TokenException tex) {
 		redirect = "LogoutServlet?id=" + request.getParameter("id_active") + "&e=" + completeProxy.getValidation(mytoken, Integer.parseInt(request.getParameter("id_active")));
 		user = new com.services.User();

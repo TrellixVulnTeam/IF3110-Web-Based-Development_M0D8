@@ -20,6 +20,12 @@ public interface UserService {
 	public User getUser(String token, int id) throws TokenException;
 	
 	/*
+		Mengeluarkan user tanpa validasi
+	*/
+	@WebMethod
+	public User getUserWithoutValidation(int id);
+	
+	/*
 		Mengeluarkan user yang memiliki token yang sama dengan parameter
 	*/
 	@WebMethod
