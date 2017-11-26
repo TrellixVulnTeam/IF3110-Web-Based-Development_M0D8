@@ -18,10 +18,6 @@
 	<script src="http://malsup.github.com/jquery.form.js"></script>
 	
 </head>
-<%
-	out.println("<script>id = " + request.getParameter("id_active") + "</script>");
-	out.println("<script>id2 = " + request.getParameter("id_driver") + "</script>");
-%>
 
 <body ng-controller="mainController">
   	<div id="navbar">
@@ -71,6 +67,11 @@
 		</form>
 	</div>
 </body>
+
+<%
+	out.println("<script>id = " + request.getParameter("id_active") + "</script>");
+	out.println("<script>id2 = " + request.getParameter("id_driver") + "</script>");
+%>
 
 <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
 <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-app.js"></script>
@@ -147,7 +148,23 @@
             url : "http://localhost:8080/sendTokenFromCustomer",
             //contentType : 'application/json',
             //dataType: 'json',
-            data: {token: mytoken, id: id},
+            data: {token: mytoken, id: id}
+            /*success : function(response) {
+                console.log("success: " + response);
+        	    alert('request done. success response received.');
+            },
+            error : function(xhr, status, error) {
+                console.log("error: " + xhr.error);                   
+        	    alert('request failed. error response received.');
+            }*/
+  		});
+	    
+	    $.ajax({        
+            type : 'POST',
+            url : "http://localhost:8080/api/avals/changestat",
+            //contentType : 'application/json',
+            //dataType: 'json',
+            data: {id: id2, status: false}
             /*success : function(response) {
                 console.log("success: " + response);
         	    alert('request done. success response received.');
@@ -181,7 +198,7 @@
           url : "http://localhost:8080/sendMessageFromCustomer",
           //contentType : 'application/json',
           //dataType: 'json',
-          data: {message: msg, from: id, to: id2},
+          data: {message: msg, from: id, to: id2}
           /*success : function(response) {
               console.log("success: " + response);
       	    alert('request done. success response received.');

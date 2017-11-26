@@ -95,15 +95,55 @@ module.exports = function (app) {
         getAvalUser(res);
     });
     
+    app.post('/api/avals/status', function (req, res) {
+        // use mongoose to get all messages in the database
+        user = req.body.id;
+        Aval.find({id:user},{status:1},function (err, avals) {
+
+            // if there is an error retrieving, send the error. nothing after res.send(err) will execute
+            if (err) {
+                res.send(err);
+            }
+            
+            if (avals.length > 0) {
+            	res.send(avals[0]["status"]); // return all messages in JSON format
+            } else {
+            	res.send("false");
+            }
+        });
+    });
+    
+    app.post('/api/avals/customer', function (req, res) {
+        // use mongoose to get all messages in the database
+        user = req.body.id;
+        Aval.find({id:user},{customer:1},function (err, avals) {
+
+            // if there is an error retrieving, send the error. nothing after res.send(err) will execute
+            if (err) {
+                res.send(err);
+            }
+            
+            if (avals.length > 0) {
+            	res.send((avals[0]["customer"]).toString()); // return all messages in JSON format
+            } else {
+            	res.send("0");
+            }
+        });
+    });
+    
     app.post('/api/avals/changestat', function (req, res) {
         // use mongoose to get all messages in the database
+    	console.log(req.body.id);
+    	console.log(req.body.status);
+    	console.log(req.body.customer);
+    	
     	count = -1;
     	Aval.find({id:req.body.id},function (err, results) {
     		count = results.length;
     		});
         Aval.updateOne(
         		{id:req.body.id},
-        		{$set: {status:req.body.status}},
+        		{$set: {status:req.body.status, customer:req.body.customer}},
         		function (err, aval) {
                     if (err)
                         res.send(err);
@@ -111,6 +151,7 @@ module.exports = function (app) {
                 		Aval.create({
                             id: req.body.id,
                             status: req.body.status,
+                            customer: req.body.customer,
                             done: false
                         }, function (err, aval) {
                             if (err)

@@ -8,5 +8,9 @@ module.exports = mongoose.model('Availability', {
     status : {
     	type: Boolean,
     	default: 0
+    },
+    customer : {
+    	type: Number,
+    	default: 0
     }
 });

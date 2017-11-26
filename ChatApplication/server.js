@@ -64,9 +64,9 @@ app.post('/sendMessageFromCustomer', function(req, res) {
 	// var message = req. 
 	// put message in mongodb, with attribute from_customer = true
 	// send message to firebase with sendMessage(id_customer, token_driver, message)
-	console.log(req.body.id + " as user writes: ");
+	console.log(req.body.from + " as user writes: ");
 	console.log(req.body.message);
-	console.log("to: " + req.body.id2);
+	console.log("to: " + req.body.to);
 	console.log();
 });
 

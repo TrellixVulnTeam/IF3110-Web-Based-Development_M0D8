@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-
+<%
+out.println("<script> alert('" + request.getParameter("id_customer") + "');</script>");
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html ng-app="swtMessage">
 <head>
@@ -133,7 +135,7 @@ out.println("<script>id = " + request.getParameter("id_active") + "</script>");
             url : "http://localhost:8080/sendTokenFromDriver",
             //contentType : 'application/json',
             //dataType: 'json',
-            data: {token: mytoken, id: id},
+            data: {token: mytoken, id: id}
             /*success : function(response) {
                 console.log("success: " + response);
         	    alert('request done. success response received.');
@@ -167,7 +169,7 @@ out.println("<script>id = " + request.getParameter("id_active") + "</script>");
           url : "http://localhost:8080/sendMessageFromDriver",
           //contentType : 'application/json',
           //dataType: 'json',
-          data: {message: msg, id: id},
+          data: {message: msg, id: id}
           /*success : function(response) {
               console.log("success: " + response);
       	    alert('request done. success response received.');
