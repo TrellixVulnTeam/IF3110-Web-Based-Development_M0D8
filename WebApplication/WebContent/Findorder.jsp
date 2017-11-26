@@ -59,6 +59,7 @@
 	    	 }
 		    
 	     }
+	     out.println("<script> isFinding = " + isFinding + "; </script>");
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -118,7 +119,7 @@ if(request.getParameter("findOrderButton")!=null || request.getParameter("cancel
 	     //add reuqest header
 	     con.setRequestMethod("POST");
 	     String urlParameters = "id="+request.getParameter("id_active")+
-	              "&status=" + status;
+	              "&status=" + status + "&customer=0";
 	     // Send post request
 	     con.setDoOutput(true);
 	      wr = new DataOutputStream(con.getOutputStream());
@@ -144,6 +145,74 @@ if(request.getParameter("findOrderButton")!=null || request.getParameter("cancel
 	     
 	}
 %>
+
+<%
+	out.println("<script>id = " + request.getParameter("id_active") + "</script>");
+%>
+
+<script src="https://cdn.rawgit.com/mgalante/jquery.redirect/master/jquery.redirect.js"></script>
+
+<script>
+	cancelled = false;
+	callout = function () {
+		if (isFinding && !cancelled) {
+			$.ajax({        
+	            type : 'POST',
+	            url : "http://localhost:8080/api/avals/status",
+	            //contentType : 'application/json',
+	            //dataType: 'json',
+	            data: {id:id},
+	            success : function(response) {
+	                if (response == false) {
+	                	$.ajax({        
+	                        type : 'POST',
+	                        url : "http://localhost:8080/api/avals/customer",
+	                        //contentType : 'application/json',
+	                        //dataType: 'json',
+	                        data: {id:id},
+	                        success : function(response) {
+	                            if (response != "0") {
+	                            	$.redirect('driver_chat.jsp?id_active=' + id, {'id_customer': response});
+	                            	//window.location = ('driver_chat.jsp?id_active=' + id, {'id_customer': response});
+	                            }
+	                        }
+	              		});
+	                }
+	            }
+	       
+	  		})
+	  		.always(function() {
+	  			setTimeout(callout, 2000);
+	  		});
+		}
+	};
+
+	callout();
+	
+	/*if (isFinding) {
+		$( document ).ready(function() {
+		    foundOrder = false;
+		    while (!foundOrder) {
+		    	setTimeout(function() {
+		    	 $.ajax({        
+		             type : 'POST',
+		             url : "http://localhost:8080/api/avals/status",
+		             //contentType : 'application/json',
+		             //dataType: 'json',
+		             data: {id:id},
+		             success : function(response) {
+		            	 alert(response);
+		                 //if (response == false) {
+		                //	 foundOrder = true;
+		                 //}
+		             }
+		        
+		   		});
+		    	}, 2000);
+		    }
+		});
+	}*/
+</script>
 
 
 <!--script>

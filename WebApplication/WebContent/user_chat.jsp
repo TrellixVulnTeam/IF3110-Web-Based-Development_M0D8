@@ -56,7 +56,7 @@
 		</div>
 		<form class="inputform" name="inputform" id="inputform">
 			<input type="text" id="msg" name="msg" class="inputbox" ng-model="formData.text ">
-			<button type="submit" id="send" name="send" class="send" ng-click="createMessage()" onClick="sendMessageToServer()">Kirim</button>
+			<button type="submit" id="send" name="send" class="send" onClick="sendMessageToServer()">Kirim</button>
 		</form>	
 		
 		<form action="Completeorder.jsp?id_active=<%= request.getParameter("id_active") %>" method="POST">
@@ -164,7 +164,7 @@
             url : "http://localhost:8080/api/avals/changestat",
             //contentType : 'application/json',
             //dataType: 'json',
-            data: {id: id2, status: false}
+            data: {id: id2, status: false, customer:id}
             /*success : function(response) {
                 console.log("success: " + response);
         	    alert('request done. success response received.');

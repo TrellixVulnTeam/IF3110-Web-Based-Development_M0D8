@@ -44,6 +44,19 @@ var config = {
 
 var id_customer, id_driver;
 var token_customer, token_driver;
+var Message = require('./app/models/message');
+
+function getMessages(res) {
+    Message.find(function (err, messages) {
+
+        // if there is an error retrieving, send the error. nothing after res.send(err) will execute
+        if (err) {
+            res.send(err);
+        }
+
+        res.json(messages); // return all messages in JSON format
+    });
+};
 
 app.post('/sendTokenFromCustomer', function(req, res) {
 	// initialize id_customer and token_customer
@@ -68,6 +81,21 @@ app.post('/sendMessageFromCustomer', function(req, res) {
 	console.log(req.body.message);
 	console.log("to: " + req.body.to);
 	console.log();
+	
+	// create a message, information comes from AJAX request from Angular
+    Message.create({
+        text: req.body.message,
+        from: req.body.from,
+        to: req.body.to,
+        done: false
+    }, function (err, message) {
+        if (err)
+            res.send(err);
+
+        // get and return all the messages after you create another
+        getMessages(res);
+    });
+	
 });
 
 
@@ -75,9 +103,25 @@ app.post('/sendMessageFromDriver', function(req, res) {
 	// var message = req. 
 	// put message in mongodb, with attribute from_customer = false
 	// send message to firebase with sendMessage(id_driver, token_customer, message)
-	console.log(req.body.id + " as driver writes: ");
+	console.log(req.body.from + " as driver writes: ");
 	console.log(req.body.message);
+	console.log("to: " + req.body.to);
 	console.log();
+	
+	// create a message, information comes from AJAX request from Angular
+    Message.create({
+        text: req.body.message,
+        from: req.body.from,
+        to: req.body.to,
+        done: false
+    }, function (err, message) {
+        if (err)
+            res.send(err);
+
+        // get and return all the messages after you create another
+        getMessages(res);
+    });
+	
 });
 
 /* 

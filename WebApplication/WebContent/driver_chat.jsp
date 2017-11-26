@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%
-out.println("<script> alert('" + request.getParameter("id_customer") + "');</script>");
-%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html ng-app="swtMessage">
 <head>
@@ -49,13 +47,14 @@ out.println("<script> alert('" + request.getParameter("id_customer") + "');</scr
 		</div>
 		<form class="inputform">
 		<input type="text" id="msg" name="msg" class="inputbox" ng-model="formData.text ">
-		<button type="submit" class="send" id="send" name="send" ng-click="createMessage()" onClick="sendMessageToServer()">Kirim</button>
+		<button type="submit" class="send" id="send" name="send" onClick="sendMessageToServer()">Kirim</button>
 		</form>	
 	</div>
 </body>
 
 <%
 out.println("<script>id = " + request.getParameter("id_active") + "</script>");
+out.println("<script>id2 = " + request.getParameter("id_customer") + "</script>");
 %>
 
 <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
@@ -169,7 +168,7 @@ out.println("<script>id = " + request.getParameter("id_active") + "</script>");
           url : "http://localhost:8080/sendMessageFromDriver",
           //contentType : 'application/json',
           //dataType: 'json',
-          data: {message: msg, id: id}
+          data: {message: msg, from: id, to: id2}
           /*success : function(response) {
               console.log("success: " + response);
       	    alert('request done. success response received.');
