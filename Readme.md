@@ -131,22 +131,22 @@ Berikut adalah referensi terkait tugas ini:
 
 ### Pembagian Tugas
 Chat App Front-end :
-1. Find Order : 13515
-2. User Chat : 13515
-3. Driver Chat : 13515
+1. Find Order : 13515057
+2. User Chat : 13515048
+3. Driver Chat : 13515039
 
 Chat REST Service :
-1. MongoDB Model : 13515
-2. Get/Post Message : 13515
-3. Get/Post Finding : 13515
-4. Firebase Messaging : 13515
-5. Firebase Token : 13515
+1. MongoDB Model : 13515048
+2. Get/Post Message : 13515039
+3. Get/Post Finding : 13515039
+4. Firebase Messaging : 13515057
+5. Firebase Token : 13515057
 
 Fitur security (IP, User-agent) :
-1. Generate Token : 13515
-2. Validate Token : 13515
-3. Get Validation Status : 13515
-4. Login/Register Token Process : 13515
+1. Generate Token : 13515048
+2. Validate Token : 13515057
+3. Get Validation Status : 13515039
+4. Login/Register Token Process : 13515048
 
 ## About
 
