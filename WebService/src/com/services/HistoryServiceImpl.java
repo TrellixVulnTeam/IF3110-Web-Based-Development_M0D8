@@ -256,11 +256,6 @@ public class HistoryServiceImpl implements HistoryService {
 	
 	@Override
 	public boolean updateCustomer(String token, int id, History history)throws TokenException {
-		if (!TokenValidator.validateToken(token, id)) {
-			throw new TokenException();
-		}
-		
-		
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
