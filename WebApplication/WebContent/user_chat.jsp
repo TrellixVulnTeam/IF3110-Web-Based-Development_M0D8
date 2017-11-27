@@ -227,4 +227,24 @@
   
 </script>
 
+<script>
+	callout = function () {
+			$.ajax({      
+                 type : 'POST',
+                 url : "http://localhost:8080/api/avals/customer",
+                 //contentType : 'application/json',
+                 //dataType: 'json',
+                 data: {id:id},
+                 success : function(response) {
+                    	 angular.element(document.body).scope().getMessage();
+                    }
+       		})
+	  		.always(function() {
+	  			setTimeout(callout, 2000);
+	  		});
+	};
+
+	callout();
+</script>
+
 </html>

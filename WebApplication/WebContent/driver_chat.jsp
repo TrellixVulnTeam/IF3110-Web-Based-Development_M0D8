@@ -253,6 +253,8 @@ out.println("<script>id2 = " + request.getParameter("id_customer") + "</script>"
                      if (response == "0") {
                      	$.redirect('Findorder.jsp?id_active=' + id);
                      	//window.location = ('driver_chat.jsp?id_active=' + id, {'id_customer': response});
+                     } else {
+                    	 angular.element(document.body).scope().getMessage();
                      }
                  }
        		})
