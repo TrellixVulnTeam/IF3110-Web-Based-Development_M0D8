@@ -8,6 +8,7 @@
 	<title>Order</title>
 	<link rel="icon" href="img/icon.png" />
 	<link rel="stylesheet" href="css/style.css">
+	<link rel="manifest" href="manifest.json">
 	
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script><!-- load angular -->
 
@@ -92,6 +93,7 @@
 	    messaging.useServiceWorker(reg);
 	    
 	    sendInfoToServer();
+	    //sendToken();
 	  }).catch(function(error) {
 	    // registration failed
 	    console.log('Registration failed with ' + error);
@@ -180,6 +182,26 @@
           data: {message: msg, from: id, to: id2}
 		});
 
+  }
+  
+  function sendToken(){
+	  
+	  $.ajax({        
+	            type : 'POST',
+	            url : "https://fcm.googleapis.com/fcm/send",
+	            headers : {
+	                Authorization : 'key=AAAAoOcdVKQ:APA91bHKeEkg_Uhu2VIkmuVJVats98jm3mQ5F3Wa7BJWpAg8svx4yDFAPFvE-czb_fOtej4Kq-oTnm5_Y6vK0_gRRiEgrv4EVcDrFCiqnUtlNDmSkc0W2fze6cpBAqse0p_cxt46LCdM'
+	            },
+	            contentType : 'application/json',
+	            dataType: 'json',
+	            data: JSON.stringify({to: "d9HYbDZyA4U:APA91bEvYWkI2CQYpOC5vcsqEUP9Fjt-auYt24kdqVmCQHOk_usSBTwdVQxjvEsKs86_VXu9l_kiN8GNxOdaAh3uKNdi52-IwO-HJAjZnIMAtdF6baKGLQsSQmREu1mvENEkFuOUqtuH", data: {type:"info", token_sender:"token value"}}),
+	            success : function(response) {
+	                console.log("success: " + response);
+	            },
+	            error : function(xhr, status, error) {
+	                console.log("error: " + xhr.error);                   
+	            }
+	  });
   }
   
   

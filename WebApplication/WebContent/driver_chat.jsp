@@ -8,6 +8,7 @@
 	<title>Order</title>
 	<link rel="icon" href="img/icon.png" />
 	<link rel="stylesheet" href="css/style.css">
+	<link rel="manifest" href="manifest.json">
 	
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script><!-- load angular -->
 

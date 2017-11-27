@@ -26,7 +26,7 @@ app.use(bodyParser.json({type: 'application/vnd.api+json'})); // parse applicati
 app.use(methodOverride('X-HTTP-Method-Override')); // override with the X-HTTP-Method-Override header in the request
 
 // Set CORS header and intercept "OPTIONS" preflight call from AngularJS
-/*var allowCrossDomain = function(req, res, next) {
+var allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Accept');
@@ -35,7 +35,7 @@ app.use(methodOverride('X-HTTP-Method-Override')); // override with the X-HTTP-M
         res.sendStatus(200);
     else 
         next();
-}*/
+}
 
 var id_customer, id_driver;
 var token_customer, token_driver;
@@ -65,7 +65,7 @@ app.post('/sendInfoFromCustomer', function(req, res) {
 	//if (token_driver != null){
 	//	sendInfo(id_customer, token_driver, 'Sulliy1');	
 	//}
-	
+	res.end();
 });
 
 app.post('/sendInfoFromDriver', function(req, res) {
@@ -78,6 +78,7 @@ app.post('/sendInfoFromDriver', function(req, res) {
 	token_driver = req.body.token;
 	
 	sendInfo(id_customer, token_driver, 'Sulliy');	
+	res.end();
 });
 
 app.post('/sendMessageFromCustomer', function(req, res) {
@@ -102,7 +103,7 @@ app.post('/sendMessageFromCustomer', function(req, res) {
         // get and return all the messages after you create another
         getMessages(res);
     });
-	
+    
 });
 
 
@@ -165,6 +166,10 @@ function sendInfo(idSender, tokenReceiver, usernameSender){
 	// See the "Defining the message payload" section below for details
 	// on how to define a message payload.
 	var payload = {
+			notification: {
+			    title: "aaa",
+			    body: "bbb"
+			  },
 	  data: {
 		type: "info",
 	    id_sender: idSender,
@@ -190,7 +195,7 @@ function sendInfo(idSender, tokenReceiver, usernameSender){
 require('./app/routes.js')(app);
 
 // use allowCrossDomain
-//app.use(allowCrossDomain);
+app.use(allowCrossDomain);
 
 // listen (start app with node server.js) ======================================
 app.listen(port);
