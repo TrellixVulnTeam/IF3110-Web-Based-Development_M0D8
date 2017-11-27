@@ -49,7 +49,7 @@
 		</div>
 		<form class="inputform" name="inputform" id="inputform">
 			<input type="text" id="msg" name="msg" class="inputbox" ng-model="formData.text ">
-			<button type="submit" id="send" name="send" ng-click="createMessage()" class="send">Kirim</button>
+			<button type="submit" id="send" name="send" ng-click="createMessage(<%= request.getParameter("id_active") %>,<%= request.getParameter("id_driver") %>)" class="send">Kirim</button>
 		</form>	
 		
 		<form action="Completeorder.jsp?id_active=<%= request.getParameter("id_active") %>" method="POST">

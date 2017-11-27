@@ -58,10 +58,18 @@ module.exports = function (app) {
 
     // create message and send back all messages after creation
     app.post('/api/messages', function (req, res) {
+    	console.log(req.body);
+    	console.log(req.body.from + " writes: ");
+    	console.log(req.body.text);
+    	console.log("to: " + req.body.to);
+    	console.log();
+    	
 
         // create a message, information comes from AJAX request from Angular
         Message.create({
             text: req.body.text,
+            from: req.body.from,
+            to: req.body.to,
             done: false
         }, function (err, message) {
             if (err)

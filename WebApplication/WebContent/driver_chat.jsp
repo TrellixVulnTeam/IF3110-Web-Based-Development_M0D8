@@ -47,7 +47,7 @@
 		</div>
 		<form class="inputform">
 		<input type="text" id="msg" name="msg" class="inputbox" ng-model="formData.text ">
-		<button type="submit" class="send" id="send" name="send" ng-click="createMessage()">Kirim</button>
+		<button type="submit" class="send" id="send" name="send" ng-click="createMessage(<%= request.getParameter("id_active") %>,<%= request.getParameter("id_customer") %>)">Kirim</button>
 		</form>	
 	</div>
 </body>

@@ -131,23 +131,27 @@ Berikut adalah referensi terkait tugas ini:
 
 ### Pembagian Tugas
 Chat App Front-end :
-1. Fungsionalitas A : 135140XX  
-2. Fungsionalitas B : 135140XX  
+1. Find Order : 13515
+2. User Chat : 13515
+3. Driver Chat : 13515
 
-
-Chat REST Service:  
-1. Fungsionalitas C : 135140XX  
-2. Fungsionalitas D : 135140XX  
+Chat REST Service :
+1. MongoDB Model : 13515
+2. Get/Post Message : 13515
+3. Get/Post Finding : 13515
+4. Firebase Messaging : 13515
+5. Firebase Token : 13515
 
 Fitur security (IP, User-agent) :
-1. Fungsionalitas E : 135140XX
-2. Fungsionalitas F : 135140XX
-
+1. Generate Token : 13515
+2. Validate Token : 13515
+3. Get Validation Status : 13515
+4. Login/Register Token Process : 13515
 
 ## About
 
 Kelompok SWT
 
-Sulley | Edwin | Erick
+Edwin | Alvin | Erick
 
 Dosen : Yudistira Dwi Wardhana | Riza Satria Perdana | Muhammad Zuhri Catur Candra

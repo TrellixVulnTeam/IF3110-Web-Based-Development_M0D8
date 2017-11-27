@@ -16,13 +16,15 @@ angular.module('messageController', [])
 
 		// CREATE ==================================================================
 		// when submitting the add form, send the text to the node API
-		$scope.createMessage = function() {
+		$scope.createMessage = function(from,to) {
 
 			// validate the formData to make sure that something is there
 			// if form is empty, nothing will happen
 			if ($scope.formData.text != undefined) {
 				$scope.loading = true;
 
+				$scope.formData.from = from;
+				$scope.formData.to = to;
 				// call the create function from our service (returns a promise object)
 				Messages.create($scope.formData)
 
