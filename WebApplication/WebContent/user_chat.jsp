@@ -1,6 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     
+<%
+    String mytoken = "";
+    Cookie[] mycookies = request.getCookies();
+    if (mycookies != null) {
+        for (int i = 0; i < mycookies.length; ++i) {
+        	if (mycookies[i].getName().equals("token")) {
+        		mytoken = mycookies[i].getValue();
+        			break;
+        	}
+        }
+    }
+%>
+<jsp:useBean id="profileProxy" scope="request" class="com.services.UserServiceProxy" />
+<%
+	profileProxy.setEndpoint("http://localhost:8000/WebService/User");
+	String idStr = request.getParameter("id_active");
+	int idA = Integer.parseInt(idStr);
+	
+	com.services.User userV = null;
+	String redirect = "";
+	try{
+		userV = profileProxy.getUser(mytoken, idA);
+	} catch (com.services.TokenException tex) {
+		redirect = "LogoutServlet?id=" + request.getParameter("id_active") + "&e=" + profileProxy.getValidation(mytoken, Integer.parseInt(request.getParameter("id_active")));
+		userV = new com.services.User();
+	}
+%>
+    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html ng-app="swtMessage">
 <head>
