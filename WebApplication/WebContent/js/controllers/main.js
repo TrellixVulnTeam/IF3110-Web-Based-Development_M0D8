@@ -13,6 +13,14 @@ angular.module('messageController', [])
 				$scope.messages = data;
 				$scope.loading = false;
 			});
+		
+		$scope.getMessage = function() {
+			Messages.get()
+			.success(function(data) {
+				$scope.messages = data;
+				$scope.loading = false;
+			});
+		};
 
 		// CREATE ==================================================================
 		// when submitting the add form, send the text to the node API
