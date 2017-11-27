@@ -1104,3 +1104,17 @@ td.cancel-image{
 	text-align: center;
 	color: red;
 }
+.ordergot {
+	font-weight: bold;
+    font-size: 25px;
+    font-family: sans-serif;
+    text-align: center;
+    color: #00ce26;
+}
+.ordername {
+	font-weight: bold;
+    font-size: 20px;
+    font-family: sans-serif;
+    text-align: center;
+    color: black;
+}

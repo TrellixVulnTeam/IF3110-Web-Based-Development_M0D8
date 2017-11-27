@@ -48,8 +48,8 @@
 	</div>
 	
 	<div id="order-chat-driver">
-		Got an Order!
-		<%= user.getUsername() %>
+		<div class="ordergot">Got an Order!</div>
+		<div class="ordername"><%= user.getUsername()%><br></div>
 	  <div class="chatbox">
 		<div class="messagechat" ng-repeat="message in messages">
 			<label> {{ message.text }} </label>
