@@ -2,28 +2,17 @@
 
 Melakukan upgrade Website ojek online sederhana pada Tugas 2 dengan mengaplikasikan ***cloud service* (Firebase Cloud Messaging) dan *framework* MEAN stack**.
 
-**Luangkan waktu untuk membaca spek ini sampai selesai. Kerjakan hal yang perlu saja.**
-
 ## Tujuan Pembuatan Tugas
 
-Diharapkan dengan tugas ini Anda dapat mengerti:
+Tugas ini memiliki tujuan untuk memahami:
 * MEAN stack (Mongo, Express, Angular, dan Node)
 * *Cloud service* Firebase Cloud Messaging (FCM) dan kegunaannya.
 * Web security terkait access token dan HTTP Headers.
 
 ## Anggota Tim
-Setiap kelompok beranggotakan **3 orang dari kelas yang sama**. Jika jumlah mahasiswa dalam satu kelas modulo 3 menghasilkan 1, maka hanya 1 kelompok terdiri dari 4 mahasiswa. Jika jumlah mahasiswa modulo 3 menghasilkan 2, maka ada dua kelompok yang beranggotakan 4 orang. Anggota kelompok harus berbeda dengan tugas 1 dan tugas 2.
-
-
-## Petunjuk Pengerjaan
-1. Buatlah organisasi pada gitlab dengan format "IF3110-2017-KXX-nama kelompok", dengan XX adalah nomor kelas.
-2. Tambahkan anggota tim pada organisasi anda.
-3. Fork pada repository ini dengan organisasi yang telah dibuat.
-4. Ubah hak akses repository hasil Fork anda menjadi **private**.
-5. [DELIVERABLE] Buat tugas sesuai spesifikasi dan silakan commit pada repository anda (hasil fork). Lakukan berberapa commit dengan pesan yang bermakna, contoh: `add register form`, `fix logout bug`, jangan seperti `final`, `benerin dikit`. Disarankan untuk tidak melakukan commit dengan perubahan yang besar karena akan mempengaruhi penilaian (contoh: hanya melakukan satu commit kemudian dikumpulkan). Sebaiknya commit dilakukan setiap ada penambahan fitur. **Commit dari setiap anggota tim akan mempengaruhi penilaian individu.** Jadi, setiap anggota tim harus melakukan sejumlah commit yang berpengaruh terhadap proses pembuatan aplikasi.
-6. Edit file readme ini semenarik mungkin (gunakan panduan Markdown language), diperbolehkan untuk merubah struktur dari readme ini. (Soal tidak perlu dipertahankan).
-7. Pada Readme terdapat tampilan aplikasi dan penjelasan mengenai pembagian tugas masing-masing anggota (lihat formatnya pada bagian **pembagian tugas**).
-8. Merge request dari repository anda ke repository ini dengan format **Nama kelompok** - **NIM terkecil** - **Nama Lengkap dengan NIM terkecil** sebelum **Senin, 27 November 2017 23.59**.
+Edwin Kumara T - 13515039
+Alvin Sullivan - 13515048
+Erick Wijaya - 13515057
 
 ![](img/arsitektur_umum.png)
 
@@ -50,7 +39,6 @@ Kali ini, Anda diminta untuk merubah sedikit fungsionalitas order yang sudah ada
     * ng-repeat, untuk menampilkan list
     * $http untuk AJAX request
     * $scope untuk komunikasi data antara controller dengan view.
-    * ng-show dan ng-hide untuk menampilkan/menyembunyikan elemen
 11. Tidak perlu memperhatikan aspek keamanan dan etika dalam penyimpanan data.
 
 ### Rincian REST Service
@@ -133,28 +121,12 @@ Halaman Order pada Pengguna, Chat Driver
 Perlu diperhatikan bahwa chat yang dikirim oleh user yang sedang login berada disisi sebelah kanan dan lawan chatnya lain di sisi sebelah kirim. Isi chat jga harus ditampilkan sesuai urutan waktu diterima (paling atas adalah chat paling lama dan makin ke bawah chat makin baru).
 
 ### Referensi Terkait
-Berikut adalah referensi yang dapat Anda baca terkait tugas ini:
+Berikut adalah referensi terkait tugas ini:
 1. https://firebase.google.com/docs/web/setup
 2. https://firebase.google.com/docs/cloud-messaging/js/client
 3. https://docs.angularjs.org/api
 
-
-Selain itu, silahkan cari "user agent parser", "how to get my IP from HTTPServletRequest", dan "HTTP Headers field" untuk penjelasan lebih lanjut.
-
-
-### Prosedur Demo
-Sebelum demo, asisten akan melakukan checkout ke hash commit terakhir yang dilakukan sebelum deadline. Hal ini digunakan untuk memastikan kode yang akan didemokan adalah kode yang terakhir disubmit sebelum deadline.
-
-
 ### Pembagian Tugas
-
-
-Tugas kali ini cukup rumit, karena melibatkan layanan dari pihak ketiga, dan framework. Bila tak mengerti, luangkan waktu belajar lebih banyak. Bila belum juga mengerti, belajarlah bersama-sama kelompokmu. Bila Anda sekelompok bingung, bertanyalah (bukan menyontek) ke teman seangkatanmu. Bila seangkatan bingung, bertanyalah pada asisten manapun.
-
-
-Harap semua anggota kelompok mengerjakan baik implementasi Firebase sebagai *cloud service* maupun *framework* AngularJS. Tuliskan pembagian tugas seperti berikut ini.
-
-
 Chat App Front-end :
 1. Fungsionalitas A : 135140XX  
 2. Fungsionalitas B : 135140XX  
@@ -171,8 +143,8 @@ Fitur security (IP, User-agent) :
 
 ## About
 
-Asisten IF3110 2016
+Kelompok SWT
 
-Ade | Johan | Kristianto | Micky | Michael | Rangga | Raudi | Robert | Sashi
+Sulley | Edwin | Erick
 
 Dosen : Yudistira Dwi Wardhana | Riza Satria Perdana | Muhammad Zuhri Catur Candra
