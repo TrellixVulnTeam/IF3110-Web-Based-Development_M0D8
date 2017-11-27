@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-
+    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html ng-app="swtMessage">
 <head>
@@ -47,7 +47,7 @@
 		</div>
 		<form class="inputform">
 		<input type="text" id="msg" name="msg" class="inputbox" ng-model="formData.text ">
-		<button type="submit" class="send" id="send" name="send" onClick="sendMessageToServer()">Kirim</button>
+		<button type="submit" class="send" id="send" name="send" ng-click="createMessage()">Kirim</button>
 		</form>	
 	</div>
 </body>
@@ -84,7 +84,7 @@ out.println("<script>id2 = " + request.getParameter("id_customer") + "</script>"
 	    console.log('Registration succeeded. Scope is ' + reg.scope);
 	    messaging.useServiceWorker(reg);
 	    //mytoken = messaging.getToken();
-	    sendTokenToServer();
+	    //sendTokenToServer();
 	  }).catch(function(error) {
 	    // registration failed
 	    console.log('Registration failed with ' + error);

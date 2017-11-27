@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-
+    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html ng-app="swtMessage">
 <head>
@@ -30,14 +30,7 @@
 	    </div>
 	  </div>
 	</div>
-	
-	<%
-		// TODO: check if still finding order, having order, etc
-		//if (userNavbar.isDriver()){  
-		//	response.sendRedirect("Findorder.jsp?id_active=" + request.getParameter("id_active"));
-		//}
-	%>
-    
+	    
     <div id="order-header">
 	  <div class="floating-box-left-mo">MAKE AN ORDER</div>
 	    <ul class="list-centered">
@@ -56,7 +49,7 @@
 		</div>
 		<form class="inputform" name="inputform" id="inputform">
 			<input type="text" id="msg" name="msg" class="inputbox" ng-model="formData.text ">
-			<button type="submit" id="send" name="send" class="send" onClick="sendMessageToServer()">Kirim</button>
+			<button type="submit" id="send" name="send" ng-click="createMessage()" class="send">Kirim</button>
 		</form>	
 		
 		<form action="Completeorder.jsp?id_active=<%= request.getParameter("id_active") %>" method="POST">
@@ -98,7 +91,7 @@
 	    console.log('Registration succeeded. Scope is ' + reg.scope);
 	    messaging.useServiceWorker(reg);
 	    //mytoken = messaging.getToken();
-	    sendTokenToServer();
+	    //sendTokenToServer();
 	  }).catch(function(error) {
 	    // registration failed
 	    console.log('Registration failed with ' + error);
@@ -124,11 +117,11 @@
 	  }
   });
   
-  // Call sendTokenToServer
+  // Call sendInfoToServer
   
   /////////////////////// functions
   
-  function sendTokenToServer(){
+  function sendInfoToServer(){
 	  messaging.requestPermission()
 	  .then(function(){
 	    console.log('Getting Token');
@@ -149,14 +142,6 @@
             //contentType : 'application/json',
             //dataType: 'json',
             data: {token: mytoken, id: id}
-            /*success : function(response) {
-                console.log("success: " + response);
-        	    alert('request done. success response received.');
-            },
-            error : function(xhr, status, error) {
-                console.log("error: " + xhr.error);                   
-        	    alert('request failed. error response received.');
-            }*/
   		});
 	    
 	    $.ajax({        
@@ -165,14 +150,6 @@
             //contentType : 'application/json',
             //dataType: 'json',
             data: {id: id2, status: false, customer:id}
-            /*success : function(response) {
-                console.log("success: " + response);
-        	    alert('request done. success response received.');
-            },
-            error : function(xhr, status, error) {
-                console.log("error: " + xhr.error);                   
-        	    alert('request failed. error response received.');
-            }*/
   		});
 	   
 	    
@@ -199,44 +176,10 @@
           //contentType : 'application/json',
           //dataType: 'json',
           data: {message: msg, from: id, to: id2}
-          /*success : function(response) {
-              console.log("success: " + response);
-      	    alert('request done. success response received.');
-          },
-          error : function(xhr, status, error) {
-              console.log("error: " + xhr.error);                   
-      	    alert('request failed. error response received.');
-          }*/
 		});
 
   }
   
-  /* Kode dibawah harusnya ada di server.js
-  function sendMessage(msg){
-	 
-	  $.ajax({        
-	            type : 'POST',
-	            crossDomain: true,
-	            url : "https://fcm.googleapis.com/fcm/send",
-	            headers : {
-	                Authorization : 'key=AAAAoOcdVKQ:APA91bHKeEkg_Uhu2VIkmuVJVats98jm3mQ5F3Wa7BJWpAg8svx4yDFAPFvE-czb_fOtej4Kq-oTnm5_Y6vK0_gRRiEgrv4EVcDrFCiqnUtlNDmSkc0W2fze6cpBAqse0p_cxt46LCdM'
-	            },
-	            beforeSend: function (xhrObj) {
-	                xhrObj.setRequestHeader("Content-Type", "application/json");
-	            },
-	            //contentType : 'application/json',
-	            dataType: 'json',
-	            data: JSON.stringify({to: "d9HYbDZyA4U:APA91bEvYWkI2CQYpOC5vcsqEUP9Fjt-auYt24kdqVmCQHOk_usSBTwdVQxjvEsKs86_VXu9l_kiN8GNxOdaAh3uKNdi52-IwO-HJAjZnIMAtdF6baKGLQsSQmREu1mvENEkFuOUqtuH", data: {type:"message", id_sender:"id", content:"content"}}),
-	            success : function(response) {
-	                console.log("success: " + response);
-	            },
-	            error : function(xhr, status, error) {
-	                console.log("error: " + xhr.error);                   
-	            }
-	  });
-  }
-  
-  }*/
   
 </script>
 
