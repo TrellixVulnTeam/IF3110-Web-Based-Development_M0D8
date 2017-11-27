@@ -8,6 +8,7 @@ var database = require('./config/database'); 			// load the database config
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 // configuration ===============================================================
 mongoose.connect(database.localUrl); 	// Connect to local MongoDB instance. A remoteUrl is also available (modulus.io)
@@ -28,7 +29,7 @@ var config = {
 	storageBucket: "tubes-wbd-3-95397.appspot.com",
 	messagingSenderId: "691072226468"
 };
- firebase.initializeApp(config);
+firebase.initializeApp(config);
 
 // Set CORS header and intercept "OPTIONS" preflight call from AngularJS
 /*var allowCrossDomain = function(req, res, next) {
@@ -58,19 +59,31 @@ function getMessages(res) {
     });
 };
 
-app.post('/sendTokenFromCustomer', function(req, res) {
+app.post('/sendInfoFromCustomer', function(req, res) {
 	// initialize id_customer and token_customer
 	console.log(req.body.id + " as user with id: ");
 	console.log(req.body.token);
 	console.log();
 	
+	id_customer = req.body.id;
+	token_customer = req.body.token;
+	
+	//if (token_driver != null){
+	//	sendInfo(id_customer, token_driver, 'Sulliy1');	
+	//}
+	
 });
 
-app.post('/sendTokenFromDriver', function(req, res) {
+app.post('/sendInfoFromDriver', function(req, res) {
 	// initialize id_driver and token_driver
 	console.log(req.body.id + " as driver with id: ");
 	console.log(req.body.token);
 	console.log();
+	
+	id_driver = req.body.id;
+	token_driver = req.body.token;
+	
+	sendInfo(id_customer, token_driver, 'Sulliy');	
 });
 
 app.post('/sendMessageFromCustomer', function(req, res) {
@@ -124,11 +137,40 @@ app.post('/sendMessageFromDriver', function(req, res) {
 	
 });
 
-/* 
-// Send message with FCM
-// Masih bermasalah karena Cross-Origin Request Blocked dan preflight
 function sendMessage(idSender, tokenReceiver, messageContent){
 	 
+	  /*$.ajax({        
+	            type : 'POST',
+	            crossDomain: true,
+	            url : "https://fcm.googleapis.com/fcm/send",
+	            headers : {
+	                Authorization : 'key=AAAAoOcdVKQ:APA91bHKeEkg_Uhu2VIkmuVJVats98jm3mQ5F3Wa7BJWpAg8svx4yDFAPFvE-czb_fOtej4Kq-oTnm5_Y6vK0_gRRiEgrv4EVcDrFCiqnUtlNDmSkc0W2fze6cpBAqse0p_cxt46LCdM'
+	            },
+	            beforeSend: function (xhrObj) {
+	                xhrObj.setRequestHeader("Content-Type", "application/json");
+	            },
+	            contentType : 'application/json',
+	            dataType: 'json',
+	            data: JSON.stringify({to:tokenReceiver, data: {type:"message", id_sender:idSender, content:messageContent}}),
+	            success : function(response) {
+	                console.log("success: " + response);
+	            },
+	            error : function(xhr, status, error) {
+	                console.log("error: " + xhr.error);                   
+	            }
+	  });*/
+}
+
+function sendInfo(idSender, tokenReceiver, usernameSender){
+	 
+	console.log("Sending info with: id=" + idSender + ", username=" + usernameSender + ", tokenReceiver=" + tokenReceiver);
+	var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
+	xmlhttp.open("POST", "https://fcm.googleapis.com/fcm/send");
+	xmlhttp.setRequestHeader("Content-Type", "application/json");
+	xmlhttp.setRequestHeader("Authorization", "key=AAAAoOcdVKQ:APA91bHKeEkg_Uhu2VIkmuVJVats98jm3mQ5F3Wa7BJWpAg8svx4yDFAPFvE-czb_fOtej4Kq-oTnm5_Y6vK0_gRRiEgrv4EVcDrFCiqnUtlNDmSkc0W2fze6cpBAqse0p_cxt46LCdM");
+	xmlhttp.send(JSON.stringify({to:tokenReceiver, data: {type:"info", id_sender:idSender, username_sender:usernameSender}}));
+	
+	/*
 	  $.ajax({        
 	            type : 'POST',
 	            crossDomain: true,
@@ -139,19 +181,17 @@ function sendMessage(idSender, tokenReceiver, messageContent){
 	            beforeSend: function (xhrObj) {
 	                xhrObj.setRequestHeader("Content-Type", "application/json");
 	            },
-	            //contentType : 'application/json',
+	            contentType : 'application/json',
 	            dataType: 'json',
-	            data: JSON.stringify({to:tokenReceiver, data: {type:"message", id_sender:idSender, content:messageContent}}),
+	            data: JSON.stringify({to:tokenReceiver, data: {type:"info", id_sender:idSender, username_sender:usernameSender}}),
 	            success : function(response) {
 	                console.log("success: " + response);
 	            },
 	            error : function(xhr, status, error) {
 	                console.log("error: " + xhr.error);                   
 	            }
-	  });
+	  });*/
 }
-
-}*/
 
 // routes ======================================================================
 require('./app/routes.js')(app);
