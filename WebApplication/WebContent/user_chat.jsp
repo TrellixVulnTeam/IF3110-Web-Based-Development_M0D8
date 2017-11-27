@@ -151,7 +151,7 @@
   });
   
   // handle when client get message from firebase
-  messaging.onMessage(function(payload) {
+  firebase.messaging().onMessage(function(payload) {
 	  console.log("Message received. ", payload);
 	  if (payload.data.type == "message") {
 		  var recvId = payload.data.id_sender;

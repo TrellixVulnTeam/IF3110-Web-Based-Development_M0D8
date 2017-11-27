@@ -103,6 +103,7 @@ app.post('/sendMessageFromCustomer', function(req, res) {
         // get and return all the messages after you create another
         getMessages(res);
     });
+    res.end();
     
 });
 
@@ -129,7 +130,7 @@ app.post('/sendMessageFromDriver', function(req, res) {
         // get and return all the messages after you create another
         getMessages(res);
     });
-	
+    res.end();
 });
 
 function sendMessage(idSender, tokenReceiver, messageContent){
@@ -166,10 +167,6 @@ function sendInfo(idSender, tokenReceiver, usernameSender){
 	// See the "Defining the message payload" section below for details
 	// on how to define a message payload.
 	var payload = {
-			notification: {
-			    title: "aaa",
-			    body: "bbb"
-			  },
 	  data: {
 		type: "info",
 	    id_sender: idSender,
