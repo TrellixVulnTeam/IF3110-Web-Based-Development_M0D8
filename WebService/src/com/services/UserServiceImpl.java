@@ -467,4 +467,52 @@ public class UserServiceImpl implements UserService {
 		}
 		return "";
 	}
+	
+	@Override
+	public User getUserForOrder(String token, int id, int idt) throws TokenException {
+		if (!TokenValidator.validateToken(token, idt)) {
+			throw new TokenException();
+		}
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			// Setting up
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			// Open connection
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/gaussianlord_main", "root", "");
+
+			ps = conn.prepareStatement("SELECT * FROM user WHERE id=?");
+			ps.setString(1, String.valueOf(id));
+
+			// Execute query
+			rs = ps.executeQuery();
+			if (!rs.isBeforeFirst()) { // rs is empty
+				return new User();
+			} else {
+				rs.next();
+				User user = new User(rs);
+				loadPreferredLocations(token, user);
+				return user;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+				if (ps != null) {
+					ps.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return new User();
+	}
 }

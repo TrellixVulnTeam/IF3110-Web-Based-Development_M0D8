@@ -19,6 +19,9 @@ public interface UserService {
 	@WebMethod
 	public User getUser(String token, int id) throws TokenException;
 	
+	@WebMethod
+	public User getUserForOrder(String token, int id, int idt) throws TokenException;
+	
 	/*
 		Mengeluarkan user tanpa validasi
 	*/

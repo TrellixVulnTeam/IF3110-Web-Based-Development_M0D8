@@ -75,7 +75,7 @@
     		
     			com.services.User cust = null;
     			try{
-    				cust = historyDriverProxyUser.getUser(mytoken, idc);	
+    				cust = historyDriverProxyUser.getUserForOrder(mytoken, idc, id);	
     			} catch (com.services.TokenException tex) {
     				redirect2 = "LogoutServlet?id=" + request.getParameter("id_active") + "&e=" + historyDriverProxyUser.getValidation(mytoken, Integer.parseInt(request.getParameter("id_active")));
     				cust = new com.services.User();
