@@ -1038,6 +1038,12 @@ td.cancel-image{
 	margin-left: -110px;
 	float: right;
 	cursor: pointer;
+	z-index: 100;
+}
+
+.messageholder {
+	width: 98%;
+	margin: 5px;
 }
 
 .messagechat {
@@ -1055,8 +1061,7 @@ td.cancel-image{
 .messagechat2 {
 	border: 1px solid black;
 	margin: 5px;
-	margin-left: 150px;
-	float: right;
+	margin-left: 400px;
 	padding: 5px;
 	font-style: normal;
 	background-color: #aad4ff;
@@ -1103,4 +1108,18 @@ td.cancel-image{
 .errormessage {
 	text-align: center;
 	color: red;
+}
+.ordergot {
+	font-weight: bold;
+    font-size: 25px;
+    font-family: sans-serif;
+    text-align: center;
+    color: #00ce26;
+}
+.ordername {
+	font-weight: bold;
+    font-size: 20px;
+    font-family: sans-serif;
+    text-align: center;
+    color: black;
 }

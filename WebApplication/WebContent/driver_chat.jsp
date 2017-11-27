@@ -1,6 +1,42 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     
+<jsp:useBean id="completeProxy" scope="request" class="com.services.UserServiceProxy" />
+<%
+	completeProxy.setEndpoint("http://localhost:8000/WebService/User");
+	int id = Integer.parseInt(request.getParameter("id_customer"));
+	com.services.User user = completeProxy.getUserWithoutValidation(id);
+	
+%>   
+
+<%
+    String mytoken = "";
+    Cookie[] mycookies = request.getCookies();
+    if (mycookies != null) {
+        for (int i = 0; i < mycookies.length; ++i) {
+        	if (mycookies[i].getName().equals("token")) {
+        		mytoken = mycookies[i].getValue();
+        			break;
+        	}
+        }
+    }
+%>
+<jsp:useBean id="profileProxy" scope="request" class="com.services.UserServiceProxy" />
+<%
+	profileProxy.setEndpoint("http://localhost:8000/WebService/User");
+	String idStr = request.getParameter("id_active");
+	int idA = Integer.parseInt(idStr);
+	
+	com.services.User userV = null;
+	String redirect = "";
+	try{
+		userV = profileProxy.getUser(mytoken, idA);
+	} catch (com.services.TokenException tex) {
+		redirect = "LogoutServlet?id=" + request.getParameter("id_active") + "&e=" + profileProxy.getValidation(mytoken, Integer.parseInt(request.getParameter("id_active")));
+		userV = new com.services.User();
+	}
+%>
+    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html ng-app="swtMessage">
 <head>
@@ -41,9 +77,25 @@
 	</div>
 	
 	<div id="order-chat-driver">
+		<div class="ordergot">Got an Order!</div>
+		<div class="ordername"><%= user.getUsername()%><br></div>
 	  <div class="chatbox">
-		<div class="messagechat" ng-repeat="message in messages">
-			<label> {{ message.text }} </label>
+		<div ng-repeat="message in messages">
+		  	<div ng-if="message.from == ('<%=request.getParameter("id_customer") %>') && message.to == ('<%=request.getParameter("id_active") %>')">
+		  		<div class="messageholder">
+			  		<div class="messagechat">
+							<label> {{ message.text }} </label>
+					</div>
+				</div>
+			</div>
+			<div ng-if="message.from == ('<%=request.getParameter("id_active") %>') && message.to == ('<%=request.getParameter("id_customer") %>')">
+				<div class="messageholder">
+					<div class="messagechat2">
+							<label> {{ message.text }} </label>
+					</div>
+				</div>
+			</div>
+	  		
 		</div>
 		</div>
 		<form class="inputform">
@@ -63,6 +115,7 @@ out.println("<script>id2 = " + request.getParameter("id_customer") + "</script>"
 <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-messaging.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="http://malsup.github.com/jquery.form.js"></script>
+<script src="https://cdn.rawgit.com/mgalante/jquery.redirect/master/jquery.redirect.js"></script>
 
 <script>
   // Initialize Firebase
@@ -187,3 +240,33 @@ out.println("<script>id2 = " + request.getParameter("id_customer") + "</script>"
   }
 </script>
 </html>
+
+<script>
+	cancelled = false;
+	callout = function () {
+			$.ajax({      
+                 type : 'POST',
+                 url : "http://localhost:8080/api/avals/customer",
+                 //contentType : 'application/json',
+                 //dataType: 'json',
+                 data: {id:id},
+                 success : function(response) {
+                     if (response == "0") {
+                     	$.redirect('Findorder.jsp?id_active=' + id);
+                     	//window.location = ('driver_chat.jsp?id_active=' + id, {'id_customer': response});
+                     }
+                 }
+       		})
+	  		.always(function() {
+	  			setTimeout(callout, 2000);
+	  		});
+	};
+
+	callout();
+</script>
+
+<%
+	if (redirect != "") {
+		response.sendRedirect(redirect);
+	}
+%>

@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script>    
+    
 <%
     String mytoken = "";
     Cookie[] mycookies = request.getCookies();
@@ -32,6 +35,22 @@
 		user = new com.services.User();
 	}
 %>
+
+<%
+	out.println("<script>id = " + request.getParameter("id_active") + "</script>");
+	out.println("<script>id2 = " + request.getParameter("id_driver") + "</script>");
+%>
+
+<script>
+$.ajax({        
+            type : 'POST',
+            url : "http://localhost:8080/api/avals/changestat",
+            //contentType : 'application/json',
+            //dataType: 'json',
+            data: {id: id2, status: false, customer:0}
+  		});
+</script>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>

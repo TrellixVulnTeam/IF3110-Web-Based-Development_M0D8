@@ -44,8 +44,22 @@
 	
 	<div id="order-chat">
 	  <div class="chatbox">
-		<div class="messagechat" ng-repeat="message in messages">
-			<label> {{ message.text }} </label>
+	  	<div ng-repeat="message in messages">
+		  	<div ng-if="message.from == ('<%=request.getParameter("id_driver") %>') && message.to == ('<%=request.getParameter("id_active") %>')">
+		  		<div class="messageholder">
+			  		<div class="messagechat">
+							<label> {{ message.text }} </label>
+					</div>
+				</div>
+			</div>
+			<div ng-if="message.from == ('<%=request.getParameter("id_active") %>') && message.to == ('<%=request.getParameter("id_driver") %>')">
+				<div class="messageholder">
+					<div class="messagechat2">
+							<label> {{ message.text }} </label>
+					</div>
+				</div>
+			</div>
+	  		
 		</div>
 		</div>
 		<form class="inputform" name="inputform" id="inputform">

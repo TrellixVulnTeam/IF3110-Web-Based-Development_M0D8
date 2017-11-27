@@ -42,7 +42,7 @@
 			}
 			others = selectDriverProxy.getDriver(mytoken, pickup, dest, Integer.parseInt(request.getParameter("id_active")));
 		} catch (com.services.TokenException tex) {
-			redirect = "LogoutServlet";
+			redirect = "LogoutServlet?id=" + request.getParameter("id_active") + "&e=" + selectDriverProxy.getValidation(mytoken, Integer.parseInt(request.getParameter("id_active")));
 		}
 		
 	}
