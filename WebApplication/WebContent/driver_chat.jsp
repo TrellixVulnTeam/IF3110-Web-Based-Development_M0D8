@@ -83,8 +83,7 @@ out.println("<script>id2 = " + request.getParameter("id_customer") + "</script>"
 	    // registration worked
 	    console.log('Registration succeeded. Scope is ' + reg.scope);
 	    messaging.useServiceWorker(reg);
-	    //mytoken = messaging.getToken();
-	    //sendTokenToServer();
+	    sendInfoToServer();
 	  }).catch(function(error) {
 	    // registration failed
 	    console.log('Registration failed with ' + error);
@@ -104,9 +103,14 @@ out.println("<script>id2 = " + request.getParameter("id_customer") + "</script>"
 	  console.log("Message received. ", payload);
 	  if (payload.data.type == "message") {
 		  var recvId = payload.data.id_sender;
-		  var recvToken = payload.data.token_sender;
 		  var recvMessage = payload.data.content;
-		  console.log(recvId + " " + recvToken + " " + recvMessage);  
+		  console.log(recvId + " " + recvMessage);
+		  // use angularjs to update UI
+	  } else { // if (payload.data.type == "info")
+		  // only for driver
+		  var recvId = payload.data.id_sender;
+		  var recvUsername = payload.data.username_sender;
+		  console.log(recvId + " " + recvUsername);
 	  }
   });
   
@@ -114,7 +118,7 @@ out.println("<script>id2 = " + request.getParameter("id_customer") + "</script>"
   
   /////////////////////// functions
   
-  function sendTokenToServer(){
+  function sendInfoToServer(){
 	  messaging.requestPermission()
 	  .then(function(){
 	    console.log('Getting Token');
@@ -131,7 +135,7 @@ out.println("<script>id2 = " + request.getParameter("id_customer") + "</script>"
 	    
 	    $.ajax({        
             type : 'POST',
-            url : "http://localhost:8080/sendTokenFromDriver",
+            url : "http://localhost:8080/sendInfoFromDriver",
             //contentType : 'application/json',
             //dataType: 'json',
             data: {token: mytoken, id: id}
