@@ -1038,6 +1038,7 @@ td.cancel-image{
 	margin-left: -110px;
 	float: right;
 	cursor: pointer;
+	z-index: 100;
 }
 
 .messageholder {
