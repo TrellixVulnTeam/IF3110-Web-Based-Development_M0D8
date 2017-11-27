@@ -1040,6 +1040,11 @@ td.cancel-image{
 	cursor: pointer;
 }
 
+.messageholder {
+	width: 98%;
+	margin: 5px;
+}
+
 .messagechat {
 	border: 1px solid black;
 	padding: 5px;
@@ -1055,8 +1060,7 @@ td.cancel-image{
 .messagechat2 {
 	border: 1px solid black;
 	margin: 5px;
-	margin-left: 150px;
-	float: right;
+	margin-left: 400px;
 	padding: 5px;
 	font-style: normal;
 	background-color: #aad4ff;
