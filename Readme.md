@@ -11,8 +11,11 @@ Tugas ini memiliki tujuan untuk memahami:
 
 ## Anggota Tim
 Edwin Kumara T - 13515039
+
 Alvin Sullivan - 13515048
+
 Erick Wijaya - 13515057
+
 
 ![](img/arsitektur_umum.png)
 
