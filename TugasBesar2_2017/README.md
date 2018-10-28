@@ -5,9 +5,9 @@ Melakukan *upgrade* Website ojek online sederhana pada Tugas 1 dengan mengaplika
 ## Anggota Tim
 
 Kelompok GaussianLord terdiri dari seorang **dewa matematika** dan dua orang **manusia biasa** secara berurutan yaitu: 
-1. Dewita Sonya Tarabunga - 13515021
-2. Albertus Djauhari - 13515054
-3. Erick Wijaya - 13515057
+1. [Dewita Sonya Tarabunga - 13515021](https://github.com/dewitast)
+2. [Albertus Djauhari - 13515054](https://github.com/albertusdj)
+3. [Erick Wijaya - 13515057](https://github.com/wijayaerick)
 
 ### Arsitektur Umum Server
 ![Gambar Arsitektur Umum](arsitektur_umum.png)
@@ -150,6 +150,6 @@ menulis kode jsp apabila WebService jax-ws belum selesai.
 
 GaussianLord
 
-Dewita | Bertus | Erick
+[Dewita](https://github.com/dewitast) | [Bertus](https://github.com/albertusdj) | [Erick](https://github.com/wijayaerick)
 
 Dosen : Yudistira Dwi Wardhana | Riza Satria Perdana | Muhammad Zuhri Catur Candra
