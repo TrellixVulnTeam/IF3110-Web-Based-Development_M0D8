@@ -1,5 +1,4 @@
 # Tugas 3 IF3110 Pengembangan Aplikasi Berbasis Web
-
 Melakukan upgrade Website ojek online sederhana pada Tugas 2 dengan mengaplikasikan ***cloud service* (Firebase Cloud Messaging) dan *framework* MEAN stack**.
 
 ## Tujuan Pembuatan Tugas
@@ -10,16 +9,12 @@ Tugas ini memiliki tujuan untuk memahami:
 * Web security terkait access token dan HTTP Headers.
 
 ## Anggota Tim
-Edwin Kumara T - 13515039
-
-Alvin Sullivan - 13515048
-
-Erick Wijaya - 13515057
-
-
-![](img/arsitektur_umum.png)
+* [Edwin Kumara T - 13515039](https://github.com/echo-delta)
+* [Alvin Sullivan - 13515048](https://github.com/Sulley01)
+* [Erick Wijaya - 13515057](https://github.com/wijayaerick)
 
 ### Arsitektur Umum
+![](img/arsitektur_umum.png)
 Tugas 3 ini terdiri dari komponen Tugas 2 dan tambahan yang harus dibuat:
 * `Pemanfaatan FCM`: Pengiriman pesan dari pelanggan ke driver atau sebaliknya dengan menggunakan layanan Firebase Cloud Messaging (FCM).
 * `Implementasi MEAN stack`: Membuat REST service untuk keperluan layanan chat memanfaatkan FCM menggunakan Node, Express dan Mongo, serta membuat halaman chat yang menggunakan Angular.
@@ -58,7 +53,6 @@ Kali ini, Anda diminta untuk merubah sedikit fungsionalitas order yang sudah ada
 2. Halaman Order pada pengguna driver
 
 ### Rincian Arsitektur Aplikasi Chat
-
 ![](img/mekanisme_chat.png)
 
 Proses untuk komunikasi antar client adalah sebagai berikut:
@@ -130,19 +124,19 @@ Berikut adalah referensi terkait tugas ini:
 3. https://docs.angularjs.org/api
 
 ### Pembagian Tugas
-Chat App Front-end :
+**Chat App Front-end :**
 1. Find Order : 13515057
 2. User Chat : 13515048
 3. Driver Chat : 13515039
 
-Chat REST Service :
+**Chat REST Service :**
 1. MongoDB Model : 13515048
 2. Get/Post Message : 13515039
 3. Get/Post Finding : 13515039
 4. Firebase Messaging : 13515057
 5. Firebase Token : 13515057
 
-Fitur security (IP, User-agent) :
+**Fitur security (IP, User-agent) :**
 1. Generate Token : 13515048
 2. Validate Token : 13515057
 3. Get Validation Status : 13515039
@@ -152,6 +146,6 @@ Fitur security (IP, User-agent) :
 
 Kelompok SWT
 
-Edwin | Alvin | Erick
+[Edwin](https://github.com/echo-delta) | [Alvin](https://github.com/Sulley01) | [Erick](https://github.com/wijayaerick)
 
 Dosen : Yudistira Dwi Wardhana | Riza Satria Perdana | Muhammad Zuhri Catur Candra
