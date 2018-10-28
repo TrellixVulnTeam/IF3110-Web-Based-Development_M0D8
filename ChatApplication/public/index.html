@@ -1,0 +1,150 @@
+<!doctype html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="swtMessage">
+<head>
+	<!-- META -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+
+	<title>Chat Application</title>
+
+	<!-- SCROLLS -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+
+	<!-- SPELLS -->
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script><!-- load angular -->
+
+	<script src="js/controllers/main.js"></script> <!-- load up our controller -->
+	<script src="js/services/messages.js"></script> <!-- load our message service -->
+	<script src="js/core.js"></script> <!-- load our main application -->
+
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+</head>
+<!-- SET THE CONTROLLER -->
+<body ng-controller="mainController">
+	<div class="chatbox">
+		<div class="messagechat" ng-repeat="message in messages">
+			<label> {{ message.text }} </label>
+		</div>
+	</div>
+	<form class="inputform">
+		<input id="sent_message" type="text" class="inputbox" ng-model="formData.text ">
+		<button type="submit" class="send" onclick="sendMessage()" ng-click="createMessage()">Kirim</button>
+	</form>	
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-messaging.js"></script>
+
+<script>
+  // Initialize Firebase
+  var mytoken; 
+  var config = {
+    apiKey: "AIzaSyB5rXXTdwUqnTTdaONDxfj845PgYD54384",
+    authDomain: "tubes-wbd-3-95397.firebaseapp.com",
+    databaseURL: "https://tubes-wbd-3-95397.firebaseio.com",
+    projectId: "tubes-wbd-3-95397",
+    storageBucket: "tubes-wbd-3-95397.appspot.com",
+    messagingSenderId: "691072226468"
+  };
+  firebase.initializeApp(config);
+  
+  const messaging = firebase.messaging();
+  messaging.requestPermission()
+  .then(function() {
+    console.log('Notification permission granted.');
+  })
+  .catch(function(err) {
+    console.log('Unable to get permission to notify.', err);
+  });
+  
+  messaging.onMessage(function(payload) {
+	  console.log("Message received. ", payload);
+	  if (payload.data.type == "message") {
+		  var recvId = payload.data.id_sender;
+		  var recvToken = payload.data.token_sender;
+		  var recvMessage = payload.data.content;
+		  console.log(recvId + " " + recvToken + " " + recvMessage);  
+	  }
+  });
+  
+  setToken();
+  
+  // Functions
+  function setToken(){
+	  messaging.requestPermission()
+	  .then(function(){
+	    console.log('Getting Token');
+	    return messaging.getToken()
+	  .then(function(currentToken) {
+		mytoken = currentToken;
+	    console.log(mytoken);
+	  })
+	  .catch(function(err) {
+	    console.log('An error occurred while retrieving token. ', err);
+	  });
+
+	  }).catch(function(err){
+	    console.log('Error');
+	  });
+  }
+  
+  function sendMessage(){
+	  var msg = $('#sent_message').val();
+	  
+	  if (msg != null && msg != ''){
+		$.ajax({        
+	            type : 'POST',
+	            url : "https://fcm.googleapis.com/fcm/send",
+	            headers : {
+	                Authorization : 'key=AAAAoOcdVKQ:APA91bE5npZCgBdltWAlW_Ow76DJ9mJ_OmcvXCcisuYM1o2ILH2BdGZvAITfEzwqgXKvIJVSgQlrFJ2P6T9OpRscZvO6XlePbS668GMoi-uYD83Q03xFBE0OoDycT2RvGKqPfOnFoGc0'
+	            },
+	            contentType : 'application/json',
+	            dataType: 'json',
+	            data: JSON.stringify({to: "cSaHji-AoxE:APA91bEg_0KaMxCfd2ivHq6SekaKj8dCRkzMxmk6DiFKRuKVYJUMmLbvg2ymW8Iv5miPSjEdMqL7t2YpACGnlpcuPZcPIt3NXowkCkff-UROGUb3_VOn48fs8_qhOyBR9ApC92qhzSKy", data: {type:"message", id_sender:"id", content:"content"}}),
+	            //data: JSON.stringify({to:mytoken, data: {type:"message", id_sender:getParameterByName("id_active"), content:msg}}),
+	            success : function(response) {
+	                console.log("success: " + response);
+	            },
+	            error : function(xhr, status, error) {
+	                console.log("error: " + xhr.error);                   
+	            }
+	  	});  
+	  }
+  }
+  
+  function sendToken(){
+	  $.ajax({        
+	            type : 'POST',
+	            url : "https://fcm.googleapis.com/fcm/send",
+	            headers : {
+	                Authorization : 'key=AAAAoOcdVKQ:APA91bHKeEkg_Uhu2VIkmuVJVats98jm3mQ5F3Wa7BJWpAg8svx4yDFAPFvE-czb_fOtej4Kq-oTnm5_Y6vK0_gRRiEgrv4EVcDrFCiqnUtlNDmSkc0W2fze6cpBAqse0p_cxt46LCdM'
+	            },
+	            contentType : 'application/json',
+	            dataType: 'json',
+	            data: JSON.stringify({to: "d9HYbDZyA4U:APA91bEvYWkI2CQYpOC5vcsqEUP9Fjt-auYt24kdqVmCQHOk_usSBTwdVQxjvEsKs86_VXu9l_kiN8GNxOdaAh3uKNdi52-IwO-HJAjZnIMAtdF6baKGLQsSQmREu1mvENEkFuOUqtuH", data: {type:"token", token_sender:"token value"}}),
+	            success : function(response) {
+	                console.log("success: " + response);
+	            },
+	            error : function(xhr, status, error) {
+	                console.log("error: " + xhr.error);                   
+	            }
+	  });
+  }
+  
+  function getParameterByName(name, url) {
+	    if (!url) url = window.location.href;
+	    name = name.replace(/[\[\]]/g, "\\$&");
+	    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+	        results = regex.exec(url);
+	    if (!results) return null;
+	    if (!results[2]) return '';
+	    return decodeURIComponent(results[2].replace(/\+/g, " "));
+  }
+  
+</script>
+</html>
