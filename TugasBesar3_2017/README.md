@@ -143,7 +143,6 @@ Berikut adalah referensi terkait tugas ini:
 4. Login/Register Token Process : 13515048
 
 ## About
-
 Kelompok SWT
 
 [Edwin](https://github.com/echo-delta) | [Alvin](https://github.com/Sulley01) | [Erick](https://github.com/wijayaerick)
